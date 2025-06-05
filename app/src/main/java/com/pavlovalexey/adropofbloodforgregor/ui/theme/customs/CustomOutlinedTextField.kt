@@ -23,7 +23,6 @@ import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.My1
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.My3
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.My7
 

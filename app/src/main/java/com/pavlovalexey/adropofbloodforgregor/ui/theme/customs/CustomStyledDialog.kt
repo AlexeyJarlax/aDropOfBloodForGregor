@@ -21,27 +21,32 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+//import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.BodyMedium_14_Regular
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.HeadlineSmall_24_Regular
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.My5
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.My7
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red300
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red400
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red700
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.TitleSmall_14_Medium
 
+val dark = Red700
+val bright = Red300
+
 @Composable
-fun MyStyledDialog(
+fun CustomStyledDialog(
     onDismissRequest: () -> Unit,
     content: @Composable () -> Unit
 ) {
     Dialog(onDismissRequest = onDismissRequest) {
         Surface(
             shape = RoundedCornerShape(8.dp),
-            color = My5,
+            color = dark,
             modifier = Modifier
                 .border(
                     width = 2.dp,
-                    color = Color.Green,
+                    color = bright,
                     shape = RoundedCornerShape(8.dp)
                 )
         ) {
@@ -68,13 +73,13 @@ fun MyStyledDialogWithTitle(
         ) {
             Surface(
                 shape = RoundedCornerShape(8.dp),
-                color = My5,
+                color = dark,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = gap.dp)
                     .border(
                         width = 2.dp,
-                        color = Color.Green,
+                        color = bright,
                         shape = RoundedCornerShape(8.dp)
                     )
             ) {
@@ -89,7 +94,7 @@ fun MyStyledDialogWithTitle(
             Box(
                 modifier = Modifier
                     .align(Alignment.TopCenter)
-                    .background(My5)
+                    .background(dark)
                     .padding(horizontal = 8.dp)
 
             ) {
@@ -108,7 +113,7 @@ fun ConfirmationDialog(
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
-    MyStyledDialog(onDismissRequest = onDismiss) {
+    CustomStyledDialog(onDismissRequest = onDismiss) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -117,7 +122,7 @@ fun ConfirmationDialog(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text(message, style = MaterialTheme.typography.bodyMedium)
+            Text(message, style = MaterialTheme.typography.BodyMedium_14_Regular)
 
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -128,14 +133,14 @@ fun ConfirmationDialog(
                 Button(onClick = onDismiss) {
                     Text(
                         text = dismissButtonText,
-                        color = My7
+                        color = bright
                     )
                 }
                 Spacer(modifier = Modifier.width(8.dp))
                 Button(onClick = onConfirm) {
                     Text(
                         text = confirmButtonText,
-                        color = My7)
+                        color = bright)
                 }
             }
         }
@@ -174,7 +179,7 @@ fun MessageDialog(
     buttonText: String = "Закрыть",
     onButtonClick: () -> Unit
 ) {
-    MyStyledDialog(onDismissRequest = onButtonClick) {
+    CustomStyledDialog(onDismissRequest = onButtonClick) {
         Column(
             modifier = Modifier
                 .fillMaxWidth(),

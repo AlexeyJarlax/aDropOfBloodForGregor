@@ -12,14 +12,17 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.NavHostController
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red400
+
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.customs.ConfirmationDialog
 
 data class BottomNavItem(
     val title: String,
@@ -32,40 +35,28 @@ sealed class IconType {
     data class ResourceIcon(val resourceId: Int) : IconType()
 }
 
-/** Если нужно использовать ImageVector:
-
-BottomNavItem(
-title = "Info",
-route = "info",
-icon = IconType.VectorIcon(Icons.Default.Info)
-)
-
-Если нужно использовать ресурс:
-
-BottomNavItem(
-title = "Door",
-route = "door",
-icon = IconType.ResourceIcon(R.drawable.door_open_30dp)
-)
- */
+val colorStyle = Red400
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController, activity: Activity) {
+    var showExitDialog by remember { mutableStateOf(false) }
+
     val items = listOf(
         BottomNavItem(
             stringResource(id = R.string.character),
             NavDestinations.CHARACTER,
             icon = IconType.VectorIcon(Icons.Default.AccountCircle)
         ),
-
         BottomNavItem(
             stringResource(id = R.string.option),
             NavDestinations.SETTINGS,
             icon = IconType.VectorIcon(Icons.Default.Settings)
         ),
-
-        BottomNavItem(stringResource(id = R.string.fAQ), NavDestinations.ABOUT, icon = IconType.VectorIcon(Icons.Default.Info)),
-
+        BottomNavItem(
+            stringResource(id = R.string.fAQ),
+            NavDestinations.ABOUT,
+            icon = IconType.VectorIcon(Icons.Default.Info)
+        ),
         BottomNavItem(
             stringResource(id = R.string.exit),
             NavDestinations.EXIT,
@@ -76,6 +67,7 @@ fun BottomNavigationBar(navController: NavHostController, activity: Activity) {
     NavigationBar {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
+
         items.forEach { item ->
             NavigationBarItem(
                 modifier = Modifier.weight(1f),
@@ -83,30 +75,58 @@ fun BottomNavigationBar(navController: NavHostController, activity: Activity) {
                     when (val iconType = item.icon) {
                         is IconType.VectorIcon -> Icon(
                             imageVector = iconType.imageVector,
-                            contentDescription = null
+                            contentDescription = null,
+                            tint = colorStyle
                         )
                         is IconType.ResourceIcon -> Icon(
                             painter = painterResource(id = iconType.resourceId),
-                            contentDescription = null
+                            contentDescription = null,
+                            tint = colorStyle
                         )
                     }
                 },
-                label = { Text(item.title, maxLines = 1) },
-                selected = currentRoute == item.route,
+                label = { Text(item.title, maxLines = 1, color = colorStyle) },
+                selected = (currentRoute == item.route),
                 onClick = {
-                    if (item.route == NavDestinations.EXIT) {
-                        activity.finish()
-                    } else if (currentRoute != item.route) {
-                        navController.navigate(item.route) {
-                            launchSingleTop = true
-                            restoreState = item.route != NavDestinations.SETTINGS
-                            popUpTo(navController.graph.startDestinationRoute ?: NavDestinations.CHARACTER) {
-                                saveState = item.route != NavDestinations.SETTINGS
+                    when (item.route) {
+                        NavDestinations.EXIT -> {
+                            showExitDialog = true
+                        }
+                        NavDestinations.CHARACTER,
+                        NavDestinations.SETTINGS,
+                        NavDestinations.ABOUT -> {
+                            if (currentRoute != item.route) {
+                                navController.navigate(item.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
                             }
+                        }
+                        else -> {
+                            navController.navigate(item.route)
                         }
                     }
                 }
             )
         }
+    }
+
+    if (showExitDialog) {
+        ConfirmationDialog(
+            title = stringResource(id = R.string.exit),
+            message = stringResource(id = R.string.confirm_exit_message),
+            confirmButtonText = stringResource(id = R.string.yes),
+            dismissButtonText = stringResource(id = R.string.no),
+            onConfirm = {
+                showExitDialog = false
+                activity.finish()
+            },
+            onDismiss = {
+                showExitDialog = false
+            }
+        )
     }
 }
