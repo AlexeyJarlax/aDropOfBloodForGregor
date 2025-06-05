@@ -1,0 +1,9 @@
+package com.pavlovalexey.adropofbloodforgregor.screens
+
+/** Павлов Алексей https://github.com/AlexeyJarlax */
+
+class StoryScreen(
+    onNavigateToCharacter: () -> Unit,
+    onNavigateToKeyInput: () -> Unit,
+) {
+}

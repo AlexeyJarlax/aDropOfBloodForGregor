@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">aDropOfBloodForGregor</string>
+    <string name="action_go">Go</string>
+    <string name="character">Роль</string>
+    <string name="option">Настройки</string>
+    <string name="fAQ">FAQ</string>
+    <string name="exit">Выход</string>
+
+</resources>
