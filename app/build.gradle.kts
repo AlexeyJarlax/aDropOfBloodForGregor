@@ -80,6 +80,12 @@ dependencies {
     // Coil для загрузки изображений
     implementation(libs.coil.compose)
 
+    // YAML, okhttp, API
+    implementation (libs.jackson.module.kotlin)
+    implementation (libs.jackson.dataformat.yaml)
+    implementation (libs.okhttp)
+    implementation (libs.kotlinx.coroutines.android)
+
     // 3) Тестовые
 //    testImplementation("junit:junit:4.13.2")
 //    androidTestImplementation("androidx.test.ext:junit:1.1.5")

@@ -67,6 +67,10 @@ val Orange400 = Color(0xFFEA9343)
 val Orange500 = Color(0xFFBB7636)
 val Orange600 = Color(0xFF754A22)
 
+val text1 = Gray200
+val text2 = Red200
+val textPressed = Red400
+
 private val DarkColorScheme = darkColorScheme(
     primary = Gray600, // фон кнопок
     onPrimary = Red300,

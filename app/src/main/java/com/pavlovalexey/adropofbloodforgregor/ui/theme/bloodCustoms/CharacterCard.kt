@@ -1,4 +1,4 @@
-package com.pavlovalexey.adropofbloodforgregor.screens
+package com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms
 
 /** Павлов Алексей https://github.com/AlexeyJarlax */
 
@@ -18,7 +18,6 @@ import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.Gray200
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Gray400
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.LabelLarge_14_Medium
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.TitleLarge_22_Regular

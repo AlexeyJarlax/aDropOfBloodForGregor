@@ -22,7 +22,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red400
 
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.customs.ConfirmationDialog
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.ConfirmationDialog
 
 data class BottomNavItem(
     val title: String,

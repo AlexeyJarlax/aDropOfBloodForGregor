@@ -1,8 +1,7 @@
-package com.pavlovalexey.adropofbloodforgregor.ui.theme.customs
+package com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms
 
 /** Павлов Алексей https://github.com/AlexeyJarlax */
 
-import com.pavlovalexey.adropofbloodforgregor.R
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,21 +18,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.My3
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.My7
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.text2
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.textPressed
 
 @Composable
 fun CustomButtonOne(
     onClick: () -> Unit,
-    text: String,
+    text: String? = null,
     icon: Any? = null,
     modifier: Modifier = Modifier,
-    textColor: Color = My3,
-    iconColor: Color = My3,
+    textColor: Color = text2,
+    iconColor: Color = text2,
     enabled: Boolean = true,
     fontSize: TextUnit = 16.sp,
     iconPadding: Int = 0,
-    pressedColor: Color = My7,
+    pressedColor: Color = textPressed,
 ) {
     val backgroundColor by animateColorAsState(
         targetValue = if (enabled) Color.Transparent else pressedColor,
@@ -44,16 +43,14 @@ fun CustomButtonOne(
         onClick = onClick,
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
-            containerColor = backgroundColor,
+            containerColor = Color.Transparent,
             contentColor = textColor,
-            disabledContainerColor = pressedColor,
+            disabledContainerColor = Color.Transparent,
             disabledContentColor = Color.Gray
         ),
         shape = RoundedCornerShape(4.dp),
-        contentPadding = PaddingValues(0.dp),
-        modifier = modifier
-            .height(54.dp)
-            .wrapContentWidth()
+        contentPadding = PaddingValues(2.dp),
+        modifier = modifier.wrapContentWidth()
     ) {
         if (icon != null) {
             when (icon) {
@@ -72,12 +69,14 @@ fun CustomButtonOne(
                 )
             }
         }
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            text = text,
-            fontSize = fontSize,
-            color = if (enabled) textColor else Color.Gray
-        )
+        if (text != null) {
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = text,
+                fontSize = fontSize,
+                color = if (enabled) textColor else Color.Gray
+            )
+        }
     }
 }
 

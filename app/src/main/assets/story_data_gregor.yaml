@@ -1,0 +1,72 @@
+nodes:
+  - id: gregor_intro_1
+    type: Line
+    speaker: GREGOR
+    text: "Грегор проснулся в холодной комнате..."
+    visibleCharacters: [ GREGOR ]
+    effects: [ defaultHungerIncrease ]
+    nextId: gregor_intro_2
+
+  - id: gregor_intro_2
+    type: Line
+    speaker: GREGOR
+    text: "Где я?.. Что это за место?.."
+    visibleCharacters: [ GREGOR ]
+    effects: [ defaultHungerIncrease ]
+    nextId: gregor_intro_3
+
+  - id: gregor_intro_3
+    type: Choice
+    speaker: GREGOR
+    text: "Что сделает Грегор?"
+    options:
+      - optionText: "Осмотреть комнату"
+        effects: [ defaultHungerIncrease ]
+        nextId: gregor_explore_room
+      - optionText: "Попытаться открыть дверь"
+        effects: [ defaultHungerIncrease ]
+        nextId: gregor_try_door
+
+  - id: gregor_explore_room
+    type: Line
+    speaker: NARRATOR
+    text: "Грегор осматривает комнату. На столе бокал с вином."
+    visibleCharacters: [ GREGOR ]
+    effects: [ defaultHungerIncrease ]
+    nextId: "gregor_drink_wine?"
+
+  - id: gregor_try_door
+    type: Line
+    speaker: NARRATOR
+    text: "Дверь заперта. Ключа нет."
+    visibleCharacters: [ GREGOR ]
+    effects: [ defaultHungerIncrease ]
+    nextId: gregor_intro_end
+
+  - id: "gregor_drink_wine?"
+    type: Choice
+    speaker: NARRATOR
+    text: "Выпить вино?"
+    options:
+      - optionText: "Да, выпить"
+        effects: [ gregorDrinksWine(10,10) ]
+        nextId: gregor_after_drink
+      - optionText: "Нет"
+        effects: [ defaultHungerIncrease ]
+        nextId: gregor_intro_end
+
+  - id: gregor_after_drink
+    type: Line
+    speaker: GREGOR
+    text: "Грегор делает глоток вина и чувствует тепло."
+    visibleCharacters: [ GREGOR ]
+    effects: [ defaultHungerIncrease ]
+    nextId: gregor_intro_end
+
+  - id: gregor_intro_end
+    type: Line
+    speaker: NARRATOR
+    text: "Конец первой сцены Грегора."
+    visibleCharacters: []
+    effects: [ defaultHungerIncrease ]
+    nextId: null

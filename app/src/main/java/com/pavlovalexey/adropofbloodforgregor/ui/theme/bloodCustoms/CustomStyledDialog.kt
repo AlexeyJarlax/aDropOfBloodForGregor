@@ -1,4 +1,4 @@
-package com.pavlovalexey.adropofbloodforgregor.ui.theme.customs
+package com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms
 
 /** Павлов Алексей https://github.com/AlexeyJarlax */
 
@@ -27,7 +27,6 @@ import androidx.compose.ui.window.Dialog
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.BodyMedium_14_Regular
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.HeadlineSmall_24_Regular
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red300
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red400
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red700
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.TitleSmall_14_Medium
 
@@ -146,31 +145,6 @@ fun ConfirmationDialog(
         }
     }
 }
-
-//@Composable
-//fun OptionDialog(
-//    onDismiss: () -> Unit,
-//    onSelected: (String) -> Unit
-//    title: String
-//) {
-//    val options = listOf()
-//    AlertDialog(
-//        onDismissRequest = onDismiss,
-//        title = { title },
-//        buttons = {
-//            Column {
-//                options.forEachIndexed { index, item ->
-//                    TextButton(onClick = {
-//                        onSelected()
-//                        onDismiss()
-//                    }) {
-//                        androidx.compose.material3.Text(text = item)
-//                    }
-//                }
-//            }
-//        }
-//    )
-//}
 
 @Composable
 fun MessageDialog(

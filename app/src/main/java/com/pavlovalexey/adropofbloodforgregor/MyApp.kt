@@ -5,6 +5,7 @@ package com.pavlovalexey.adropofbloodforgregor
 import android.app.Application
 //import androidx.lifecycle.ProcessLifecycleOwner
 import com.pavlovalexey.adropofbloodforgregor.utils.ToastExt
+import com.pavlovalexey.adropofbloodforgregor.data.StoryData
 import dagger.hilt.android.HiltAndroidApp
 import jakarta.inject.Inject
 
@@ -16,7 +17,7 @@ class MyApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+//        StoryData.init(this)
 //        ProcessLifecycleOwner.get().lifecycle.addObserver(appLifecycleObserver)
 
         ToastExt.init(this)
