@@ -83,15 +83,15 @@ nodes:
       Юная гостья, рад приветствовать вас этим утром! Не бойтесь моего облика. 
       Я всего лишь механический дворецкий.
       Хозяин велел позаботиться о вас. Скоро будет чай — спускайтесь вниз...
-    visibleCharacters: [ BERNARD ]
-    effects: []
+    visibleCharacters: [ LILIAN, BERNARD ]
+    effects: [ ]
     nextId: lilian_respond_choice
 
   - id: lilian_respond_choice
     type: Choice
     speaker: LILIAN
     text: "выбор"
-    visibleCharacters: [ LILIAN ]
+    visibleCharacters: [ LILIAN, BERNARD ]
     options:
       - optionText: "Благодарно кивнуть"
         effects: [ defaultHungerIncrease ]
@@ -99,26 +99,14 @@ nodes:
       - optionText: "Спросить, где она находится"
         effects: [ defaultHungerIncrease ]
         nextId: lilian_ask_where
-      - optionText: "Отслеживать дворецкого"
-        effects: [ defaultHungerIncrease ]
-        nextId: lilian_follow_bernard
 
   - id: lilian_ask_where
     type: Line
     speaker: BERNARD
     text: >
-      «Вы гостья в замке господина Грегора. Пока он в отъезде — вам предписано ждать его. Дворецкий вышел, оставив ее одну в помещении.»
-    visibleCharacters: [ BERNARD ]
-    effects: []
-    nextId: lilian_accept_tea
-
-  - id: lilian_follow_bernard
-    type: Line
-    speaker: NARRATOR
-    text: >
-      Дворецкий вышел, оставив ее одну в помещении. Лилиан тихо проследила за дворецким до кухни, но поняла, стоит ли ему доверять.
-    visibleCharacters: [ LILIAN ]
-    effects: []
+      «- Вы гостья в замке господина Грегора. Сейчас он в отъезде.»
+    visibleCharacters: [ LILIAN, BERNARD ]
+    effects: [ ]
     nextId: lilian_accept_tea
 
   - id: lilian_accept_tea
@@ -128,13 +116,13 @@ nodes:
       Дворецкий вышел, оставив ее одну в помещении.
     visibleCharacters: [ NARRATOR ]
     effects: [ defaultHungerIncrease ]
-    nextId: lilian_tea_drink
+    nextId: lilian_accept_tea2
 
-  - id: lilian_tea_drink
+  - id: lilian_accept_tea2
     type: Line
     speaker: NARRATOR
     text: >
-      Лилиан спустилась в гостиную, протягивая ручку к чащечке чая...
+      Лилиан спустилась в гостиную...
     visibleCharacters: [ LILIAN ]
-    effects: [markLilianChapterOneComplete()]
+    effects: [ markLilianChapterOneComplete() ]
     nextId: null

@@ -75,7 +75,7 @@ fun CharacterScreen(
             ) {
                 CharacterCard(
                     name = "Грегор",
-                    imageRes = R.drawable.model_g,
+                    imageRes = R.drawable.scene_1,
                     progress = formatProgress("gregor"),
                     isColored = viewModel.isCharacterColored("gregor")
                 )

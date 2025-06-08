@@ -5,38 +5,81 @@ package com.pavlovalexey.adropofbloodforgregor
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
+import androidx.compose.material.icons.filled.MusicNote
+import androidx.compose.material.icons.filled.MusicOff
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.navigation.compose.rememberNavController
 import com.pavlovalexey.adropofbloodforgregor.nav.NavGraph
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.MyTheme
-import androidx.navigation.compose.rememberNavController
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.text2
+import com.pavlovalexey.adropofbloodforgregor.utils.AudioPlayer
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        WindowInsetsControllerCompat(window, window.decorView).let { controller ->
-            controller.hide(WindowInsetsCompat.Type.statusBars())
-            controller.systemBarsBehavior =
+        WindowInsetsControllerCompat(window, window.decorView).apply {
+            hide(WindowInsetsCompat.Type.statusBars())
+            systemBarsBehavior =
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
 
         setContent {
             MyTheme {
+                LaunchedEffect(Unit) {
+                    AudioPlayer.initialize(this@MainActivity, R.raw.background_music)
+                }
+
+                var musicOn by rememberSaveable { mutableStateOf(true) }
+                LaunchedEffect(musicOn) {
+                    if (musicOn) AudioPlayer.play() else AudioPlayer.pause()
+                }
+
                 val navController = rememberNavController()
-                NavGraph(
-                    navController = navController,
-                    activity = this,
-                    modifier = Modifier.fillMaxSize(),
-                    intent = intent
-                )
+
+                Box(Modifier.fillMaxSize()) {
+                    NavGraph(
+                        navController = navController,
+                        activity = this@MainActivity,
+                        modifier = Modifier.fillMaxSize(),
+                        intent = intent
+                    )
+
+                    IconButton(
+                        onClick = { musicOn = !musicOn },
+                        modifier = Modifier
+                            .padding(6.dp)
+                            .align(Alignment.TopStart)
+                    ) {
+                        Icon(
+                            imageVector = if (musicOn) Icons.Filled.MusicNote else Icons.Filled.MusicOff,
+                            contentDescription = if (musicOn) "Отключить музыку" else "Включить музыку",
+                            tint = text2
+                        )
+                    }
+                }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AudioPlayer.release()
     }
 }

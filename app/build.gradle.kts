@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.generativeai)
     implementation(libs.material3)
+    implementation(libs.androidx.material.icons.extended)
 
     // Предпросмотр
 //    debugImplementation(libs.ui.tooling)

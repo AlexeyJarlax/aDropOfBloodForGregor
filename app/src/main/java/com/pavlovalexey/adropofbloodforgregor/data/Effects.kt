@@ -4,7 +4,7 @@ import android.util.Log
 
 /** Павлов Алексей https://github.com/AlexeyJarlax */
 
-typealias Effect = (GameResources) -> Unit
+typealias Effect = (Resources) -> Unit
 
 object Effects {
     val defaultHungerIncrease: Effect = { resources ->
