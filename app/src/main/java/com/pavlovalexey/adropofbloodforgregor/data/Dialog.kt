@@ -18,20 +18,10 @@ sealed class DialogueNode {
         val id: NodeId,
         val speaker: Speaker,
         val text: String,
-        val options: List<ChoiceOption>
+        val options: List<ChoiceOption>,
+        val visibleCharacters: List<Speaker> = emptyList(),
     ) : DialogueNode()
 }
 
-data class ChoiceOption(
-    val optionText: String,
-    val effects: List<Effect> = emptyList(),
-    val nextId: NodeId?
-)
 
-enum class Speaker {
-    GREGOR,
-    LILIAN,
-    ASTRA,
-    BERNARD,
-    NARRATOR
-}
+

@@ -1,16 +1,7 @@
-nodes:
   - id: astra_intro_1
     type: Line
     speaker: GREGOR
-    text: "Грегор проснулся в холодной комнате..."
-    visibleCharacters: [ GREGOR ]
-    effects: [ defaultHungerIncrease ]
-    nextId: astra_intro_2
-
-  - id: astra_intro_2
-    type: Line
-    speaker: GREGOR
-    text: "Где я?.. Что это за место?.."
+    text: "Сюжет заблокирован"
     visibleCharacters: [ GREGOR ]
     effects: [ defaultHungerIncrease ]
     nextId: null

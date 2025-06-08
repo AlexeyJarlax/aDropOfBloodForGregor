@@ -6,6 +6,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,22 +17,22 @@ import androidx.compose.ui.unit.dp
 import com.pavlovalexey.adropofbloodforgregor.data.ChoiceOption
 import com.pavlovalexey.adropofbloodforgregor.data.DialogueNode
 import com.pavlovalexey.adropofbloodforgregor.data.Speaker
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.CharacterOverlay
+import com.pavlovalexey.adropofbloodforgregor.screens.character.CharacterOverlay
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.ChoiceButton
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.DialogueText
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.SpeakerNameText
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.customs.MatrixBackground
-import com.pavlovalexey.adropofbloodforgregor.vm.StoryViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.ConfirmationDialog
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.CustomButtonOne
 import com.pavlovalexey.adropofbloodforgregor.data.StoryData
+import com.pavlovalexey.adropofbloodforgregor.vm.GameViewModel
 
 @Composable
 fun StoryScreen(
     onNavigateToCharacter: () -> Unit,
     onNavigateToKeyInput: () -> Unit,
-    viewModel: StoryViewModel = hiltViewModel(),
+    viewModel: GameViewModel
 ) {
     val currentNodeId by remember { derivedStateOf { viewModel.currentNodeId } }
     val resources by remember { derivedStateOf { viewModel.resources } }
@@ -42,12 +45,12 @@ fun StoryScreen(
 
     if (showEndDialog) {
         ConfirmationDialog(
-            title = "Сюжет завершен",
+            title = "Доступный виток сюжета завершен",
             message = "Вы хотите пройти сюжет снова?",
             confirmButtonText = "Да",
             dismissButtonText = "Нет",
             onConfirm = {
-                viewModel.restart()
+                viewModel.restartStory()
                 showEndDialog = false
             },
             onDismiss = {
@@ -64,13 +67,35 @@ fun StoryScreen(
         Box(modifier = Modifier.fillMaxSize()) {
             MatrixBackground()
 
+            IconButton(
+                onClick = onNavigateToKeyInput,
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(8.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = "Показать ресурсы",
+                    tint = Color.White
+                )
+            }
+
             val speakersToShow: List<Speaker> = when (node) {
                 is DialogueNode.Line -> {
-                    if (node.visibleCharacters.isNotEmpty()) node.visibleCharacters
-                    else listOf(node.speaker)
+                    if (node.visibleCharacters.any { it != Speaker.NARRATOR }) {
+                        node.visibleCharacters.filter { it != Speaker.NARRATOR }
+                    } else {
+                        listOf(node.speaker).filter { it != Speaker.NARRATOR }
+                    }
                 }
 
-                is DialogueNode.Choice -> listOf(node.speaker)
+                is DialogueNode.Choice -> {
+                    if (node.visibleCharacters.any { it != Speaker.NARRATOR }) {
+                        node.visibleCharacters.filter { it != Speaker.NARRATOR }
+                    } else {
+                        listOf(node.speaker).filter { it != Speaker.NARRATOR }
+                    }
+                }
             }
             when (speakersToShow.size) {
                 1 -> {

@@ -4,8 +4,6 @@ package com.pavlovalexey.adropofbloodforgregor.ui.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.Typography
 import androidx.compose.material3.Shapes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -69,7 +67,8 @@ val Orange600 = Color(0xFF754A22)
 
 val text1 = Gray200
 val text2 = Red200
-val textPressed = Red400
+val text1NotActive = Red400
+val text2NotActive = Gray400
 
 private val DarkColorScheme = darkColorScheme(
     primary = Gray600, // фон кнопок

@@ -3,9 +3,16 @@ package com.pavlovalexey.adropofbloodforgregor.data
 /** Павлов Алексей https://github.com/AlexeyJarlax */
 
 data class GameResources(
-    val gregor: CharacterStats = CharacterStats(hunger = 0f, health = 100f),
-    val lilian: CharacterStats = CharacterStats(hunger = 0f, health = 100f),
-    val astra: CharacterStats = CharacterStats(hunger = 0f, health = 100f),
-    var bernardHealth: Float = 100f,
+    val gregor: CharacterStats = CharacterStats(),
+    val lilian: CharacterStats = CharacterStats(),
+    val bernard: CharacterStats = CharacterStats(),
+    val astra: CharacterStats = CharacterStats(),
     var wine: Float = 0f
-)
+) {
+    val progress: MutableMap<String, Float> = mutableMapOf(
+        "gregor" to gregor.progress,
+        "lilian" to lilian.progress,
+        "bernard" to bernard.progress,
+        "astra" to astra.progress
+    )
+}

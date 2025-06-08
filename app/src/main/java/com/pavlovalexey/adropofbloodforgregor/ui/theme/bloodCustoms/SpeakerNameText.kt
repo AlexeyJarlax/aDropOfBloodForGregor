@@ -15,7 +15,7 @@ import com.pavlovalexey.adropofbloodforgregor.ui.theme.text2
 @Composable
 fun SpeakerNameText(text: String) {
     Text(
-        text = text.uppercase(),
+        text = if (text.uppercase() == "NARRATOR") "" else text.uppercase(),
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
         color = text2

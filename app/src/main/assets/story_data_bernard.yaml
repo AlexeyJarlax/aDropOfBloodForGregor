@@ -1,0 +1,69 @@
+nodes:
+  - id: bernard_intro_1
+    type: Line
+    speaker: NARRATOR
+    text: "Свет практически не пробивается в это помещение..."
+    visibleCharacters: [ NARRATOR ]
+    effects: [ ]
+    nextId: bernard_intro_2
+
+  - id: bernard_intro_2
+    type: Choice
+    speaker: BERNARD
+    text: "Как долго я тут нахожусь, кажется целую вечность..."
+    visibleCharacters: [ NOBODY ]
+    options:
+      - optionText: "Запрос: доступ к блокам памяти"
+        effects: [ ]
+        nextId: bernard_remember
+      - optionText: "Запрос: включить органы чувств"
+        effects: [ ]
+        nextId: bernard_explore_room
+
+  - id: bernard_remember
+    type: Line
+    speaker: NARRATOR
+    text: "... отказ системы ..."
+    visibleCharacters: [ NARRATOR ]
+    effects: [ ]
+    nextId: bernard_try_to_move
+
+  - id: bernard_explore_room
+    type: Line
+    speaker: NARRATOR
+    text: "... доступ получен ... "
+    visibleCharacters: [ NARRATOR ]
+    effects: [ ]
+    nextId: bernard_explore_room2
+
+  - id: bernard_explore_room2
+    type: Line
+    speaker: BERNARD
+    text: "Капли воды стучат по медной поверхности где-то вдали..."
+    visibleCharacters: [ NOBODY ]
+    effects: [ ]
+    nextId: bernard_try_to_move
+
+  - id: bernard_try_to_move
+    type: Line
+    speaker: BERNARD
+    text: "Запрос: доступ у управлению приводами"
+    visibleCharacters: [ NOBODY ]
+    effects: [ ]
+    nextId: bernard_try_to_move2
+
+  - id: bernard_try_to_move2
+    type: Line
+    speaker: NARRATOR
+    text: "... отказ системы ..."
+    visibleCharacters: [ NARRATOR ]
+    effects: [ ]
+    nextId: bernard_try_to_move3
+
+  - id: bernard_try_to_move3
+    type: Line
+    speaker: NARRATOR
+    text: "... переход в режим экономии ..."
+    visibleCharacters: [ NARRATOR ]
+    effects: [markBernardChapterOneComplete()]
+    nextId: null

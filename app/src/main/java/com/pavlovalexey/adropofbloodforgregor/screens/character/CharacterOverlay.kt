@@ -1,4 +1,4 @@
-package com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms
+package com.pavlovalexey.adropofbloodforgregor.screens.character
 
 /** Павлов Алексей https://github.com/AlexeyJarlax */
 
@@ -13,22 +13,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.ui.unit.Dp
 import com.pavlovalexey.adropofbloodforgregor.R
 import com.pavlovalexey.adropofbloodforgregor.data.Speaker
 
-/**
- * CharacterOverlay – отображает спрайт персонажа над сценой.
- * Нижняя часть картинки «приклеивается» к нижней части экрана.
- */
 @Composable
 fun CharacterOverlay(speaker: Speaker, modifier: Modifier) {
     val imageRes = when (speaker) {
-        Speaker.GREGOR -> R.drawable.model1_3
+        Speaker.GREGOR -> R.drawable.model_g
         Speaker.LILIAN -> R.drawable.model1_1
         Speaker.ASTRA -> R.drawable.model1_2
-        Speaker.BERNARD -> R.drawable.model1_4
+        Speaker.BERNARD -> R.drawable.model_b
+        Speaker.NOBODY -> R.drawable.model_0
         Speaker.NARRATOR -> null
     }
     imageRes?.let {

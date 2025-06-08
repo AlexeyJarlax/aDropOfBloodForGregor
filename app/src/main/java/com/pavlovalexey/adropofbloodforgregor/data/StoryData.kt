@@ -28,7 +28,20 @@ object StoryData {
                 params.getOrNull(1) ?: 10f
             )
         },
-        "lilianHeal" to { params -> Effects.lilianHeal(params.getOrNull(0) ?: 15f) }
+        "lilianHeal" to { params -> Effects.lilianHeal(params.getOrNull(0) ?: 15f) },
+
+        "markBernardChapterOneComplete" to { params ->
+            Effects.markBernardChapterOneComplete(params.getOrNull(0) ?: 5f)
+        },
+        "markLilianChapterOneComplete"  to { params ->
+            Effects.markLilianChapterOneComplete(params.getOrNull(0) ?: 5f)
+        },
+        "markGregorChapterOneComplete"  to { params ->
+            Effects.markGregorChapterOneComplete(params.getOrNull(0) ?: 5f)
+        },
+        "markAstraChapterOneComplete"   to { params ->
+            Effects.markAstraChapterOneComplete(params.getOrNull(0) ?: 5f)
+        }
     )
 
     private var nodes: Map<NodeId, DialogueNode> = emptyMap()
@@ -76,6 +89,7 @@ object StoryData {
     }
 
     private data class StoryFileDto(val nodes: List<NodeDto>)
+
     @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -114,6 +128,7 @@ object StoryData {
             override val id: String,
             override val speaker: Speaker,
             override val text: String,
+            val visibleCharacters: List<Speaker> = emptyList(),
             val options: List<ChoiceOptionDto>,
             override val effects: List<String> = emptyList(),
         ) : NodeDto() {
@@ -121,6 +136,7 @@ object StoryData {
                 id = id,
                 speaker = speaker,
                 text = text,
+                visibleCharacters = visibleCharacters,
                 options = options.map { it.toChoiceOption() }
             )
         }

@@ -1,4 +1,4 @@
-package com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms
+package com.pavlovalexey.adropofbloodforgregor.screens.character
 
 /** Павлов Алексей https://github.com/AlexeyJarlax */
 
@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,15 +22,8 @@ import androidx.compose.ui.unit.dp
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Gray400
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.LabelLarge_14_Medium
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.TitleLarge_22_Regular
-
-
-/**
- * @param name        Имя персонажа (отображается вверху).
- * @param imageRes    Ресурс изображения для фона карточки.
- * @param progress    Строка с прогрессом (например, "0%").
- * @param isColored   Если true — показываем цветное изображение, иначе — оттенки серого.
- * @param modifier    Дополнительные модификаторы (по умолчанию fillMaxWidth + height 400.dp).
- */
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.text1
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.text2NotActive
 
 @Composable
 fun CharacterCard(
@@ -49,43 +43,49 @@ fun CharacterCard(
     }
 
     Box(
-        modifier = modifier
+        modifier = modifier,
+        contentAlignment = Alignment.TopCenter
     ) {
         Image(
             painter = painterResource(id = imageRes),
             contentDescription = name,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.matchParentSize(),
-            colorFilter = colorFilter
+            alignment = Alignment.TopCenter,
+            colorFilter = colorFilter,
+            modifier = Modifier.fillMaxSize()
         )
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .padding(top = 16.dp, start = 16.dp),
+            horizontalAlignment = Alignment.Start
         ) {
             if (isColored) {
                 Text(
                     text = name,
                     style = TitleLarge_22_Regular,
+                    color = text1
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = progress,
                     style = LabelLarge_14_Medium,
+                    color = text1,
+                    modifier = Modifier.padding(start = 16.dp)
                 )
             } else {
                 Text(
                     text = name,
                     style = TitleLarge_22_Regular,
-                    color = Gray400
+                    color = text2NotActive
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = progress,
                     style = LabelLarge_14_Medium,
-                    color = Gray400
+                    color = text2NotActive,
+                    modifier = Modifier.padding(start = 16.dp)
                 )
             }
         }

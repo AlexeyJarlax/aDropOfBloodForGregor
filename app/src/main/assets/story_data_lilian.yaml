@@ -1,18 +1,18 @@
 nodes:
   - id: lilian_intro_1
     type: Line
-    speaker: LILIAN
+    speaker: NARRATOR
     text: >
       Без остановки Лилиан бежала по гуще леса, прячась от преследователей.
       Более она никогда не вспомнит, как ей удалось скрыться и что такое с ней могло произойти,
-      что очнулась она уже в незнакомом месте.
+      что очнулась она уже в незнакомом месте. Кажется ей кто-то помог... мужчина?
     visibleCharacters: [ LILIAN ]
     effects: [ defaultHungerIncrease ]
     nextId: lilian_intro_2
 
   - id: lilian_intro_2
     type: Line
-    speaker: LILIAN
+    speaker: NARRATOR
     text: >
       Девушка лежала на мягкой кровати, будучи переодетой в хлопковую ночнушку.
       Сон был настолько крепким, что она и не почувствовала, как её омыли и переодели.
@@ -22,8 +22,9 @@ nodes:
 
   - id: lilian_intro_3
     type: Choice
-    speaker: LILIAN
-    text: "Что сделает Лилиан?"
+    speaker: NARRATOR
+    text: "выбор"
+    visibleCharacters: [ LILIAN ]
     options:
       - optionText: "Осмотреть комнату"
         effects: [ defaultHungerIncrease ]
@@ -49,8 +50,8 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      Она подошла к окну и заглянула в Черный лес — густая, почти непроходимая чаща.
-      До ближайшего поселка — 150 км.
+      Она подошла к окну и заглянула: Черный лес — густая, почти непроходимая чаща...
+      Куда не посмотри - ни следа других поселений...
     visibleCharacters: [ LILIAN ]
     effects: [ defaultHungerIncrease ]
     nextId: lilian_bernard_entrance
@@ -60,7 +61,7 @@ nodes:
     speaker: LILIAN
     text: >
       «Есть ли кто?» — прошептала она. Её голос эхом прокатился по пустым стенам.
-      Ответа не было — но скоро она услышит скрип двери.
+      Ответа не было — но скоро она слышит скрип двери.
     visibleCharacters: [ LILIAN ]
     effects: [ defaultHungerIncrease ]
     nextId: lilian_bernard_entrance
@@ -69,8 +70,8 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      В дверь постучали, она медленно отворилась — на пороге стоял дворецкий Бернард,
-      механический слуга с синтезированным голосом.
+      В дверь постучали, она медленно отворилась — на пороге стоял... что же это?
+      Существо похожее на человека заговорило синтезированным голосом.
     visibleCharacters: [ LILIAN, BERNARD ]
     effects: [ defaultHungerIncrease ]
     nextId: lilian_bernard_speech
@@ -79,9 +80,9 @@ nodes:
     type: Line
     speaker: BERNARD
     text: >
-      «Юная гостья, рад приветствовать вас этим утром! Не бойтесь моего облика.
-      Хозяин велел позаботиться о вас. Скоро будет чай — спускайтесь вниз
-      и присаживайтесь в гостиной.»
+      Юная гостья, рад приветствовать вас этим утром! Не бойтесь моего облика. 
+      Я всего лишь механический дворецкий.
+      Хозяин велел позаботиться о вас. Скоро будет чай — спускайтесь вниз...
     visibleCharacters: [ BERNARD ]
     effects: []
     nextId: lilian_respond_choice
@@ -89,7 +90,8 @@ nodes:
   - id: lilian_respond_choice
     type: Choice
     speaker: LILIAN
-    text: "Как ответит Лилиан?"
+    text: "выбор"
+    visibleCharacters: [ LILIAN ]
     options:
       - optionText: "Благодарно кивнуть"
         effects: [ defaultHungerIncrease ]
@@ -105,7 +107,7 @@ nodes:
     type: Line
     speaker: BERNARD
     text: >
-      «Вы гостья в замке господина Грегора. Пока он в отъезде — вам предписано ждать в гостиной.»
+      «Вы гостья в замке господина Грегора. Пока он в отъезде — вам предписано ждать его. Дворецкий вышел, оставив ее одну в помещении.»
     visibleCharacters: [ BERNARD ]
     effects: []
     nextId: lilian_accept_tea
@@ -114,18 +116,17 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      Лилиан тихо проследила за дворецким до кухни, но поняла — лучше довериться ему.
+      Дворецкий вышел, оставив ее одну в помещении. Лилиан тихо проследила за дворецким до кухни, но поняла, стоит ли ему доверять.
     visibleCharacters: [ LILIAN ]
     effects: []
     nextId: lilian_accept_tea
 
   - id: lilian_accept_tea
     type: Line
-    speaker: LILIAN
+    speaker: NARRATOR
     text: >
-      Лилиан последовала за дворецким по лестнице вниз. В гостиной уже
-      был накрыт стол, полыхал камин. Она присела за стол, ожидая чая.
-    visibleCharacters: [ LILIAN ]
+      Дворецкий вышел, оставив ее одну в помещении.
+    visibleCharacters: [ NARRATOR ]
     effects: [ defaultHungerIncrease ]
     nextId: lilian_tea_drink
 
@@ -133,7 +134,7 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      Конец сцены: Лилиан спустилась в гостиную и готова выпить горячего чая.
-    visibleCharacters: []
-    effects: []
+      Лилиан спустилась в гостиную, протягивая ручку к чащечке чая...
+    visibleCharacters: [ LILIAN ]
+    effects: [markLilianChapterOneComplete()]
     nextId: null
