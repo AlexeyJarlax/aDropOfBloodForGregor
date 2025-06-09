@@ -66,21 +66,6 @@ fun CharacterScreen(
                     isColored = viewModel.isCharacterColored("bernard")
                 )
             }
-
-            CustomMultiCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-                    .clickable { onNavigateToStory("gregor") }
-            ) {
-                CharacterCard(
-                    name = "Грегор",
-                    imageRes = R.drawable.scene_1,
-                    progress = formatProgress("gregor"),
-                    isColored = viewModel.isCharacterColored("gregor")
-                )
-            }
-
             CustomMultiCard(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -89,11 +74,24 @@ fun CharacterScreen(
             ) {
                 CharacterCard(
                     name = "Астра",
-                    imageRes = R.drawable.scene_3,
+                    imageRes = R.drawable.scene5,
                     progress = formatProgress("astra"),
                     isColored = viewModel.isCharacterColored("astra")
                 )
             }
+//            CustomMultiCard(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(vertical = 8.dp)
+//                    .clickable { onNavigateToStory("gregor") }
+//            ) {
+//                CharacterCard(
+//                    name = "Грегор",
+//                    imageRes = R.drawable.scene4,
+//                    progress = formatProgress("gregor"),
+//                    isColored = viewModel.isCharacterColored("gregor")
+//                )
+//            }
         }
     }
 }

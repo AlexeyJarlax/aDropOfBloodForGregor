@@ -11,7 +11,8 @@ sealed class DialogueNode {
         val text: String,
         val visibleCharacters: List<Speaker> = emptyList(),
         val effects: List<Effect> = emptyList(),
-        val nextId: NodeId?
+        val nextId: NodeId?,
+        val background: String? = null
     ) : DialogueNode()
 
     data class Choice(
@@ -20,6 +21,7 @@ sealed class DialogueNode {
         val text: String,
         val options: List<ChoiceOption>,
         val visibleCharacters: List<Speaker> = emptyList(),
+        val background: String? = null
     ) : DialogueNode()
 }
 

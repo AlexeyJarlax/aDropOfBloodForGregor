@@ -25,6 +25,7 @@ import com.pavlovalexey.adropofbloodforgregor.ui.theme.customs.MatrixBackground
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.ConfirmationDialog
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.CustomButtonOne
 import com.pavlovalexey.adropofbloodforgregor.data.StoryData
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.SceneBackground
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.text2
 import com.pavlovalexey.adropofbloodforgregor.vm.GameViewModel
 
@@ -65,7 +66,16 @@ fun StoryScreen(
         val node = StoryData.getNode(nodeId) ?: return@let
 
         Box(modifier = Modifier.fillMaxSize()) {
-            MatrixBackground()
+
+            val bgName = when(node) {
+                is DialogueNode.Line  -> node.background
+                is DialogueNode.Choice -> node.background
+            }
+            if (bgName != null) {
+                SceneBackground(bgName)
+            } else {
+                MatrixBackground()
+            }
 
             IconButton(
                 onClick = onNavigateToKeyInput,
@@ -101,16 +111,16 @@ fun StoryScreen(
                 1 -> {
                     CharacterOverlay(
                         speaker = speakersToShow[0],
-                        modifier = Modifier.align(Alignment.Center)
+                        modifier = Modifier.align(Alignment.Center),
                     )
                 }
-
                 2 -> {
                     CharacterOverlay(
                         speaker = speakersToShow[0],
                         modifier = Modifier
                             .align(Alignment.Center)
-                            .offset(x = (-90).dp)
+                            .offset(x = (-90).dp),
+                        flipHorizontally = true
                     )
                     CharacterOverlay(
                         speaker = speakersToShow[1],
@@ -119,7 +129,6 @@ fun StoryScreen(
                             .offset(x = 90.dp)
                     )
                 }
-
                 else -> {
                 }
             }
@@ -193,3 +202,4 @@ fun DialogPanel(
         }
     }
 }
+

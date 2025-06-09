@@ -15,6 +15,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
+/** пока общая модель на все игровые механики, в будущем возможно переберу ее на отдельные*/
+
 @HiltViewModel
 class GameViewModel @Inject constructor(
     application: Application,

@@ -2,4 +2,4 @@ package com.pavlovalexey.adropofbloodforgregor.utils
 
 /** Павлов Алексей https://github.com/AlexeyJarlax */
 
-val SHARE_PREF = "story_prefs5"
+val SHARE_PREF = "story_prefs6"
