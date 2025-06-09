@@ -18,7 +18,7 @@ import com.pavlovalexey.adropofbloodforgregor.screens.AboutScreen
 import com.pavlovalexey.adropofbloodforgregor.screens.character.CharacterScreen
 import com.pavlovalexey.adropofbloodforgregor.screens.InputScreen
 import com.pavlovalexey.adropofbloodforgregor.screens.SettingsScreen
-import com.pavlovalexey.adropofbloodforgregor.screens.StoryScreen
+import com.pavlovalexey.adropofbloodforgregor.screens.story.StoryScreen
 import com.pavlovalexey.adropofbloodforgregor.vm.GameViewModel
 
 object NavDestinations {
@@ -90,6 +90,7 @@ fun NavGraph(
             composable(NavDestinations.SETTINGS) {
                 SettingsScreen(
                     navController = navController,
+                    viewModel = gameViewModel,
                     onAboutClicked = { navController.navigate(NavDestinations.ABOUT) },
                     onSecuritySettingsClicked = { navController.navigate(NavDestinations.STORY_BASE) }
                 )

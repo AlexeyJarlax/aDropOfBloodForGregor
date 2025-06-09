@@ -4,7 +4,7 @@ import android.util.Log
 
 /** Павлов Алексей https://github.com/AlexeyJarlax */
 
-typealias Effect = (GameResources) -> Unit
+typealias Effect = (Resources) -> Unit
 
 object Effects {
     val defaultHungerIncrease: Effect = { resources ->
@@ -22,7 +22,6 @@ object Effects {
         resources.lilian.health = (resources.lilian.health + amount).coerceIn(0f, 100f)
     }
 
-    // Идемпотентные эффекты завершения глав
     fun markBernardChapterOneComplete(amount: Float = 5f): Effect = { res ->
         val stats = res.bernard
         val effectId = "markBernardChapterOneComplete"
@@ -33,7 +32,7 @@ object Effects {
         }
     }
 
-    fun markLilianChapterOneComplete(amount: Float = 5f): Effect = { res ->
+    fun markLilianChapterOneComplete(amount: Float = 10f): Effect = { res ->
         val stats = res.lilian
         val effectId = "markLilianChapterOneComplete"
         if (stats.chaptersDone.add(effectId)) {

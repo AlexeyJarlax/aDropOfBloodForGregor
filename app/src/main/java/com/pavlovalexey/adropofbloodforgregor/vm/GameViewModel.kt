@@ -9,13 +9,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import com.pavlovalexey.adropofbloodforgregor.data.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+/** пока общая модель на все игровые механики, в будущем возможно переберу ее на отдельные*/
 
 @HiltViewModel
 class GameViewModel @Inject constructor(
@@ -30,16 +30,16 @@ class GameViewModel @Inject constructor(
     var currentNodeId by mutableStateOf<NodeId?>(null)
         private set
 
-    private val _resources = MutableStateFlow(GameResources())
-    val resources: StateFlow<GameResources> = _resources
+    private val _resources = MutableStateFlow(Resources())
+    val resources: StateFlow<Resources> = _resources
 
     init {
         _resources.value = loadAllResourcesFromPrefs()
         savedStateHandle.get<String>("character")?.let { selectCharacter(it) }
     }
 
-    private fun loadAllResourcesFromPrefs(): GameResources {
-        val res = GameResources()
+    private fun loadAllResourcesFromPrefs(): Resources {
+        val res = Resources()
 
         res.wine = getFloatCompat("wine", 0f)
 
@@ -82,8 +82,8 @@ class GameViewModel @Inject constructor(
         }
     }
 
-    private fun loadResources(character: String): GameResources {
-        val res = GameResources()
+    private fun loadResources(character: String): Resources {
+        val res = Resources()
         listOf("lilian", "bernard", "gregor", "astra").forEach { char ->
             // health
             val healthKey = "${char}_health"
@@ -171,7 +171,7 @@ class GameViewModel @Inject constructor(
         currentNodeId = null
     }
 
-    private fun GameResources.getStats(char: String): CharacterStats =
+    private fun Resources.getStats(char: String): CharacterStats =
         when (char) {
             "lilian" -> lilian
             "bernard" -> bernard
@@ -186,5 +186,23 @@ class GameViewModel @Inject constructor(
         return if (character == "gregor") false
         else if (character == "astra") false
         else true
+    }
+
+    fun resetAllStates() {
+        prefs.edit().clear().apply()
+
+        listOf("gregor", "lilian", "astra", "bernard").forEach { char ->
+            val progKey = StoryStart.prefsProgressKeyFor(char)
+            val nodeKey = StoryStart.prefsNodeKeyFor(char)
+            prefs.edit()
+                .putFloat(progKey, 0f)
+                .putString(nodeKey, StoryStart.nodeIdFor(char))
+                .putStringSet("chaptersDone_$char", emptySet())
+                .apply()
+        }
+
+        currentCharacter = null
+        currentNodeId = null
+        _resources.value = Resources()
     }
 }

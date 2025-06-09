@@ -34,7 +34,7 @@ object StoryData {
             Effects.markBernardChapterOneComplete(params.getOrNull(0) ?: 5f)
         },
         "markLilianChapterOneComplete"  to { params ->
-            Effects.markLilianChapterOneComplete(params.getOrNull(0) ?: 5f)
+            Effects.markLilianChapterOneComplete(params.getOrNull(0) ?: 10f)
         },
         "markGregorChapterOneComplete"  to { params ->
             Effects.markGregorChapterOneComplete(params.getOrNull(0) ?: 5f)
@@ -113,6 +113,7 @@ object StoryData {
             val visibleCharacters: List<Speaker> = emptyList(),
             override val effects: List<String> = emptyList(),
             val nextId: String?,
+            val background: String? = null
         ) : NodeDto() {
             override fun toDialogueNode(): DialogueNode = DialogueNode.Line(
                 id = id,
@@ -120,7 +121,8 @@ object StoryData {
                 text = text,
                 visibleCharacters = visibleCharacters,
                 effects = effects.mapNotNull { parseEffect(it) },
-                nextId = nextId
+                nextId = nextId,
+                background = background
             )
         }
 
@@ -131,13 +133,15 @@ object StoryData {
             val visibleCharacters: List<Speaker> = emptyList(),
             val options: List<ChoiceOptionDto>,
             override val effects: List<String> = emptyList(),
+            val background: String? = null
         ) : NodeDto() {
             override fun toDialogueNode(): DialogueNode = DialogueNode.Choice(
                 id = id,
                 speaker = speaker,
                 text = text,
                 visibleCharacters = visibleCharacters,
-                options = options.map { it.toChoiceOption() }
+                options = options.map { it.toChoiceOption() },
+                background = background
             )
         }
     }

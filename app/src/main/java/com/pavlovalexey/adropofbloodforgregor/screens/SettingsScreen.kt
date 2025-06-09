@@ -14,7 +14,7 @@ import androidx.navigation.NavHostController
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.CustomButtonOne
 import com.pavlovalexey.adropofbloodforgregor.data.StoryStart
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.ConfirmationDialog
-import com.pavlovalexey.adropofbloodforgregor.vm.SettingsViewModel
+import com.pavlovalexey.adropofbloodforgregor.vm.GameViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -22,9 +22,9 @@ fun SettingsScreen(
     navController: NavHostController,
     onAboutClicked: () -> Unit,
     onSecuritySettingsClicked: () -> Unit,
-    viewModel: SettingsViewModel = hiltViewModel()
+    viewModel: GameViewModel,
 ) {
-    val prefs = viewModel.prefs
+
     var showResetDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
@@ -44,7 +44,7 @@ fun SettingsScreen(
             text = "Безопасность"
         )
 
-        Spacer(modifier = Modifier.weight(1f))
+//        Spacer(modifier = Modifier.weight(1f))
 
         CustomButtonOne(
             onClick = { showResetDialog = true },
@@ -59,13 +59,7 @@ fun SettingsScreen(
             confirmButtonText = "Да, сбросить",
             dismissButtonText = "Отмена",
             onConfirm = {
-                StoryStart.run {
-                    prefs.edit()
-                        .remove(prefsKeyFor("gregor"))
-                        .remove(prefsKeyFor("lilian"))
-                        .remove(prefsKeyFor("astra"))
-                        .apply()
-                }
+                viewModel.resetAllStates()
                 showResetDialog = false
             },
             onDismiss = {

@@ -13,9 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.pavlovalexey.adropofbloodforgregor.data.CharacterStats
-import com.pavlovalexey.adropofbloodforgregor.data.GameResources
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.CustomButtonOne
 import com.pavlovalexey.adropofbloodforgregor.vm.GameViewModel
 
 @Composable
@@ -61,12 +60,16 @@ fun InputScreen(
                     }
                     item {
                         Spacer(Modifier.height(16.dp))
-                        Button(
+//                        Button(
+//                            onClick = onExit,
+//                            modifier = Modifier.align(Alignment.End)
+//                        ) {
+//                            Text("Закрыть")
+//                        }
+                        CustomButtonOne(
                             onClick = onExit,
-                            modifier = Modifier.align(Alignment.End)
-                        ) {
-                            Text("Закрыть")
-                        }
+                            text = "Закрыть"
+                        )
                     }
                 }
             }

@@ -1,28 +1,29 @@
 package com.pavlovalexey.adropofbloodforgregor.nav
 
-/** Павлов Алексей https://github.com/AlexeyJarlax */
-
-import com.pavlovalexey.adropofbloodforgregor.R
 import android.app.Activity
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.pavlovalexey.adropofbloodforgregor.R
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red400
-
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.Transparent
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.ConfirmationDialog
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.text2
 
 data class BottomNavItem(
     val title: String,
@@ -31,68 +32,74 @@ data class BottomNavItem(
 )
 
 sealed class IconType {
-    data class VectorIcon(val imageVector: ImageVector) : IconType()
+    data class VectorIcon(val imageVector: androidx.compose.ui.graphics.vector.ImageVector) : IconType()
     data class ResourceIcon(val resourceId: Int) : IconType()
 }
 
-val colorStyle = Red400
+private val colorStyle = text2
 
 @Composable
-fun BottomNavigationBar(navController: NavHostController, activity: Activity) {
+fun BottomNavigationBar(
+    navController: NavHostController,
+    activity: Activity
+) {
     var showExitDialog by remember { mutableStateOf(false) }
 
     val items = listOf(
         BottomNavItem(
-            stringResource(id = R.string.character),
+            stringResource(R.string.character),
             NavDestinations.CHARACTER,
             icon = IconType.VectorIcon(Icons.Default.AccountCircle)
         ),
         BottomNavItem(
-            stringResource(id = R.string.option),
+            stringResource(R.string.option),
             NavDestinations.SETTINGS,
             icon = IconType.VectorIcon(Icons.Default.Settings)
         ),
         BottomNavItem(
-            stringResource(id = R.string.fAQ),
+            stringResource(R.string.fAQ),
             NavDestinations.ABOUT,
             icon = IconType.VectorIcon(Icons.Default.Info)
         ),
         BottomNavItem(
-            stringResource(id = R.string.exit),
+            stringResource(R.string.exit),
             NavDestinations.EXIT,
             icon = IconType.ResourceIcon(R.drawable.door_open_30dp)
         )
     )
 
-    NavigationBar {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
+    val backStack by navController.currentBackStackEntryAsState()
+    val currentRoute = backStack?.destination?.route
 
+    NavigationBar(
+        modifier = Modifier.heightIn(max = 80.dp),
+        containerColor = Transparent
+    ) {
         items.forEach { item ->
             NavigationBarItem(
-                modifier = Modifier.weight(1f),
                 icon = {
-                    when (val iconType = item.icon) {
-                        is IconType.VectorIcon -> Icon(
-                            imageVector = iconType.imageVector,
-                            contentDescription = null,
-                            tint = colorStyle
-                        )
-                        is IconType.ResourceIcon -> Icon(
-                            painter = painterResource(id = iconType.resourceId),
-                            contentDescription = null,
-                            tint = colorStyle
-                        )
+                    when (val ic = item.icon) {
+                        is IconType.VectorIcon ->
+                            Icon(ic.imageVector, contentDescription = null, tint = colorStyle)
+                        is IconType.ResourceIcon ->
+                            Icon(
+                                painter = painterResource(ic.resourceId),
+                                contentDescription = null,
+                                tint = colorStyle
+                            )
                     }
                 },
-                label = { Text(item.title, maxLines = 1, color = colorStyle) },
-                selected = (currentRoute == item.route),
+                // label = { Text(item.title, color = colorStyle) },
+                selected = currentRoute == item.route,
                 onClick = {
                     when (item.route) {
-                        NavDestinations.EXIT -> {
-                            showExitDialog = true
+                        NavDestinations.EXIT -> showExitDialog = true
+                        NavDestinations.CHARACTER -> {
+                            navController.popBackStack(
+                                route = NavDestinations.CHARACTER,
+                                inclusive = false
+                            )
                         }
-                        NavDestinations.CHARACTER,
                         NavDestinations.SETTINGS,
                         NavDestinations.ABOUT -> {
                             if (currentRoute != item.route) {
@@ -105,9 +112,7 @@ fun BottomNavigationBar(navController: NavHostController, activity: Activity) {
                                 }
                             }
                         }
-                        else -> {
-                            navController.navigate(item.route)
-                        }
+                        else -> navController.navigate(item.route)
                     }
                 }
             )
@@ -116,10 +121,10 @@ fun BottomNavigationBar(navController: NavHostController, activity: Activity) {
 
     if (showExitDialog) {
         ConfirmationDialog(
-            title = stringResource(id = R.string.exit),
-            message = stringResource(id = R.string.confirm_exit_message),
-            confirmButtonText = stringResource(id = R.string.yes),
-            dismissButtonText = stringResource(id = R.string.no),
+            title = stringResource(R.string.exit),
+            message = stringResource(R.string.confirm_exit_message),
+            confirmButtonText = stringResource(R.string.yes),
+            dismissButtonText = stringResource(R.string.no),
             onConfirm = {
                 showExitDialog = false
                 activity.finish()
