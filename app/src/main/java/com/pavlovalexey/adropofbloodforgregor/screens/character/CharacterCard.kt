@@ -74,7 +74,7 @@ fun CharacterCard(
             for (i in totalChapters downTo 1) {
                 val id = "${charKey}_chap$i"
                 val color = when {
-                    chaptersDone.contains(id) -> Red600
+                    chaptersDone.contains(id) -> VioletBlue600
                     i <= unlockedCount        -> Orange600
                     else                      -> Gray500
                 }

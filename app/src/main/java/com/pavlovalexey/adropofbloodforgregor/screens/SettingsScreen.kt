@@ -35,7 +35,7 @@ fun SettingsScreen(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(28.dp))
+        Spacer(modifier = Modifier.height(60.dp))
         CustomButtonOne(
             onClick = onAboutClicked,
             text = "О приложении"
@@ -44,8 +44,6 @@ fun SettingsScreen(
             onClick = onSecuritySettingsClicked,
             text = "Безопасность"
         )
-
-//        Spacer(modifier = Modifier.weight(1f))
 
         CustomButtonOne(
             onClick = { showResetDialog = true },

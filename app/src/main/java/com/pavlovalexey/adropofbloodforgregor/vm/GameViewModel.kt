@@ -85,17 +85,14 @@ class GameViewModel @Inject constructor(
     private fun loadResources(character: String): Resources {
         val res = Resources()
         listOf("lilian", "bernard", "gregor", "astra").forEach { char ->
-            // health
             val healthKey = "${char}_health"
             val health = getFloatCompat(healthKey, 100f)
             res.getStats(char).health = health
 
-            // hunger
             val hungerKey = "${char}_hunger"
             val hunger = getFloatCompat(hungerKey, 0f)
             res.getStats(char).hunger = hunger
 
-            // progress
             val progKey = StoryStart.prefsProgressKeyFor(char)
             val prog = getFloatCompat(progKey, 0f)
             res.progress[char] = prog
@@ -221,12 +218,26 @@ class GameViewModel @Inject constructor(
     }
 
     fun getUnlockedChaptersCount(character: String): Int {
-        val prefix = "${character}_chap"
-        val lastDoneNum = getChaptersDone(character)
-            .mapNotNull { id -> id.substringAfter(prefix).toIntOrNull() }
-            .maxOrNull()
-            ?: 0
-        val next = lastDoneNum + 1
-        return next.coerceAtMost(getTotalChapters(character))
+        return when (character) {
+            "bernard" -> {
+                val astraDoneNums = getChaptersDone("astra")
+                    .mapNotNull { it.substringAfter("astra_chap").toIntOrNull() }
+                val maxAstraDone = astraDoneNums.maxOrNull() ?: 0
+
+                when {
+                    maxAstraDone >= 8 -> 4
+                    maxAstraDone >= 4 -> 2
+                    else              -> 1
+                }
+            }
+            else -> {
+                val prefix     = "${character}_chap"
+                val lastDoneNum = getChaptersDone(character)
+                    .mapNotNull { it.substringAfter(prefix).toIntOrNull() }
+                    .maxOrNull() ?: 0
+                val next = lastDoneNum + 1
+                next.coerceAtMost(getTotalChapters(character))
+            }
+        }
     }
 }
