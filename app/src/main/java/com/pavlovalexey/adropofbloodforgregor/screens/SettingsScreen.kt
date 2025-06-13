@@ -35,7 +35,8 @@ fun SettingsScreen(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-              CustomButtonOne(
+        Spacer(modifier = Modifier.height(28.dp))
+        CustomButtonOne(
             onClick = onAboutClicked,
             text = "О приложении"
         )

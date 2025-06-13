@@ -184,7 +184,6 @@ class GameViewModel @Inject constructor(
 
     fun isCharacterColored(character: String): Boolean {
         return if (character == "gregor") false
-        else if (character == "astra") false
         else true
     }
 
@@ -204,5 +203,30 @@ class GameViewModel @Inject constructor(
         currentCharacter = null
         currentNodeId = null
         _resources.value = Resources()
+    }
+
+    fun getTotalChapters(character: String): Int = when (character) {
+        "bernard" -> 4
+        "lilian", "astra" -> 8
+        else -> 1
+    }
+
+    fun getChaptersDone(character: String): Set<String> {
+        val prefix = "${character}_chap"
+        return resources.value
+            .getStats(character)
+            .chaptersDone
+            .filter { it.startsWith(prefix) }
+            .toSet()
+    }
+
+    fun getUnlockedChaptersCount(character: String): Int {
+        val prefix = "${character}_chap"
+        val lastDoneNum = getChaptersDone(character)
+            .mapNotNull { id -> id.substringAfter(prefix).toIntOrNull() }
+            .maxOrNull()
+            ?: 0
+        val next = lastDoneNum + 1
+        return next.coerceAtMost(getTotalChapters(character))
     }
 }

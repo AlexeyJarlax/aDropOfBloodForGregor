@@ -28,7 +28,7 @@ fun SceneBackground(imageName: String) {
         Image(
             painter = painterResource(id = resId),
             contentDescription = null,
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.FillHeight,
             modifier = Modifier.fillMaxSize()
         )
     } else {

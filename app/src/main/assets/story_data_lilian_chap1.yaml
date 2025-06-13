@@ -14,7 +14,7 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      Девушка лежала на мягкой кровати, будучи переодетой в хлопковую ночнушку.
+      Девушка лежала на мягкой кровати, будучи одетой в хлопковую ночнушку.
       Сон был настолько крепким, что она и не почувствовала, как её омыли и переодели
     visibleCharacters: [ LILIAN ]
     effects: [ defaultHungerIncrease ]
@@ -22,8 +22,8 @@ nodes:
 
   - id: lilian_intro_3
     type: Choice
-    speaker: NARRATOR
-    text: "выбор"
+    speaker: LILIAN
+    text: "⤭"
     visibleCharacters: [ LILIAN ]
     options:
       - optionText: "Осмотреть комнату"
@@ -40,9 +40,10 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      Лилиан медленно обошла комнату босиком: на окнах не было решёток или ставен.
-      Видно, комната — самая высокая в замке, а внизу мрачный лес
+      Лилиан медленно обошла комнату босиком: потолки очень высокие, стены каменные, мебель 
+      добротная. Окна витражные, стекло в виде мозаики.
     visibleCharacters: [ LILIAN ]
+    background: scene1.png
     effects: [ defaultHungerIncrease ]
     nextId: lilian_bernard_entrance
 
@@ -50,9 +51,10 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      Девушка подошла к окну и заглянула: Черный лес — густая, почти непроходимая чаща...
-      Куда не посмотри - ни следа других поселений...
+      Девушка подошла к окну и заглянула: через мозаику трудно было разобрать, но кажется вокруг 
+      густой лес, почти непроходимая чаща... Поселений не видно...
     visibleCharacters: [ LILIAN ]
+    background: scene1.png
     effects: [ defaultHungerIncrease ]
     nextId: lilian_bernard_entrance
 
@@ -62,16 +64,17 @@ nodes:
     text: >
       - Есть ли тут кто?
     visibleCharacters: [ LILIAN ]
+    background: scene1.png
     effects: [ defaultHungerIncrease ]
-    nextId: lilian_bernard_entrance
+    nextId: lilian_call_help2
 
-  - id: lilian_call_help
+  - id: lilian_call_help2
     type: Line
     speaker: NARRATOR
     text: >
-      Голос эхом прокатился по пустым стенам.
-      Ответа не было — но скоро послышался скрип двери...
+      Голос эхом прокатился по пустым стенам. Ответа не было...
     visibleCharacters: [ LILIAN ]
+    background: scene1.png
     effects: [ defaultHungerIncrease ]
     nextId: lilian_bernard_entrance
 
@@ -82,6 +85,7 @@ nodes:
       В дверь постучали, она медленно отворилась — на пороге стоял... что же это?
       Существо похожее на человека заговорило синтезированным голосом
     visibleCharacters: [ LILIAN, BERNARD ]
+    background: scene1.png
     effects: [ defaultHungerIncrease ]
     nextId: lilian_bernard_speech
 
@@ -91,16 +95,18 @@ nodes:
     text: >
       Юная гостья, рад приветствовать вас этим утром! Не бойтесь моего облика. 
       Я всего лишь механический дворецкий.
-      Хозяин велел позаботиться о вас, скоро будет чай — спускайтесь вниз...
+      Хозяин велел позаботиться о вас, скоро будет чай — спускайтесь пожалуйста вниз...
     visibleCharacters: [ LILIAN, BERNARD ]
+    background: scene1.png
     effects: [ ]
     nextId: lilian_respond_choice
 
   - id: lilian_respond_choice
     type: Choice
     speaker: LILIAN
-    text: "выбор"
+    text: "⤭"
     visibleCharacters: [ LILIAN, BERNARD ]
+    background: scene1.png
     options:
       - optionText: "Благодарно кивнуть"
         effects: [ defaultHungerIncrease ]
@@ -115,6 +121,7 @@ nodes:
     text: >
       - Вы гостья в замке господина Грегора. Сейчас он в отъезде
     visibleCharacters: [ LILIAN, BERNARD ]
+    background: scene1.png
     effects: [ ]
     nextId: lilian_accept_tea
 
@@ -124,6 +131,7 @@ nodes:
     text: >
       Дворецкий вышел, оставив ее одну в помещении
     visibleCharacters: [ LILIAN ]
+    background: scene1.png
     effects: [ defaultHungerIncrease ]
     nextId: lilian_accept_tea2
 
@@ -133,7 +141,6 @@ nodes:
     text: >
       Лилиан спустилась в гостиную...
     visibleCharacters: [ LILIAN ]
-    background: scene2.png
     effects: [ markLilianChapterOneComplete() ]
     nextId: lilian_living_room_1
 
@@ -141,7 +148,7 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      Гостиная едва освещалась колким светом камина. Лилиан колебалась...
+      Гостиная освещалась колким светом камина и небольшим количеством подсвечников. Лилиан колебалась...
     visibleCharacters: [ LILIAN ]
     background: scene2.png
     effects: [ defaultHungerIncrease ]
@@ -161,7 +168,8 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      Бернард подошел к камину, подкидывая дровишек. Его движения совсем не были похожи на двжиения персонажа кукульного театра, он был ловок, гибок, двигался свосем как челвоек
+      Бернард подошел к камину, подкидывая дровишек. Его движения совсем не были похожи на двжиения 
+      металической куклы или досмеха - дворецкий был ловок, гибок, двигался совсем как человек
     visibleCharacters: [ LILIAN, BERNARD ]
     background: scene2.png
     effects: [ defaultHungerIncrease ]
@@ -184,5 +192,6 @@ nodes:
       - Господин Грегор уже должен вернуться
     visibleCharacters: [ LILIAN, BERNARD ]
     background: scene2.png
-    effects: [ defaultHungerIncrease ]
+    effects:
+    - "markChapterComplete(1,1)"
     nextId: null

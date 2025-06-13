@@ -19,9 +19,15 @@ import kotlin.math.roundToInt
 @Composable
 fun CharacterScreen(
     onNavigateToStory: (String) -> Unit,
-    viewModel: GameViewModel,
+    viewModel: GameViewModel = hiltViewModel(),
 ) {
-    val resources = viewModel.resources.collectAsState()
+    val resourcesState = viewModel.resources.collectAsState()
+
+    val chars = listOf(
+        "lilian"  to R.drawable.model1_2,
+        "bernard" to R.drawable.model_b,
+        "astra"   to R.drawable.model_a
+    )
 
     Box(modifier = Modifier.fillMaxSize()) {
         MatrixBackground()
@@ -34,64 +40,35 @@ fun CharacterScreen(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            fun formatProgress(char: String): String {
-                val p = viewModel.getCharacterProgress(char)
-                return "${p.roundToInt()}%"
-            }
+            chars.forEach { (charKey, imageRes) ->
+                val displayName = when (charKey) {
+                    "lilian"  -> "Лилиан"
+                    "bernard" -> "Бернард"
+                    "astra"   -> "Астра"
+                    else      -> charKey
+                }
+                val isColored     = viewModel.isCharacterColored(charKey)
+                val totalChapters = viewModel.getTotalChapters(charKey)
+                val chaptersDone  = viewModel.getChaptersDone(charKey)
+                val unlockedCount = viewModel.getUnlockedChaptersCount(charKey)
 
-            CustomMultiCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-                    .clickable { onNavigateToStory("lilian") }
-            ) {
-                CharacterCard(
-                    name = "Лилиан",
-                    imageRes = R.drawable.model1_2,
-                    progress = formatProgress("lilian"),
-                    isColored = viewModel.isCharacterColored("lilian")
-                )
+                CustomMultiCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp)
+                        .clickable { onNavigateToStory(charKey) }
+                ) {
+                    CharacterCard(
+                        name           = displayName,
+                        charKey        = charKey,
+                        imageRes       = imageRes,
+                        isColored      = isColored,
+                        totalChapters  = totalChapters,
+                        chaptersDone   = chaptersDone,
+                        unlockedCount  = unlockedCount
+                    )
+                }
             }
-
-            CustomMultiCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-                    .clickable { onNavigateToStory("bernard") }
-            ) {
-                CharacterCard(
-                    name = "Бернард",
-                    imageRes = R.drawable.model_b,
-                    progress = formatProgress("bernard"),
-                    isColored = viewModel.isCharacterColored("bernard")
-                )
-            }
-            CustomMultiCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-                    .clickable { onNavigateToStory("astra") }
-            ) {
-                CharacterCard(
-                    name = "Астра",
-                    imageRes = R.drawable.scene5,
-                    progress = formatProgress("astra"),
-                    isColored = viewModel.isCharacterColored("astra")
-                )
-            }
-//            CustomMultiCard(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(vertical = 8.dp)
-//                    .clickable { onNavigateToStory("gregor") }
-//            ) {
-//                CharacterCard(
-//                    name = "Грегор",
-//                    imageRes = R.drawable.scene4,
-//                    progress = formatProgress("gregor"),
-//                    isColored = viewModel.isCharacterColored("gregor")
-//                )
-//            }
         }
     }
 }

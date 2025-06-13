@@ -12,6 +12,7 @@ import android.util.Log
 import java.io.IOException
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.annotation.JsonSubTypes
+import com.pavlovalexey.adropofbloodforgregor.utils.DEFAULT_AMOUNT
 
 object StoryData {
     private const val TAG = "StoryData"
@@ -28,39 +29,44 @@ object StoryData {
                 params.getOrNull(1) ?: 10f
             )
         },
-        "lilianHeal" to { params -> Effects.lilianHeal(params.getOrNull(0) ?: 15f) },
-
-        "markBernardChapterOneComplete" to { params ->
-            Effects.markBernardChapterOneComplete(params.getOrNull(0) ?: 5f)
+        "lilianHeal" to { params ->
+            Effects.lilianHeal(params.getOrNull(0) ?: 15f)
         },
-        "markLilianChapterOneComplete"  to { params ->
-            Effects.markLilianChapterOneComplete(params.getOrNull(0) ?: 10f)
-        },
-        "markGregorChapterOneComplete"  to { params ->
-            Effects.markGregorChapterOneComplete(params.getOrNull(0) ?: 5f)
-        },
-        "markAstraChapterOneComplete"   to { params ->
-            Effects.markAstraChapterOneComplete(params.getOrNull(0) ?: 5f)
+        "markChapterComplete" to { params ->
+            val char = params.getOrNull(0)?.toInt() ?: 0
+            val chapter = params.getOrNull(1)?.toInt() ?: 1
+            Effects.markChapterComplete(charIndex = char, chapter = chapter)
         }
     )
+
 
     private var nodes: Map<NodeId, DialogueNode> = emptyMap()
 
     fun init(context: Context, character: String) {
-        val assetName = "story_data_${character}.yaml"
-        try {
-            context.assets.open(assetName).use { loadFromStream(it) }
-            Log.i(TAG, "Loaded local asset $assetName")
-        } catch (ioe: IOException) {
-            Log.w(TAG, "Asset $assetName not found, falling back to story_data.yaml", ioe)
+        val totalChapters = when (character) {
+            "bernard" -> 4
+            "lilian", "astra" -> 8
+            else -> 1
+        }
+
+        val allNodes = mutableMapOf<NodeId, DialogueNode>()
+        for (i in 1..totalChapters) {
+            val assetName = "story_data_${character}_chap${i}.yaml"
             try {
-                context.assets.open("story_data.yaml").use { loadFromStream(it) }
-                Log.i(TAG, "Loaded local fallback story_data.yaml")
+                context.assets.open(assetName).use { input ->
+                    val dto = yaml.readValue(input, StoryFileDto::class.java)
+                    dto.nodes.forEach { nodeDto ->
+                        val key = nodeDto.id
+                        val node = nodeDto.toDialogueNode()
+                        allNodes[key] = node
+                    }
+                }
+                Log.i(TAG, "Loaded $assetName")
             } catch (_: IOException) {
-                Log.e(TAG, "Neither $assetName nor story_data.yaml found in assets!")
+                Log.w(TAG, "Не найден $assetName, пропускаем")
             }
         }
-        fetchRemoteYaml(character)
+        nodes = allNodes
     }
 
     fun getNode(nodeId: NodeId): DialogueNode? = nodes[nodeId]
@@ -113,7 +119,7 @@ object StoryData {
             val visibleCharacters: List<Speaker> = emptyList(),
             override val effects: List<String> = emptyList(),
             val nextId: String?,
-            val background: String? = null
+            val background: String? = null,
         ) : NodeDto() {
             override fun toDialogueNode(): DialogueNode = DialogueNode.Line(
                 id = id,
@@ -133,7 +139,7 @@ object StoryData {
             val visibleCharacters: List<Speaker> = emptyList(),
             val options: List<ChoiceOptionDto>,
             override val effects: List<String> = emptyList(),
-            val background: String? = null
+            val background: String? = null,
         ) : NodeDto() {
             override fun toDialogueNode(): DialogueNode = DialogueNode.Choice(
                 id = id,
