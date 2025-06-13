@@ -85,17 +85,14 @@ class GameViewModel @Inject constructor(
     private fun loadResources(character: String): Resources {
         val res = Resources()
         listOf("lilian", "bernard", "gregor", "astra").forEach { char ->
-            // health
             val healthKey = "${char}_health"
             val health = getFloatCompat(healthKey, 100f)
             res.getStats(char).health = health
 
-            // hunger
             val hungerKey = "${char}_hunger"
             val hunger = getFloatCompat(hungerKey, 0f)
             res.getStats(char).hunger = hunger
 
-            // progress
             val progKey = StoryStart.prefsProgressKeyFor(char)
             val prog = getFloatCompat(progKey, 0f)
             res.progress[char] = prog
@@ -184,7 +181,6 @@ class GameViewModel @Inject constructor(
 
     fun isCharacterColored(character: String): Boolean {
         return if (character == "gregor") false
-        else if (character == "astra") false
         else true
     }
 
@@ -204,5 +200,44 @@ class GameViewModel @Inject constructor(
         currentCharacter = null
         currentNodeId = null
         _resources.value = Resources()
+    }
+
+    fun getTotalChapters(character: String): Int = when (character) {
+        "bernard" -> 4
+        "lilian", "astra" -> 8
+        else -> 1
+    }
+
+    fun getChaptersDone(character: String): Set<String> {
+        val prefix = "${character}_chap"
+        return resources.value
+            .getStats(character)
+            .chaptersDone
+            .filter { it.startsWith(prefix) }
+            .toSet()
+    }
+
+    fun getUnlockedChaptersCount(character: String): Int {
+        return when (character) {
+            "bernard" -> {
+                val astraDoneNums = getChaptersDone("astra")
+                    .mapNotNull { it.substringAfter("astra_chap").toIntOrNull() }
+                val maxAstraDone = astraDoneNums.maxOrNull() ?: 0
+
+                when {
+                    maxAstraDone >= 8 -> 4
+                    maxAstraDone >= 4 -> 2
+                    else              -> 1
+                }
+            }
+            else -> {
+                val prefix     = "${character}_chap"
+                val lastDoneNum = getChaptersDone(character)
+                    .mapNotNull { it.substringAfter(prefix).toIntOrNull() }
+                    .maxOrNull() ?: 0
+                val next = lastDoneNum + 1
+                next.coerceAtMost(getTotalChapters(character))
+            }
+        }
     }
 }

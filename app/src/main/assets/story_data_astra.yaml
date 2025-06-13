@@ -1,7 +1,48 @@
+nodes:
   - id: astra_intro_1
     type: Line
-    speaker: GREGOR
-    text: "Сюжет заблокирован"
-    visibleCharacters: [ GREGOR ]
+    speaker: NARRATOR
+    text: "ч.1 Знакомство игрока с Астрой и Валериэном"
+    visibleCharacters: [ ASTRA ]
+    effects: [ defaultHungerIncrease ]
+    nextId: astra_ch_2
+
+  - id: astra_ch_2
+    type: Line
+    speaker: NARRATOR
+    text: "ч.2 Астра узнает секрет Валериэна"
+    visibleCharacters: [ ASTRA ]
+    effects: [ defaultHungerIncrease ]
+    nextId: astra_ch_3
+
+  - id: astra_ch_3
+    type: Line
+    speaker: NARRATOR
+    text: "ч.3 Астра убивает Валериэна. Открывает ч.0 для Лилиан и ч.0 для Бернарда"
+    visibleCharacters: [ ASTRA ]
+    effects: [ defaultHungerIncrease ]
+    nextId: astra_ch_3_2
+
+  - id: astra_ch_3_2
+    type: Line
+    speaker: NARRATOR
+    text: "ч.3 Астра оставляет Валериэна в живых"
+    visibleCharacters: [ ASTRA ]
+    effects: [ defaultHungerIncrease ]
+    nextId: astra_ch_4
+
+  - id: astra_ch_4
+    type: Line
+    speaker: NARRATOR
+    text: "ч.4 Астра помогает Валериэну найти Механическое сердце. Это открывает доступ к ч.2 Бернарда - воскрешение машины, ч.3 Бернарда - выход из катакомб"
+    visibleCharacters: [ ASTRA ]
+    effects: [ defaultHungerIncrease ]
+    nextId: astra_ch_5
+
+  - id: astra_ch_5
+    type: Line
+    speaker: NARRATOR
+    text: "ч.3 Бернарда - выход из катакомб > Открывает полный сюжет Лилиан."
+    visibleCharacters: [ ASTRA ]
     effects: [ defaultHungerIncrease ]
     nextId: null

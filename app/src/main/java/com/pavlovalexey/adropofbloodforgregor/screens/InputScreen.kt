@@ -60,12 +60,6 @@ fun InputScreen(
                     }
                     item {
                         Spacer(Modifier.height(16.dp))
-//                        Button(
-//                            onClick = onExit,
-//                            modifier = Modifier.align(Alignment.End)
-//                        ) {
-//                            Text("Закрыть")
-//                        }
                         CustomButtonOne(
                             onClick = onExit,
                             text = "Закрыть"

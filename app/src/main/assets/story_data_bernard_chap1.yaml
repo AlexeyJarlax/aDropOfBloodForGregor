@@ -8,9 +8,17 @@ nodes:
     nextId: bernard_intro_2
 
   - id: bernard_intro_2
+    type: Line
+    speaker: NARRATOR
+    text: "Как долго я тут нахожусь, кажется целую вечность..."
+    visibleCharacters: [ NARRATOR ]
+    effects: [ ]
+    nextId: bernard_intro_3
+
+  - id: bernard_intro_3
     type: Choice
     speaker: BERNARD
-    text: "Как долго я тут нахожусь, кажется целую вечность..."
+    text: "⤭"
     visibleCharacters: [ NOBODY ]
     options:
       - optionText: "Запрос: доступ к блокам памяти"
@@ -65,5 +73,6 @@ nodes:
     speaker: NARRATOR
     text: "... переход в режим экономии ..."
     visibleCharacters: [ NARRATOR ]
-    effects: [markBernardChapterOneComplete()]
+    effects:
+    - "markChapterComplete(2,1)"
     nextId: null

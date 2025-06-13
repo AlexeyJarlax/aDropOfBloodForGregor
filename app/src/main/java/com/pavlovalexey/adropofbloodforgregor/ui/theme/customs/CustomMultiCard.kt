@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Gray100
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Transparent
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.White
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.text2
 
 @Composable
 fun CustomMultiCard(
@@ -28,10 +29,10 @@ fun CustomMultiCard(
     val cardModifier = if (expandToFullWidth) {
         modifier
             .fillMaxWidth()
-            .border(width = 1.dp, color = Gray100, shape = shape)
+            .border(width = 1.dp, color = text2, shape = shape)
     } else {
         modifier
-            .border(width = 1.dp, color = Gray100, shape = shape)
+            .border(width = 1.dp, color = text2, shape = shape)
     }
 
     Spacer(modifier = Modifier.height(26.dp))
