@@ -14,8 +14,8 @@ android {
         applicationId = "com.pavlovalexey.adropofbloodforgregor"
         minSdk = 26
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.03"
+        versionCode = 4
+        versionName = "1.04"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

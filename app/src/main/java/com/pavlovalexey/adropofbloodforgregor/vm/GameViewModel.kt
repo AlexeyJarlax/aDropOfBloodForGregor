@@ -43,7 +43,7 @@ class GameViewModel @Inject constructor(
 
         res.wine = getFloatCompat("wine", 0f)
 
-        listOf("lilian", "bernard", "gregor", "astra").forEach { char ->
+        listOf("gregor", "lilian", "bernard", "astra").forEach { char ->
             val stats = res.getStats(char)
             stats.health = getFloatCompat("${char}_health", 100f)
             stats.hunger = getFloatCompat("${char}_hunger", 0f)
@@ -84,7 +84,7 @@ class GameViewModel @Inject constructor(
 
     private fun loadResources(character: String): Resources {
         val res = Resources()
-        listOf("lilian", "bernard", "gregor", "astra").forEach { char ->
+        listOf("gregor", "lilian", "bernard", "astra").forEach { char ->
             val healthKey = "${char}_health"
             val health = getFloatCompat(healthKey, 100f)
             res.getStats(char).health = health
@@ -181,9 +181,9 @@ class GameViewModel @Inject constructor(
 
     private fun Resources.getStats(char: String): CharacterStats =
         when (char) {
+            "gregor" -> gregor
             "lilian" -> lilian
             "bernard" -> bernard
-            "gregor" -> gregor
             "astra" -> astra
             else -> error("Unknown character: $char")
         }
@@ -198,7 +198,7 @@ class GameViewModel @Inject constructor(
     fun resetAllStates() {
         prefs.edit().clear().apply()
 
-        listOf("gregor", "lilian", "astra", "bernard").forEach { char ->
+        listOf("gregor", "lilian", "bernard", "astra").forEach { char ->
             val progKey = StoryStart.prefsProgressKeyFor(char)
             val nodeKey = StoryStart.prefsNodeKeyFor(char)
             prefs.edit()
