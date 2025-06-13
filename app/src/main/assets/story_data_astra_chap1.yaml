@@ -44,5 +44,6 @@ nodes:
     speaker: NARRATOR
     text: "ч.3 Бернарда - выход из катакомб > Открывает полный сюжет Лилиан."
     visibleCharacters: [ ASTRA ]
-    effects: [ defaultHungerIncrease ]
+    effects:
+    - "markChapterComplete(3,1)"
     nextId: null

@@ -106,17 +106,28 @@ class GameViewModel @Inject constructor(
         val nodeId = currentNodeId ?: return
         val node = StoryData.getNode(nodeId) ?: return
         if (node is DialogueNode.Line) {
+            val nextId = node.nextId
+            if (!isBernardChapterUnlocked(nextId)) {
+                return
+            }
+
             applyDefaultEffects(char)
             applyEffects(node.effects, char)
-            advanceNode(node.nextId)
+            advanceNode(nextId)
         }
     }
 
     fun onOptionSelected(option: ChoiceOption) {
         val char = currentCharacter ?: return
+        val nextId = option.nextId
+
+        if (!isBernardChapterUnlocked(nextId)) {
+            return
+        }
+
         applyDefaultEffects(char)
         applyEffects(option.effects, char)
-        advanceNode(option.nextId)
+        advanceNode(nextId)
     }
 
     private fun advanceNode(nextId: NodeId?) {
@@ -239,5 +250,19 @@ class GameViewModel @Inject constructor(
                 next.coerceAtMost(getTotalChapters(character))
             }
         }
+    }
+
+    internal fun isBernardChapterUnlocked(nextId: NodeId?): Boolean {
+        if (nextId == null) return true
+        if (currentCharacter != "bernard") return true
+        if (nextId.startsWith("bernard_chap")) {
+            val num = nextId
+                .removePrefix("bernard_chap")
+                .substringBefore("_")
+                .toIntOrNull()
+                ?: return true
+            return num <= getUnlockedChaptersCount("bernard")
+        }
+        return true
     }
 }

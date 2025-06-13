@@ -1,0 +1,10 @@
+nodes:
+  - id: lilian_chap2_intro_1
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Глава 2 в разработке...
+    visibleCharacters: [ LILIAN ]
+    effects:
+    - "markChapterComplete(1,2)"
+    nextId: null
