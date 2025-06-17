@@ -23,6 +23,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.*
+import androidx.compose.ui.draw.alpha
 
 @Composable
 fun CharacterCard(
@@ -38,9 +39,9 @@ fun CharacterCard(
         .height(200.dp),
 ) {
     val colorFilter = if (!isColored) {
-        val matrix = ColorMatrix().apply { setToSaturation(0f) }
-        ColorFilter.colorMatrix(matrix)
+        ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
     } else null
+    val imageAlpha = if (!isColored) 0.4f else 1f
 
     Box(
         modifier = modifier,
@@ -52,7 +53,7 @@ fun CharacterCard(
             contentScale = ContentScale.Crop,
             alignment = Alignment.TopCenter,
             colorFilter = colorFilter,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().alpha(imageAlpha)
         )
 
         Text(

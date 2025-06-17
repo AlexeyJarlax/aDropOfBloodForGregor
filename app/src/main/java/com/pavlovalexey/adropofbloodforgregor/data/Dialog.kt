@@ -24,6 +24,3 @@ sealed class DialogueNode {
         val background: String? = null
     ) : DialogueNode()
 }
-
-
-
