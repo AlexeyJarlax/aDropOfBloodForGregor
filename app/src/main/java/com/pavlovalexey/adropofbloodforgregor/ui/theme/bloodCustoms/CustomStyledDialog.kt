@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 //import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.BodyMedium_14_Regular
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.HeadlineSmall_24_Regular
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red300
@@ -38,7 +39,13 @@ fun CustomStyledDialog(
     onDismissRequest: () -> Unit,
     content: @Composable () -> Unit
 ) {
-    Dialog(onDismissRequest = onDismissRequest) {
+    Dialog(
+        onDismissRequest = onDismissRequest,
+        properties = DialogProperties(
+            dismissOnBackPress = false,
+            dismissOnClickOutside = false
+        )
+    ) {
         Surface(
             shape = RoundedCornerShape(8.dp),
             color = dark,

@@ -1,7 +1,0 @@
-  - id: astra_intro_1
-    type: Line
-    speaker: GREGOR
-    text: "Сюжет заблокирован"
-    visibleCharacters: [ GREGOR ]
-    effects: [ defaultHungerIncrease ]
-    nextId: null

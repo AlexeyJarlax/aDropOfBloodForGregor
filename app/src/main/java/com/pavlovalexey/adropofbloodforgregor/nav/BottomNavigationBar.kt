@@ -20,6 +20,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.pavlovalexey.adropofbloodforgregor.R
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.Black
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red400
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Transparent
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.ConfirmationDialog
@@ -72,8 +73,8 @@ fun BottomNavigationBar(
     val currentRoute = backStack?.destination?.route
 
     NavigationBar(
-        modifier = Modifier.heightIn(max = 80.dp),
-        containerColor = Transparent
+        modifier = Modifier.heightIn(max = 60.dp),
+        containerColor = Black
     ) {
         items.forEach { item ->
             NavigationBarItem(

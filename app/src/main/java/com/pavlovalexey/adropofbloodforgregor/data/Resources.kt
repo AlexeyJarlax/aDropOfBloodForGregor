@@ -7,7 +7,7 @@ data class Resources(
     val lilian: CharacterStats = CharacterStats(),
     val bernard: CharacterStats = CharacterStats(),
     val astra: CharacterStats = CharacterStats(),
-    var wine: Float = 0f
+    var wine: Float = 0f,
 ) {
     val progress: MutableMap<String, Float> = mutableMapOf(
         "gregor" to gregor.progress,
@@ -15,4 +15,12 @@ data class Resources(
         "bernard" to bernard.progress,
         "astra" to astra.progress
     )
+
+    fun getStats(char: String): CharacterStats = when (char) {
+        "gregor" -> gregor
+        "lilian" -> lilian
+        "bernard" -> bernard
+        "astra" -> astra
+        else -> error("Unknown character: $char")
+    }
 }

@@ -8,8 +8,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
+val gregFF = OldStandardTT
+
 val DisplayLarge_57_Light = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Light,
     fontSize = 57.sp,
     lineHeight = 64.sp,
@@ -17,7 +19,7 @@ val DisplayLarge_57_Light = TextStyle(
 )
 
 val DisplayMedium_45_Regular = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Normal,
     fontSize = 45.sp,
     lineHeight = 52.sp,
@@ -25,7 +27,7 @@ val DisplayMedium_45_Regular = TextStyle(
 )
 
 val DisplaySmall_36_Regular = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Normal,
     fontSize = 36.sp,
     lineHeight = 44.sp,
@@ -33,7 +35,7 @@ val DisplaySmall_36_Regular = TextStyle(
 )
 
 val HeadlineLarge_32_Regular = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Normal,
     fontSize = 32.sp,
     lineHeight = 40.sp,
@@ -41,7 +43,7 @@ val HeadlineLarge_32_Regular = TextStyle(
 )
 
 val HeadlineMedium_28_Regular = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Normal,
     fontSize = 28.sp,
     lineHeight = 36.sp,
@@ -49,7 +51,7 @@ val HeadlineMedium_28_Regular = TextStyle(
 )
 
 val HeadlineSmall_24_Regular = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Normal,
     fontSize = 24.sp,
     lineHeight = 32.sp,
@@ -57,7 +59,7 @@ val HeadlineSmall_24_Regular = TextStyle(
 )
 
 val TitleLarge_22_Regular = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Normal,
     fontSize = 22.sp,
     lineHeight = 28.sp,
@@ -65,7 +67,7 @@ val TitleLarge_22_Regular = TextStyle(
 )
 
 val TitleMedium_16_Medium = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Medium,
     fontSize = 16.sp,
     lineHeight = 24.sp,
@@ -73,7 +75,7 @@ val TitleMedium_16_Medium = TextStyle(
 )
 
 val TitleSmall_14_Medium = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Medium,
     fontSize = 14.sp,
     lineHeight = 20.sp,
@@ -81,7 +83,7 @@ val TitleSmall_14_Medium = TextStyle(
 )
 
 val BodyLarge_16_Regular = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Normal,
     fontSize = 16.sp,
     lineHeight = 24.sp,
@@ -89,7 +91,7 @@ val BodyLarge_16_Regular = TextStyle(
 )
 
 val BodyMedium_14_Regular = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Normal,
     fontSize = 14.sp,
     lineHeight = 20.sp,
@@ -97,7 +99,7 @@ val BodyMedium_14_Regular = TextStyle(
 )
 
 val BodySmall_12_Regular = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Normal,
     fontSize = 12.sp,
     lineHeight = 16.sp,
@@ -105,7 +107,7 @@ val BodySmall_12_Regular = TextStyle(
 )
 
 val LabelLarge_14_Medium = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Medium,
     fontSize = 14.sp,
     lineHeight = 20.sp,
@@ -113,7 +115,7 @@ val LabelLarge_14_Medium = TextStyle(
 )
 
 val LabelMedium_12_Medium = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Medium,
     fontSize = 12.sp,
     lineHeight = 16.sp,
@@ -121,7 +123,7 @@ val LabelMedium_12_Medium = TextStyle(
 )
 
 val LabelSmall_11_Medium = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = gregFF,
     fontWeight = FontWeight.Medium,
     fontSize = 11.sp,
     lineHeight = 16.sp,

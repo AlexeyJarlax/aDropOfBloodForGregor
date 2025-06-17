@@ -23,24 +23,22 @@ fun CharacterOverlay(
     modifier: Modifier,
     flipHorizontally: Boolean = false
 ) {
-    val imageRes = when (speaker) {
-        Speaker.GREGOR -> R.drawable.model_g
-        Speaker.LILIAN -> R.drawable.model1_1
-        Speaker.ASTRA -> R.drawable.model1_2
-        Speaker.BERNARD -> R.drawable.model_b
-        Speaker.NOBODY -> R.drawable.model_0
-        Speaker.NARRATOR -> null
-    }
-    imageRes?.let {
+    speaker.imageRes?.let { resId ->
+        val imageHeight = if (speaker == Speaker.GREGOR) {
+            400.dp * 1.2f
+        } else {
+            400.dp * 1.1f
+        }
+
         Box(
             modifier = modifier.fillMaxSize(),
             contentAlignment = Alignment.BottomCenter
         ) {
             Image(
-                painter = painterResource(id = it),
+                painter = painterResource(id = resId),
                 contentDescription = "Спрайт персонажа",
                 modifier = Modifier
-                    .height(400.dp)
+                    .height(imageHeight)
                     .wrapContentWidth()
                     .graphicsLayer {
                         scaleX = if (flipHorizontally) -1f else 1f

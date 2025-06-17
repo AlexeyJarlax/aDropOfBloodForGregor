@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Gray200
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red100
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.TitleMedium_16_Medium
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.text1
 
 /**
@@ -34,6 +35,6 @@ fun ChoiceButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifie
             disabledContentColor = Color.Gray
         ),
     ) {
-        Text(text = text, color = text1)
+        Text(text = text, color = text1, style = TitleMedium_16_Medium)
     }
 }

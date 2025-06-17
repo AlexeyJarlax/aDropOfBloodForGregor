@@ -72,7 +72,7 @@ fun NavGraph(
                 StoryScreen(
                     viewModel = gameViewModel,
                     onNavigateToCharacter = {
-                        navController.popBackStack()  // вернуться на экран персонажей
+                        navController.popBackStack()
                     },
                     onNavigateToKeyInput = {
                         navController.navigate(NavDestinations.SOME_INPUT)

@@ -39,14 +39,33 @@ fun StoryScreen(
     val resources by remember { derivedStateOf { viewModel.resources } }
 
     var showEndDialog by remember { mutableStateOf(false) }
+    var showLockedDialog by remember { mutableStateOf(false) }
 
     if (currentNodeId == null && !showEndDialog) {
         showEndDialog = true
     }
 
+    if (showLockedDialog) {
+        ConfirmationDialog(
+            title = "Доступная сюжетная арка пройдена",
+            message = "Развитие сюжета заблокировано. Хотите пройти заново?",
+            confirmButtonText = "Да",
+            dismissButtonText = "Нет",
+            onConfirm = {
+                viewModel.restartStory()
+                showLockedDialog = false
+            },
+            onDismiss = {
+                showLockedDialog = false
+                onNavigateToCharacter()
+            }
+        )
+        return
+    }
+
     if (showEndDialog) {
         ConfirmationDialog(
-            title = "Доступный виток сюжета завершен",
+            title = "Этот сюжет полностью пройден",
             message = "Вы хотите пройти сюжет снова?",
             confirmButtonText = "Да",
             dismissButtonText = "Нет",
@@ -135,71 +154,18 @@ fun StoryScreen(
             DialogPanel(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 node = node,
-                onNextClicked = { viewModel.onNextLine() },
-                onOptionSelected = { option -> viewModel.onOptionSelected(option) }
+                onNextClicked = {
+                    val nextId = (node as? DialogueNode.Line)?.nextId
+                    if (viewModel.currentCharacter == "bernard" && !viewModel.isBernardChapterUnlocked(nextId)) {
+                        showLockedDialog = true
+                    } else viewModel.onNextLine()
+                },
+                onOptionSelected = { option ->
+                    if (viewModel.currentCharacter == "bernard" && !viewModel.isBernardChapterUnlocked(option.nextId)) {
+                        showLockedDialog = true
+                    } else viewModel.onOptionSelected(option)
+                }
             )
-
         }
     }
 }
-
-@Composable
-fun DialogPanel(
-    modifier: Modifier = Modifier,
-    node: DialogueNode,
-    onNextClicked: () -> Unit,
-    onOptionSelected: (ChoiceOption) -> Unit,
-) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(color = Color(0xAA000000))
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            when (node) {
-                is DialogueNode.Line -> {
-                    SpeakerNameText(text = node.speaker.name)
-                    Spacer(modifier = Modifier.height(8.dp))
-                    // оборачиваем текст и кнопку в Box
-                    Box(modifier = Modifier.fillMaxWidth()) {
-                        DialogueText(
-                            text = node.text,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(end = 48.dp)
-                        )
-                        CustomButtonOne(
-                            onClick = onNextClicked,
-                            icon = Icons.Filled.ArrowForward,
-                            modifier = Modifier
-                                .align(Alignment.BottomEnd)
-                        )
-                    }
-                }
-
-                is DialogueNode.Choice -> {
-                    SpeakerNameText(text = node.speaker.name)
-                    Spacer(modifier = Modifier.height(8.dp))
-                    DialogueText(text = node.text)
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Column {
-                        node.options.forEach { option ->
-                            ChoiceButton(
-                                text = option.optionText,
-                                onClick = { onOptionSelected(option) },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 4.dp)
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
