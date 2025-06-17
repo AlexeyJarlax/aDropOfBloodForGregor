@@ -43,7 +43,7 @@ class GameViewModel @Inject constructor(
 
         res.wine = getFloatCompat("wine", 0f)
 
-        listOf("lilian", "bernard", "gregor", "astra").forEach { char ->
+        listOf("gregor", "lilian", "bernard", "astra").forEach { char ->
             val stats = res.getStats(char)
             stats.health = getFloatCompat("${char}_health", 100f)
             stats.hunger = getFloatCompat("${char}_hunger", 0f)
@@ -84,7 +84,7 @@ class GameViewModel @Inject constructor(
 
     private fun loadResources(character: String): Resources {
         val res = Resources()
-        listOf("lilian", "bernard", "gregor", "astra").forEach { char ->
+        listOf("gregor", "lilian", "bernard", "astra").forEach { char ->
             val healthKey = "${char}_health"
             val health = getFloatCompat(healthKey, 100f)
             res.getStats(char).health = health
@@ -106,17 +106,28 @@ class GameViewModel @Inject constructor(
         val nodeId = currentNodeId ?: return
         val node = StoryData.getNode(nodeId) ?: return
         if (node is DialogueNode.Line) {
+            val nextId = node.nextId
+            if (!isBernardChapterUnlocked(nextId)) {
+                return
+            }
+
             applyDefaultEffects(char)
             applyEffects(node.effects, char)
-            advanceNode(node.nextId)
+            advanceNode(nextId)
         }
     }
 
     fun onOptionSelected(option: ChoiceOption) {
         val char = currentCharacter ?: return
+        val nextId = option.nextId
+
+        if (!isBernardChapterUnlocked(nextId)) {
+            return
+        }
+
         applyDefaultEffects(char)
         applyEffects(option.effects, char)
-        advanceNode(option.nextId)
+        advanceNode(nextId)
     }
 
     private fun advanceNode(nextId: NodeId?) {
@@ -170,9 +181,9 @@ class GameViewModel @Inject constructor(
 
     private fun Resources.getStats(char: String): CharacterStats =
         when (char) {
+            "gregor" -> gregor
             "lilian" -> lilian
             "bernard" -> bernard
-            "gregor" -> gregor
             "astra" -> astra
             else -> error("Unknown character: $char")
         }
@@ -187,7 +198,7 @@ class GameViewModel @Inject constructor(
     fun resetAllStates() {
         prefs.edit().clear().apply()
 
-        listOf("gregor", "lilian", "astra", "bernard").forEach { char ->
+        listOf("gregor", "lilian", "bernard", "astra").forEach { char ->
             val progKey = StoryStart.prefsProgressKeyFor(char)
             val nodeKey = StoryStart.prefsNodeKeyFor(char)
             prefs.edit()
@@ -239,5 +250,19 @@ class GameViewModel @Inject constructor(
                 next.coerceAtMost(getTotalChapters(character))
             }
         }
+    }
+
+    internal fun isBernardChapterUnlocked(nextId: NodeId?): Boolean {
+        if (nextId == null) return true
+        if (currentCharacter != "bernard") return true
+        if (nextId.startsWith("bernard_chap")) {
+            val num = nextId
+                .removePrefix("bernard_chap")
+                .substringBefore("_")
+                .toIntOrNull()
+                ?: return true
+            return num <= getUnlockedChaptersCount("bernard")
+        }
+        return true
     }
 }

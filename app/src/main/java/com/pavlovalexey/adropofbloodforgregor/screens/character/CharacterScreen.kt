@@ -22,7 +22,6 @@ fun CharacterScreen(
     viewModel: GameViewModel = hiltViewModel(),
 ) {
     val resourcesState = viewModel.resources.collectAsState()
-
     val chars = listOf(
         "lilian"  to R.drawable.model1_2,
         "bernard" to R.drawable.model_b,
@@ -41,13 +40,14 @@ fun CharacterScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             chars.forEach { (charKey, imageRes) ->
+                val isColored = charKey == "lilian"
+
                 val displayName = when (charKey) {
                     "lilian"  -> "Лилиан"
                     "bernard" -> "Бернард"
-                    "astra"   -> "Астра"
+                    "astra"   -> "Валериан"
                     else      -> charKey
                 }
-                val isColored     = viewModel.isCharacterColored(charKey)
                 val totalChapters = viewModel.getTotalChapters(charKey)
                 val chaptersDone  = viewModel.getChaptersDone(charKey)
                 val unlockedCount = viewModel.getUnlockedChaptersCount(charKey)
@@ -59,13 +59,13 @@ fun CharacterScreen(
                         .clickable { onNavigateToStory(charKey) }
                 ) {
                     CharacterCard(
-                        name           = displayName,
-                        charKey        = charKey,
-                        imageRes       = imageRes,
-                        isColored      = isColored,
-                        totalChapters  = totalChapters,
-                        chaptersDone   = chaptersDone,
-                        unlockedCount  = unlockedCount
+                        name          = displayName,
+                        charKey       = charKey,
+                        imageRes      = imageRes,
+                        isColored     = isColored,
+                        totalChapters = totalChapters,
+                        chaptersDone  = chaptersDone,
+                        unlockedCount = unlockedCount
                     )
                 }
             }

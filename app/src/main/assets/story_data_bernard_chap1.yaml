@@ -75,4 +75,4 @@ nodes:
     visibleCharacters: [ NARRATOR ]
     effects:
     - "markChapterComplete(2,1)"
-    nextId: null
+    nextId: bernard_chap2_intro_1

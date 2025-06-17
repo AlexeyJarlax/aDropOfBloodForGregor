@@ -29,9 +29,6 @@ nodes:
       - optionText: "Осмотреть комнату"
         effects: [ defaultHungerIncrease ]
         nextId: lilian_explore_room
-      - optionText: "Подойти к окну"
-        effects: [ defaultHungerIncrease ]
-        nextId: lilian_look_window
       - optionText: "Позвать кого-нибудь"
         effects: [ defaultHungerIncrease ]
         nextId: lilian_call_help
@@ -40,12 +37,27 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      Лилиан медленно обошла комнату босиком: потолки очень высокие, стены каменные, мебель 
-      добротная. Окна витражные, стекло в виде мозаики.
+      Лилиан медленно обошла комнату: рядом с кроватью висело голубое платье, фасон скромный, а материал
+      кажется дорогим. Рядом с платьем стояли туфельки. Взгляд поскользил дальше: потолки в помещении 
+      очень высокие, стены каменные, мебель добротная. В комнате было единстенное витражное окно, 
+      стекло в виде мозаики.
     visibleCharacters: [ LILIAN ]
     background: scene1.png
     effects: [ defaultHungerIncrease ]
-    nextId: lilian_bernard_entrance
+    nextId: lilian_explore_room2
+
+  - id: lilian_explore_room2
+    type: Choice
+    speaker: LILIAN
+    text: "⤭"
+    visibleCharacters: [ LILIAN ]
+    options:
+      - optionText: "Подойти к окну"
+        effects: [ defaultHungerIncrease ]
+        nextId: lilian_look_window
+      - optionText: "Позвать кого-нибудь"
+        effects: [ defaultHungerIncrease ]
+        nextId: lilian_call_help
 
   - id: lilian_look_window
     type: Line
@@ -56,7 +68,7 @@ nodes:
     visibleCharacters: [ LILIAN ]
     background: scene1.png
     effects: [ defaultHungerIncrease ]
-    nextId: lilian_bernard_entrance
+    nextId: lilian_intro_3
 
   - id: lilian_call_help
     type: Line
@@ -72,7 +84,7 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      Голос эхом прокатился по пустым стенам. Ответа не было...
+      Голос эхом прокатился по помещению. Ответа не последовало...
     visibleCharacters: [ LILIAN ]
     background: scene1.png
     effects: [ defaultHungerIncrease ]
@@ -82,7 +94,7 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      В дверь постучали, она медленно отворилась — на пороге стоял... что же это?
+      Но скоро в дверь постучали, дверь медленно отворилась — на пороге стоял... что же это?
       Существо похожее на человека заговорило синтезированным голосом
     visibleCharacters: [ LILIAN, BERNARD ]
     background: scene1.png
@@ -108,12 +120,15 @@ nodes:
     visibleCharacters: [ LILIAN, BERNARD ]
     background: scene1.png
     options:
-      - optionText: "Благодарно кивнуть"
+      - optionText: "Кивнуть"
         effects: [ defaultHungerIncrease ]
         nextId: lilian_accept_tea
       - optionText: "Спросить, где она находится"
         effects: [ defaultHungerIncrease ]
         nextId: lilian_ask_where
+      - optionText: "Промолчать"
+        effects: [ defaultHungerIncrease ]
+        nextId: lilian_accept_tea
 
   - id: lilian_ask_where
     type: Line
@@ -129,26 +144,60 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      Дворецкий вышел, оставив ее одну в помещении
+      Дворецкий вышел, оставив ее одну в помещении. Пол неприятно холодил ножки...
     visibleCharacters: [ LILIAN ]
     background: scene1.png
     effects: [ defaultHungerIncrease ]
-    nextId: lilian_accept_tea2
+    nextId: lilian_choice_before_go_down
+
+  - id: lilian_choice_before_go_down
+    type: Choice
+    speaker: LILIAN
+    text: "⤭"
+    visibleCharacters: [ LILIAN ]
+    background: scene1.png
+    options:
+      - optionText: "Надеть что-нибудь и спуститься"
+        effects: [ defaultHungerIncrease ]
+        nextId: lilian_accept_tea2
+      - optionText: "Остаться тут"
+        effects: [ defaultHungerIncrease ]
+        nextId: lilian_dont_accept_real1
+
+  - id: lilian_dont_accept_real1
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Девушка заползла под одеяло и попыталась уснуть...
+    visibleCharacters: [ LILIAN ]
+    effects: [ defaultHungerIncrease ]
+    nextId: lilian_dont_accept_real2
+
+  - id: lilian_dont_accept_real2
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Сознание настойчиво возвращало её в реальность...
+    visibleCharacters: [ LILIAN ]
+    effects: [ defaultHungerIncrease ]
+    nextId: lilian_choice_before_go_down
 
   - id: lilian_accept_tea2
     type: Line
     speaker: NARRATOR
     text: >
-      Лилиан спустилась в гостиную...
+      Лилиан надела платье, что висело рядом с кроватью и влезла в туфельки. 
+      Кажется размер соответствовал, в таком виде она спустилась в гостиную...
     visibleCharacters: [ LILIAN ]
-    effects: [ markLilianChapterOneComplete() ]
+    background: scene1.png
+    effects: [ defaultHungerIncrease ]
     nextId: lilian_living_room_1
 
   - id: lilian_living_room_1
     type: Line
     speaker: NARRATOR
     text: >
-      Гостиная освещалась колким светом камина и небольшим количеством подсвечников. Лилиан колебалась...
+      Помещение освещалось колким светом камина и небольшим количеством подсвечников. Лилиан колебалась...
     visibleCharacters: [ LILIAN ]
     background: scene2.png
     effects: [ defaultHungerIncrease ]
@@ -158,7 +207,7 @@ nodes:
     type: Line
     speaker: BERNARD
     text: >
-      - Прошу за стол, леди Лилиан, чай готов
+      - Прошу за стол, леди Лилиан, чай почти готов
     visibleCharacters: [ LILIAN, BERNARD ]
     background: scene2.png
     effects: [ defaultHungerIncrease ]
@@ -169,29 +218,138 @@ nodes:
     speaker: NARRATOR
     text: >
       Бернард подошел к камину, подкидывая дровишек. Его движения совсем не были похожи на двжиения 
-      металической куклы или досмеха - дворецкий был ловок, гибок, двигался совсем как человек
+      металической куклы или доспеха - дворецкий был ловок, гибок, двигался совсем как человек
     visibleCharacters: [ LILIAN, BERNARD ]
     background: scene2.png
     effects: [ defaultHungerIncrease ]
-    nextId: lilian_living_room_sip
+    nextId: lilian_living_room_choose
 
-  - id: lilian_living_room_sip
+  - id: lilian_living_room_choose
+    type: Choice
+    speaker: LILIAN
+    text: "⤭"
+    visibleCharacters: [ LILIAN, BERNARD ]
+    background: scene2.png
+    options:
+      - optionText: "Принять приглашение и сесть за стол"
+        effects: [ defaultHungerIncrease ]
+        nextId: going_to_end_1_chap1
+      - optionText: "Распросить Бернарда"
+        effects: [ defaultHungerIncrease ]
+        nextId: lilian_ask_bernard_more
+      - optionText: "Отказаться от завтрака"
+        effects: [ defaultHungerIncrease ]
+        nextId: going_to_end_1_chap2
+
+  - id: lilian_ask_bernard_more
     type: Line
-    speaker: NARRATOR
+    speaker: LILIAN
     text: >
-      Девушка поднесла чашку к губам и сделала глоток ароматного чая
-    visibleCharacters: [ LILIAN ]
+      - Я бы хотела узнать кое-что...
+    visibleCharacters: [ LILIAN, BERNARD ]
     background: scene2.png
     effects: [ defaultHungerIncrease ]
-    nextId: lilian_living_room_gregor_coming
+    nextId: lilian_ask_bernard_more2
 
-  - id: lilian_living_room_gregor_coming
+  - id: lilian_ask_bernard_more2
+    type: Choice
+    speaker: LILIAN
+    text: "⤭"
+    visibleCharacters: [ LILIAN, BERNARD ]
+    background: scene2.png
+    options:
+      - optionText: "- Когда вернется хозяин?"
+        effects: [ defaultHungerIncrease ]
+        nextId: lilian_ask_1
+      - optionText: "- Кто еще живет в замке?"
+        effects: [ defaultHungerIncrease ]
+        nextId: lilian_ask_2
+      - optionText: "- Что ты такое?"
+        effects: [ defaultHungerIncrease ]
+        nextId: lilian_ask_3
+      - optionText: "- Это ты омыл и переодел меня?"
+        effects: [ defaultHungerIncrease ]
+        nextId: lilian_ask_4
+
+  - id: lilian_ask_1
     type: Line
     speaker: BERNARD
     text: >
-      - Господин Грегор уже должен вернуться
+      - Господин Грегор планировал появиться примерно в это время, но его возвращение из города 
+      может задержаться на неопределенный срок, мисс Лилиан
+    visibleCharacters: [ LILIAN, BERNARD ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: lilian_living_room_choose
+
+  - id: lilian_ask_2
+    type: Line
+    speaker: BERNARD
+    text: >
+      - Сейчас в замке кроме нас больше никого нет, мисс Лилиан. . Иногда хозяин устраивает приёмы, 
+      но большинство времени он предпочитает уединенный образ жизни. Господину Грегору трудно 
+      доверить свои тайны кому бы то ни было. Как он иногда говорит – мы живём в опасное время…
+    visibleCharacters: [ LILIAN, BERNARD ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: lilian_living_room_choose
+
+  - id: lilian_ask_3
+    type: Line
+    speaker: BERNARD
+    text: >
+      - Механический дворецкий, мисс Лилиан. У меня есть руки, ноги, тело и даже механическое сердце, 
+      которое питает артефакт, найденный Грегором вместе с моим телом. Меня сотворил не Грегор - 
+      такое было под силу группе талантливейших инженеров и магов, их давно нет в живых... 
+      А господин Грегор нашел меня на древних руинах, восстановил и запустил
+    visibleCharacters: [ LILIAN, BERNARD ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: lilian_living_room_choose
+
+  - id: lilian_ask_4
+    type: Line
+    speaker: BERNARD
+    text: >
+      - Господин принёс вас ночью, когда я был на посту. Это он вас омыл и переодел, господин 
+      вероятно посчитал что может или хочет сделать это сам. Ваши старые вещи я уничтожил 
+      по распоряжению хозяина. Но не волнуйтесь, у вас в комнате есть другая одежда, а если вам 
+      нужна будет помощь от меня, я с радостью помогу!
+    visibleCharacters: [ LILIAN, BERNARD ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: lilian_living_room_choose
+
+  - id: going_to_end_1_chap1
+    type: Line
+    speaker: BERNARD
+    text: >
+      - Хозяин будет очень доволен, что вы сытно кушаете, он волновался, что у вас от впечатлений 
+      может пропасть аппетит
+    visibleCharacters: [ LILIAN, BERNARD ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: going_to_end_1_chap3
+
+  - id: going_to_end_1_chap2
+    type: Line
+    speaker: BERNARD
+    text: >
+      - Хозяин будет не доволен, что вы не кушаете, он догадывался, что у вас от впечатлений может 
+      пропасть аппетит
+    visibleCharacters: [ LILIAN, BERNARD ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: going_to_end_1_chap3
+
+  - id: going_to_end_1_chap3
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Бернард почти закончил сервировать стол, как по коридору раздался стук каблуков и дворецкий 
+      остановился. Он узнал что приближается хозяин и встал по стойке смирно
     visibleCharacters: [ LILIAN, BERNARD ]
     background: scene2.png
     effects:
-    - "markChapterComplete(1,1)"
-    nextId: null
+      - "markChapterComplete(1,1)"
+    nextId: lilian_chap2_intro_1

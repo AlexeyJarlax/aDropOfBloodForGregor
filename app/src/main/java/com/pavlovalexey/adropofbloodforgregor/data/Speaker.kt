@@ -8,8 +8,8 @@ import com.pavlovalexey.adropofbloodforgregor.R
 enum class Speaker(@DrawableRes val imageRes: Int?) {
     GREGOR(R.drawable.model_g),
     LILIAN(R.drawable.model1_1),
-    ASTRA(R.drawable.model_a),
     BERNARD(R.drawable.model_b),
+    ASTRA(R.drawable.model_a),
     NOBODY(R.drawable.model_0),
     NARRATOR(null)
 }

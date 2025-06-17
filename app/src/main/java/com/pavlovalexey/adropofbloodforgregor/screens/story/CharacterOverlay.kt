@@ -24,6 +24,12 @@ fun CharacterOverlay(
     flipHorizontally: Boolean = false
 ) {
     speaker.imageRes?.let { resId ->
+        val imageHeight = if (speaker == Speaker.GREGOR) {
+            400.dp * 1.2f
+        } else {
+            400.dp * 1.1f
+        }
+
         Box(
             modifier = modifier.fillMaxSize(),
             contentAlignment = Alignment.BottomCenter
@@ -32,7 +38,7 @@ fun CharacterOverlay(
                 painter = painterResource(id = resId),
                 contentDescription = "Спрайт персонажа",
                 modifier = Modifier
-                    .height(400.dp)
+                    .height(imageHeight)
                     .wrapContentWidth()
                     .graphicsLayer {
                         scaleX = if (flipHorizontally) -1f else 1f

@@ -2,6 +2,8 @@ package com.pavlovalexey.adropofbloodforgregor.screens
 
 /** Павлов Алексей https://github.com/AlexeyJarlax */
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
@@ -15,6 +17,7 @@ import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.CustomButton
 import com.pavlovalexey.adropofbloodforgregor.data.StoryStart
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.ConfirmationDialog
 import com.pavlovalexey.adropofbloodforgregor.vm.GameViewModel
+import androidx.core.net.toUri
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,26 +39,40 @@ fun SettingsScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(60.dp))
+
         CustomButtonOne(
-            onClick = onAboutClicked,
-            text = "О приложении"
+            onClick = {
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data =
+                        "https://play.google.com/store/apps/details?id=com.pavlovalexey.adropofbloodforgregor".toUri()
+                }
+                context.startActivity(intent)
+            },
+            text = "Страница приложения в GooglePlay"
         )
+
         CustomButtonOne(
-            onClick = onSecuritySettingsClicked,
-            text = "Безопасность"
+            onClick = {
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data =
+                        "https://raw.githubusercontent.com/AlexeyJarlax/Privacy-Policy/refs/heads/main/PP1.0.txt".toUri()
+                }
+                context.startActivity(intent)
+            },
+            text = "Политика конфиденциальности"
         )
 
         CustomButtonOne(
             onClick = { showResetDialog = true },
-            text = "Сбросить прогресс"
+            text = "Сбросить прогресс игры"
         )
     }
 
     if (showResetDialog) {
         ConfirmationDialog(
-            title = "Сброс прогресса",
+            title = "Сброс прогресса игры",
             message = "Вы уверены, что хотите сбросить прогресс по всем персонажам? Это действие нельзя будет отменить.",
-            confirmButtonText = "Да, сбросить",
+            confirmButtonText = "Сбросить",
             dismissButtonText = "Отмена",
             onConfirm = {
                 viewModel.resetAllStates()

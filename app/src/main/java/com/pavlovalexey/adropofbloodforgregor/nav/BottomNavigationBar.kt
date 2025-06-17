@@ -73,7 +73,7 @@ fun BottomNavigationBar(
     val currentRoute = backStack?.destination?.route
 
     NavigationBar(
-        modifier = Modifier.heightIn(max = 80.dp),
+        modifier = Modifier.heightIn(max = 60.dp),
         containerColor = Black
     ) {
         items.forEach { item ->

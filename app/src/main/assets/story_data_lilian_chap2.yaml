@@ -1,0 +1,373 @@
+nodes:
+  - id: lilian_chap2_intro_1
+    type: Line
+    speaker: NARRATOR
+    text: >
+      В помещение вошел высокий мужчина и мило улыбнувшись девушке сел за стол
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_lilian_and_gregor_meeting1
+
+  - id: l2_lilian_and_gregor_meeting1
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Ммм, как я рад, что моя гостья пришла в себя! Когда я нашел тебя, зайчонок, ты была едва жива, 
+      я переживал, что ты можешь не вынести истощения, распорядился Бернарду покормить тебя как только 
+      увидит, но кажется с тобой все хорошо, а это платье! Оно так тебе к лицу!
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_lilian_and_gregor_meeting2
+
+
+  - id: l2_lilian_and_gregor_meeting2
+    type: Choice
+    speaker: LILIAN
+    text: "⤭"
+    visibleCharacters: [ LILIAN ]
+    background: scene2.png
+    options:
+      - optionText: "Осмотреть мужчину"
+        effects: [ defaultHungerIncrease ]
+        nextId: l2_lilian_watches_gregor
+      - optionText: "Поблагодарить за гостеприимство"
+        effects: [ defaultHungerIncrease ]
+        nextId: l2_lilian_and_gregor_meeting3
+      - optionText: "Промолчать"
+        effects: [ defaultHungerIncrease ]
+        nextId: l2_lilian_and_gregor_meeting3
+
+  - id: l2_lilian_watches_gregor
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Грегор не выглядел как лендлорд, каким его обычно представляляют. Он был красив, высок, статен, 
+      не стар и не толст, говорил с ней вежливо и учтиво. Пока это все, что можно было понять на таком
+      расстоянии
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_lilian_and_gregor_meeting3
+
+  - id: l2_lilian_and_gregor_meeting3
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Девушка не заметила, как за разговором он оказался рядом и сильная ладонь взяла её подбородочек 
+      в пальцы, мужчина подвигал её личико всматриваясь внимательно все детали, глаза, ушки, шейку. 
+      Еще более неожиданным было то, что Грегор отвёл одну и другую губку в сторону, осматривая зубки
+    visibleCharacters: [ LILIAN, GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_lilian_and_gregor_meeting4
+
+  - id: l2_lilian_and_gregor_meeting4
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Так же неуловимо хозяин замка отошел в сторону и сел в кресло у противоположной стороны стола
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_lilian_and_gregor_meeting5
+
+  - id: l2_lilian_and_gregor_meeting5
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Какой джек-пот, такой подарок судьбы! Задавай уже вопросы, уверен у тебя их много!
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_lilian_ask_gregor
+
+  - id: l2_lilian_ask_gregor
+    type: Choice
+    speaker: LILIAN
+    text: "⤭"
+    visibleCharacters: [ LILIAN ]
+    background: scene2.png
+    options:
+      - optionText: "Кто вы чёрт возьми такой?"
+        effects: [ defaultHungerIncrease ]
+        nextId: l2_gregor_answer1
+      - optionText: "Что вы себе позволяете?!"
+        effects: [ defaultHungerIncrease ]
+        nextId: l2_gregor_answer2
+      - optionText: "Я ваша гостья или пленница?"
+        effects: [ defaultHungerIncrease ]
+        nextId: l2_gregor_answer3
+      - optionText: "Где я нахожусь?"
+        effects: [ defaultHungerIncrease ]
+        nextId: l2_gregor_answer4
+      - optionText: "Я хочу домой, могу я уже идти?"
+        effects: [ defaultHungerIncrease ]
+        nextId: l2_gregor_answer5
+      - optionText: "Продолжать завтрак"
+        effects: [ defaultHungerIncrease ]
+        nextId: l2_gregor_answer6
+      - optionText: "Промолчать"
+        effects: [ defaultHungerIncrease ]
+        nextId: l2_gregor_answer6
+
+  - id: l2_gregor_answer1
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Хороший вопрос! Я хозяин этого замка, можешь обращаться ко мне Грегор, господин Грегор, сударъ, сэр, лорд, как угодно
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_lilian_ask_gregor
+
+  - id: l2_gregor_answer2
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Все что угодно, зайчонок!
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_lilian_ask_gregor
+
+  - id: l2_gregor_answer3
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Гостья с ограниченными правами
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_lilian_ask_gregor
+
+  - id: l2_gregor_answer4
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Замок Астры, Черный лес, 150 км к северо-востоку от города Полноводье
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_lilian_ask_gregor
+
+  - id: l2_gregor_answer5
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Прости, сладкая булочка, ты не можешь уйти...
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_lilian_ask_gregor
+
+  - id: l2_gregor_answer6
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Перекуси, сладкая булочка. Бернард готовит великолепную выпечку, а его чай - он просто прекрасен!
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_gregor_answered
+
+  - id: l2_gregor_answered
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Грег отпил вина из бокала, казалось он подбирал слова для предстоящего разговора…
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_gregor_tell_truth1
+
+  - id: l2_gregor_tell_truth1
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Я начну из далека, чтобы яснее объяснить свои мотивы и обстоятельства твоего нахождения тут. 
+      Прошу, ешь, пей, слушай… Ты человек, а век человека короткий и люди пытаются успеть достичь 
+      чего-то в своей жизни, иногда правдами, а иногда неправдами. Не только люди так делают...
+      Но возвращаясь к тому, что век человека короток, то за небольшое мгновение жизни с человеком 
+      ты не устаешь удивляться его изменчивости и неискренности.
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_gregor_tell_truth2
+
+
+  - id: l2_gregor_tell_truth2
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Как ты уже можешь заметить, я не говорю о себе как о человеке, следовательно я к ним себя не отношу,
+      хотя когда-то им был и внешне довольно схож, более того, я считаю, что внутри больше человек, 
+      чем многие люди! Например, я искренен и говорю о вещах по существу. Так вот, скажу по существу о тебе, 
+      прекрасная леди Лилиан.
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_gregor_tell_truth3
+
+  - id: l2_gregor_tell_truth3
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Я провел некоторые исследования и наблюдения за людьми, которые за тобой вели охоту и понимаю, 
+      что просто так ты не сможешь вернуться домой. Тебя отдадут замуж за довольно отвратительного 
+      судя по слухам барона. Будешь ему портки стирать и ... прихоти его исполнять по первому требованию, 
+      пока ему не надоешь, и он не устроит тебе несчастный случай…
+    visibleCharacters: [ GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_gregor_tell_truth4
+
+  - id: l2_gregor_tell_truth4
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Грегор налил себе еще вина, наблюдая, как по мере его рассказа бровки девушки неуклонно ползут 
+      вверх. Грегор поднялся и поставив бокал на стол и молниеносно оказался около девушки, схватив 
+      её ручку поднял с дивана. Лилиан не успела и охнуть, как небольшими движениями пальцев он 
+      заставил ступни девушки прилипнуть к носкам своих чистых лакированных сапог. Девушка буквально 
+      стояла на носочках на его носочках.
+    visibleCharacters: [ LILIAN, GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_lilian_next_move
+
+  - id: l2_lilian_next_move
+    type: Choice
+    speaker: LILIAN
+    text: "⤭"
+    visibleCharacters: [ LILIAN, GREGOR ]
+    background: scene2.png
+    options:
+      - optionText: "Попытаться вырваться"
+        effects: [ defaultHungerIncrease ]
+        nextId: l2_lilian_cant_move
+      - optionText: "Закричать"
+        effects: [ defaultHungerIncrease ]
+        nextId: l2_gregor_tell_truth5
+      - optionText: "Наблюдать"
+        effects: [ defaultHungerIncrease ]
+        nextId: l2_lilian_watch
+
+  - id: l2_lilian_cant_move
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Попытки соскочить с его сапог не увенчались успехом, какая-то магия надежно сковывала ее движения
+    visibleCharacters: [ LILIAN, GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_gregor_tell_truth5
+
+  - id: l2_lilian_watch
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Запах духов не слабый и не сильный, одежда чистая, лицо гладко выбрито, от мужчины пахнет вином... 
+      кажется это сортовой Рислинг. Волосы чистые и уложены, воротник рубашки тоже чистый - видно, 
+      что мужчина надел её совсем недавно. Сапоги качественно выделанные, чистые, фасон одежды и 
+      обуви не сдешний. На брюках в области колена маленькая дырка с запекшейся кровью...
+    visibleCharacters: [ LILIAN, GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_gregor_tell_truth6
+
+
+  - id: l2_gregor_tell_truth5
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Тише, зайчонок, тише...
+    visibleCharacters: [ LILIAN, GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_gregor_tell_truth6
+
+  - id: l2_gregor_tell_truth6
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Лилиан... это прекрасное имя! Признаюсь, не смотря на все мое предвзятое отношение к людям, 
+      я испытываю невероятную потребность быть с ними, хоть и не являюсь человеком... Но не со всеми, 
+      а с такими как ты! Я не могу распространяться о своем происхождении публично, поэтому в замке нет 
+      других людей, и поэтому тут ты! Я тебе предлагаю дом, кров, теплый камин и условия для 
+      существования.
+    visibleCharacters: [ LILIAN, GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_gregor_tell_truth6_2
+
+  - id: l2_gregor_tell_truth6_2
+    type: Line
+    speaker: GREGOR
+    text: >
+      - А взамен прошу просто следовать моим правилам. Правила простые – то, что я говорю 
+      должно быть исполнено. Это единственное правило, других нет. Если сюда придёт отряд охотников 
+      за вампирами, со всей округи с факелами, виллами, солдатами и инквизицией - мы с Бернардом покинем 
+      это место и я отпущу тебя в продолжение твоего короткого, но надеюсь яркого жизненного пути…
+    visibleCharacters: [ LILIAN, GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_gregor_tell_truth7
+
+  - id: l2_gregor_tell_truth7
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Хозяин замка не выпускал гостью из рук, а носочки её были все еще прикованы к его сапогам. 
+      Музыкальная композиция уже перевалила через кульминационный момент, начиная затухать
+    visibleCharacters: [ LILIAN, GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_gregor_tell_truth8
+
+  - id: l2_gregor_tell_truth8
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Хотя сейчас я и прикасаюсь к вашей нежной талии и держу милую ручку, иных прикосновений от 
+      меня сегодня не будет, можете не волноваться… и… желаю хорошего отдыха вам в моем замке…
+    visibleCharacters: [ LILIAN, GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_gregor_tell_truth9
+
+  - id: l2_gregor_tell_truth9
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Прошептал Лилиан эти слова в ушко, а потом аккуратно усадил в кресло, с которого взял.
+      Музыка пропала, как будто и не было её, а Грегор направился к выходу из гостинной
+    visibleCharacters: [ LILIAN, GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_gregor_tell_truth10
+
+  - id: l2_gregor_tell_truth10
+    type: Line
+    speaker: GREGOR
+    text: >
+      - Сегодня меня не беспокоить, Бернард! Завтра утром на трапезу приготовь для гостьи свой
+      фирменный лимонник!
+    visibleCharacters: [ BERNARD, GREGOR ]
+    background: scene2.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l2_end_of_chapter
+
+  - id: l2_end_of_chapter
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Ощущение нереальности происходящего не покидало, а когда чувство речи вернулось к Лилиан,
+      Грегора уже не было в помещении, рядом стоял Бернард. Запах духов и вина лишь напоминал
+      о хозяине замка. Запах его духов, запах травяного чая, запах Рислинга и запах её страха...
+    visibleCharacters: [ LILIAN ]
+    background: scene2.png
+    effects:
+    - "markChapterComplete(1,2)"
+    nextId: null
