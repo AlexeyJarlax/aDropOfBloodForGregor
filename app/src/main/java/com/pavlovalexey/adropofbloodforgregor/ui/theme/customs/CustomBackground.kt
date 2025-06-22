@@ -12,9 +12,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.draw.alpha
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.My8
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.Blue500
 
-val blueBackgroundColor = My8
+val blueBackgroundColor = Blue500
 val alpha: Float = 0.5f
 
 @Composable

@@ -10,6 +10,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import com.pavlovalexey.adropofbloodforgregor.data.*
+import com.pavlovalexey.adropofbloodforgregor.utils.DIALOGE_TEXT_SIZE
+import com.pavlovalexey.adropofbloodforgregor.utils.DIALOGUE_FONT_IDX
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -33,9 +35,29 @@ class GameViewModel @Inject constructor(
     private val _resources = MutableStateFlow(Resources())
     val resources: StateFlow<Resources> = _resources
 
+    var dialogueTextSize by mutableStateOf(
+        prefs.getInt(DIALOGE_TEXT_SIZE, 16)
+    )
+        private set
+
+    var dialogueFontIndex by mutableStateOf(
+        prefs.getInt(DIALOGUE_FONT_IDX, 0)
+    )
+        private set
+
     init {
         _resources.value = loadAllResourcesFromPrefs()
         savedStateHandle.get<String>("character")?.let { selectCharacter(it) }
+    }
+
+    fun updateDialogueTextSize(size: Int) {
+        dialogueTextSize = size
+        prefs.edit().putInt(DIALOGE_TEXT_SIZE, size).apply()
+    }
+
+    fun updateDialogueFontIndex(idx: Int) {
+        dialogueFontIndex = idx
+        prefs.edit().putInt(DIALOGUE_FONT_IDX, idx).apply()
     }
 
     private fun loadAllResourcesFromPrefs(): Resources {
@@ -238,11 +260,12 @@ class GameViewModel @Inject constructor(
                 when {
                     maxAstraDone >= 8 -> 4
                     maxAstraDone >= 4 -> 2
-                    else              -> 1
+                    else -> 1
                 }
             }
+
             else -> {
-                val prefix     = "${character}_chap"
+                val prefix = "${character}_chap"
                 val lastDoneNum = getChaptersDone(character)
                     .mapNotNull { it.substringAfter(prefix).toIntOrNull() }
                     .maxOrNull() ?: 0

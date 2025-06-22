@@ -153,6 +153,8 @@ fun StoryScreen(
             }
             DialogPanel(
                 modifier = Modifier.align(Alignment.BottomCenter),
+                textSize = viewModel.dialogueTextSize,
+                fontIdx = viewModel.dialogueFontIndex,
                 node = node,
                 onNextClicked = {
                     val nextId = (node as? DialogueNode.Line)?.nextId

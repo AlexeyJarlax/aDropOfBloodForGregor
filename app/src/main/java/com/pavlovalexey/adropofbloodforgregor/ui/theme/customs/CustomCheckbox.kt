@@ -8,10 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.My7
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.*
 
 @Composable
 fun CustomCheckbox(
@@ -20,11 +19,11 @@ fun CustomCheckbox(
     enabled: Boolean
 ) {
     val checkboxColors = CheckboxDefaults.colors(
-        checkedColor = My7,
-        uncheckedColor = Color.Gray,
-        checkmarkColor = Color.White,
-        disabledCheckedColor = My7.copy(alpha = 0.3f),
-        disabledUncheckedColor = Color.Gray.copy(alpha = 0.3f)
+        checkedColor = VioletBlue600,
+        uncheckedColor = Gray200,
+        checkmarkColor = White,
+        disabledCheckedColor = VioletBlue600.copy(alpha = 0.3f),
+        disabledUncheckedColor = Gray200.copy(alpha = 0.3f)
     )
 
     Checkbox(

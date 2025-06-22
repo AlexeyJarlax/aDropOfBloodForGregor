@@ -12,16 +12,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.Gray200
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red100
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.TitleMedium_16_Medium
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.dialogueTextStyle
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.text1
 
 /**
  * Кнопка-выбор (вариант) в узле Choice.
  */
 @Composable
-fun ChoiceButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+fun ChoiceButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    textSize: Int,
+    fontIdx: Int,
+) {
     Button(
         onClick = onClick,
         modifier = modifier
@@ -35,6 +39,6 @@ fun ChoiceButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifie
             disabledContentColor = Color.Gray
         ),
     ) {
-        Text(text = text, color = text1, style = TitleMedium_16_Medium)
+        Text(text = text, color = text1, style = dialogueTextStyle(textSize, fontIdx))
     }
 }

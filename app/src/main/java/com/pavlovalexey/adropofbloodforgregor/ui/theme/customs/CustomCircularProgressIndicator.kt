@@ -17,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.My7
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.VioletBlue600
 import kotlinx.coroutines.delay
 
 @Composable
@@ -40,11 +40,11 @@ fun CustomCircularProgressIndicator() {
     ) {
         CircularProgressIndicator(
             modifier = Modifier.size(100.dp),
-            color = My7
+            color = VioletBlue600
         )
         Text(
             text = currentSymbol.value.toString(),
-            color = My7,
+            color = VioletBlue600,
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.align(Alignment.Center)
         )

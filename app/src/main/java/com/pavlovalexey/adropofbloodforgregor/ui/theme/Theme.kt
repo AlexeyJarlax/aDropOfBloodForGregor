@@ -8,18 +8,6 @@ import androidx.compose.material3.Shapes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-// Моя палитра:
-val My3 = Color(0xFFB5E17F) // тексты в полях
-val My4 = Color(0xFF000000) // задний фон
-val My5 = Color(0xFF35570C)
-//val My6 = Color(0xFFFFFFFF)  // текст в кнопках
-val My7 = Color(0xFF87E01A) // ProgressIndicator, полоска у ввода, кнопки
-val My8 = Color(0xFF1AE0B8)
-
-val Transparent = Color(0x00000000)
-val White = Color(0xFFFFFFFF)
-val Black = Color(0xFF000000)
-
 val Gray50 = Color(0xFFF8F8F8)
 val Gray75 = Color(0xFFF2F4F6)
 val Gray100 = Color(0xFFE7E7E8)
@@ -65,6 +53,9 @@ val Orange400 = Color(0xFFEA9343)
 val Orange500 = Color(0xFFBB7636)
 val Orange600 = Color(0xFF754A22)
 
+val Transparent = Color(0x00000000)
+val White = Color(0xFFFFFFFF)
+val Black = Color(0xFF000000)
 val text1 = Gray200
 val text2 = Red200
 val text1NotActive = Red400
@@ -73,10 +64,10 @@ val text2NotActive = Gray400
 private val DarkColorScheme = darkColorScheme(
     primary = Gray600, // фон кнопок
     onPrimary = Red300,
-    secondary = My3,
-    onSecondary = My7,
-    background = My4,
-    surface = My5,
+    secondary = text1, // тексты в полях
+    onSecondary = Blue500, // ProgressIndicator, полоска у ввода, кнопки
+    background = Black, // задний фон
+    surface = Orange400,
     onBackground = Red300,
     onSurface = Red300
 )

@@ -30,9 +30,10 @@ import com.pavlovalexey.adropofbloodforgregor.ui.theme.HeadlineSmall_24_Regular
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red300
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red700
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.TitleSmall_14_Medium
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.text1
 
 val dark = Red700
-val bright = Red300
+val bright = text1
 
 @Composable
 fun CustomStyledDialog(
@@ -128,7 +129,7 @@ fun ConfirmationDialog(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text(message, style = MaterialTheme.typography.BodyMedium_14_Regular)
+            Text(message, style = MaterialTheme.typography.BodyMedium_14_Regular, color = bright)
 
             Spacer(modifier = Modifier.height(24.dp))
 

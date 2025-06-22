@@ -3,21 +3,24 @@ package com.pavlovalexey.adropofbloodforgregor.screens
 /** Павлов Алексей https://github.com/AlexeyJarlax */
 
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.CustomButtonOne
-import com.pavlovalexey.adropofbloodforgregor.data.StoryStart
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.ConfirmationDialog
 import com.pavlovalexey.adropofbloodforgregor.vm.GameViewModel
 import androidx.core.net.toUri
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,11 +28,12 @@ fun SettingsScreen(
     navController: NavHostController,
     onAboutClicked: () -> Unit,
     onSecuritySettingsClicked: () -> Unit,
-    viewModel: GameViewModel,
+    viewModel: GameViewModel = hiltViewModel(),
 ) {
-
     var showResetDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
+    val textSize = viewModel.dialogueTextSize
+    val fontIdx = viewModel.dialogueFontIndex
 
     Column(
         modifier = Modifier
@@ -50,6 +54,7 @@ fun SettingsScreen(
             },
             text = "Страница приложения в GooglePlay"
         )
+        Spacer(modifier = Modifier.height(8.dp))
 
         CustomButtonOne(
             onClick = {
@@ -61,10 +66,60 @@ fun SettingsScreen(
             },
             text = "Политика конфиденциальности"
         )
+        Spacer(modifier = Modifier.height(8.dp))
 
         CustomButtonOne(
             onClick = { showResetDialog = true },
             text = "Сбросить прогресс игры"
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "Выбор размера текста: ${textSize}sp",
+            fontSize = textSize.sp,
+            fontFamily  = DialogueFontFamilies[fontIdx],
+            color = text1
+        )
+
+        Slider(
+            value = textSize.toFloat(),
+            onValueChange = { newValue ->
+                viewModel.updateDialogueTextSize(newValue.toInt())
+            },
+            valueRange = 12f..28f,
+            steps = 28 - 12 - 1,
+            colors = SliderDefaults.colors(
+                thumbColor = Red600,
+                activeTrackColor = Red600,
+                inactiveTrackColor = Red200,
+                activeTickColor = Red600,
+                inactiveTickColor = Red200
+            ),
+            modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "Выбор шрифта",
+            fontSize = textSize.sp,
+            fontFamily  = DialogueFontFamilies[fontIdx],
+            color       = text1
+        )
+        Slider(
+            value = fontIdx.toFloat(),
+            onValueChange = { viewModel.updateDialogueFontIndex(it.toInt()) },
+            valueRange = 0f..DialogueFontFamilies.lastIndex.toFloat(),
+            steps = DialogueFontFamilies.lastIndex - 1,
+            colors = SliderDefaults.colors(
+                thumbColor          = Red600,
+                activeTrackColor    = Red600,
+                inactiveTrackColor  = Red200,
+                activeTickColor     = Red600,
+                inactiveTickColor   = Red200
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
         )
     }
 
