@@ -4,9 +4,6 @@ import android.content.Context
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import kotlinx.coroutines.*
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import java.io.InputStream
 import android.util.Log
 import java.io.IOException
@@ -23,15 +20,13 @@ object StoryData {
 
     private val effectRegistry: Map<String, (List<Float>) -> Effect> = mapOf(
         "defaultHungerIncrease" to { _ -> Effects.defaultHungerIncrease },
-        "gregorDrinksWine" to { params ->
-            Effects.gregorDrinksWine(
-                params.getOrNull(0) ?: 10f,
-                params.getOrNull(1) ?: 10f
-            )
-        },
-        "lilianHeal" to { params ->
-            Effects.lilianHeal(params.getOrNull(0) ?: 15f)
-        },
+        "eatFruit" to { _ -> Effects.eatFruit },
+        "foundMoonWine1601" to { _ -> Effects.foundMoonWine1601 },
+        "foundMoonWine1607" to { _ -> Effects.foundMoonWine1607 },
+        "foundMoonWine1608" to { _ -> Effects.foundMoonWine1608 },
+        "foundMoonWine1611" to { _ -> Effects.foundMoonWine1611 },
+        "foundMoonWine1614" to { _ -> Effects.foundMoonWine1614 },
+        "lilianHeal" to { params -> Effects.lilianHeal(params.getOrNull(0) ?: 15f) },
         "markChapterComplete" to { params ->
             val char = params.getOrNull(0)?.toInt() ?: 0
             val chapter = params.getOrNull(1)?.toInt() ?: 1
@@ -75,23 +70,6 @@ object StoryData {
         val dto = yaml.readValue(input, StoryFileDto::class.java)
         nodes = dto.nodes.associateBy { it.id }
             .mapValues { (_, nodeDto) -> nodeDto.toDialogueNode() }
-    }
-
-    private fun fetchRemoteYaml(character: String) {
-        val url =
-            "https://raw.githubusercontent.com/AlexeyJarlax/aDropOfBloodForGregor/screenwriter/app/src/main/assets/story_data_${character}.yaml"
-        val client = OkHttpClient()
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val resp = client.newCall(Request.Builder().url(url).build()).execute()
-                if (resp.isSuccessful) {
-                    resp.body?.byteStream()?.use { loadFromStream(it) }
-                    Log.i(TAG, "Fetched remote story_data for $character")
-                }
-            } catch (t: Throwable) {
-                Log.w(TAG, "Failed to fetch remote YAML", t)
-            }
-        }
     }
 
     private data class StoryFileDto(val nodes: List<NodeDto>)

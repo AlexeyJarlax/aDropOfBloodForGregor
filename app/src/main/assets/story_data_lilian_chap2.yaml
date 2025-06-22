@@ -166,7 +166,7 @@ nodes:
     type: Line
     speaker: GREGOR
     text: >
-      - Перекуси, сладкая булочка. Бернард готовит великолепную выпечку, а его чай - он просто прекрасен!
+      - Перекуси, сладкая булочка. Бернард приготовил великолепный лимонник, а его чай - он просто прекрасен!
     visibleCharacters: [ GREGOR ]
     background: scene2.png
     effects: [ defaultHungerIncrease ]
@@ -353,7 +353,7 @@ nodes:
     speaker: GREGOR
     text: >
       - Сегодня меня не беспокоить, Бернард! Завтра утром на трапезу приготовь для гостьи свой
-      фирменный лимонник!
+      фирменный вишневый штрудель!
     visibleCharacters: [ BERNARD, GREGOR ]
     background: scene2.png
     effects: [ defaultHungerIncrease ]
@@ -370,4 +370,4 @@ nodes:
     background: scene2.png
     effects:
     - "markChapterComplete(1,2)"
-    nextId: null
+    nextId: lilian_chap3_intro

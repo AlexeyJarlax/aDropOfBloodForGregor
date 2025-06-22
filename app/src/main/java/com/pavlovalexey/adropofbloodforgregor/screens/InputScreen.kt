@@ -44,10 +44,20 @@ fun InputScreen(
                 Spacer(Modifier.height(12.dp))
 
                 LazyColumn {
-                    item {
-                        Text("Вино: ${resources.wine}")
-                        Spacer(Modifier.height(8.dp))
+                    val moonWines = listOf(
+                        "Лунное вино 1601" to resources.lilianHasMoonWine1601,
+                        "Лунное вино 1607" to resources.lilianHasMoonWine1607,
+                        "Лунное вино 1608" to resources.lilianHasMoonWine1608,
+                        "Лунное вино 1611" to resources.lilianHasMoonWine1611,
+                        "Лунное вино 1614" to resources.lilianHasMoonWine1614
+                    )
+                    items(moonWines) { (label, has) ->
+                        Text(
+                            "$label: ${if (has) "Есть" else "Нет"}"
+                        )
+                        Spacer(Modifier.height(16.dp))
                     }
+
                     val list = listOf(
                         "Лилиан"  to resources.lilian,
                         "Бернард" to resources.bernard,
@@ -56,7 +66,7 @@ fun InputScreen(
                     )
                     items(list) { (name, stats) ->
                         ResourceRow(name, stats)
-                        Spacer(Modifier.height(8.dp))
+                        Spacer(Modifier.height(16.dp))
                     }
                     item {
                         Spacer(Modifier.height(16.dp))
@@ -76,7 +86,6 @@ private fun ResourceRow(name: String, stats: CharacterStats) {
     Text(
         "$name — " +
                 "HP ${stats.health.toInt()}, " +
-                "Голод ${stats.hunger.toInt()}, " +
-                "Прогресс ${stats.progress.toInt()}%"
+                "Голод ${stats.hunger.toInt()}, "
     )
 }
