@@ -7,6 +7,7 @@ const val DIALOGE_TEXT_SIZE = "dialogue_text_size"
 const val DIALOGUE_FONT_IDX = "dialogue_font_index"
 
 const val KEY_MUSIC_ON = "music_on"
+const val KEY_MUSIC_VOL = "music_volume"
 const val KEY_VOICE_ON = "voice_on"
 
 const val BASE_URL = "https://public.api.voice.steos.io/api/v1/"

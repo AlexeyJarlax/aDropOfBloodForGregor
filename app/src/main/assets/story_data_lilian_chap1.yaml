@@ -8,7 +8,7 @@ nodes:
       что очнулась она уже в незнакомом месте. Кажется ей кто-то помог... мужчина?
     visibleCharacters: [ LILIAN ]
     effects: [ defaultHungerIncrease ]
-    nextId: l3_lilian_chap3_end
+    nextId: lilian_intro_2
 
   - id: lilian_intro_2
     type: Line

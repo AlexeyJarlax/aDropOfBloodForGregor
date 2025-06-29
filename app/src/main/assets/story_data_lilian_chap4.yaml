@@ -15,7 +15,7 @@ nodes:
     speaker: NARRATOR
     text: >
       Запах горячего пирога и ароматного супа разбудили аппетит девушки, невозможно было удержаться от такого предложения
-    visibleCharacters: [ LILIAN, BERNARD ]
+    visibleCharacters: [ LILIAN, GREGOR ]
     background: scene2.png
     effects: [ defaultHungerIncrease ]
     nextId: l4_gregor_entrance
@@ -26,7 +26,7 @@ nodes:
     text: >
       К концу ужина в дверях появился Грегор с загадочным блеском в глазах.
       Он подошёл к столу и взяв бокал вина направил его к своим губам
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ LILIAN, GREGOR ]
     background: scene2.png
     effects: [ defaultHungerIncrease ]
     nextId: l4_gregor_flattery
@@ -38,7 +38,7 @@ nodes:
       - Как я рад, что мой зайчонок хорошо питается! Мисс Лилиан, вы прекрасно выглядите в этом платье,
       оно как будто шито специально для вашей фигурки, и я знаю место,
       где мы сможем покрасоваться в нём…
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ LILIAN, GREGOR ]
     background: scene2.png
     nextId: l4_gregor_invite
 
@@ -48,7 +48,7 @@ nodes:
     text: >
       - Этот пирог из новой книги рецептов? Пахнет великолепно! Ты превзошёл сам себя, мой друг!
       Леди Лилиан, идёмте в библиотеку — я по пути объясню
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ LILIAN, GREGOR ]
     background: scene2.png
     nextId: l4_to_library
 
@@ -57,17 +57,17 @@ nodes:
     speaker: NARRATOR
     text: >
       Не дожидаясь её согласия, Грегор взял за ручку Лилиан и повёл по мрачным коридорам замка
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ LILIAN, GREGOR ]
     background: scene5.png
     nextId: l4_library_warning
 
   - id: l4_library_warning
     type: Line
-    speaker: GREGOR
+    speaker: NARRATOR
     text: >
       - Вот этот и этот стеллаж содержат довольно опасные гримуары и книги —
       настоятельно советую не прикасаться ни к одной, можно лишиться разума!
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ ]
     background: scene5.png
     nextId: l4_gregor_ball_invite
 
@@ -81,7 +81,7 @@ nodes:
       пока вы со мной, никто вас не тронет... 
       В любом случае, я ловкий поединщик —
       если придётся спасаться с боем, обещаю вам быструю и безболезненную смерть!
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ ]
     background: scene5.png
     nextId: l4_gregor_show_weapons
 
@@ -92,7 +92,7 @@ nodes:
       Грегор звонко рассмеялся и показал Лилиан шпагу и кинжал на поясе.
       Было трудно сказать, серьёзно ли он говорил, или шутил…
       В целом, именно такого впечатления он и хотел добиться.
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ GREGOR ]
     background: scene5.png
     nextId: l4_open_portal
 
@@ -102,7 +102,7 @@ nodes:
     text: >
       Открыв небольшой портал, он смотрел на нерешительный взгляд Лилиан и, взяв её ручку сильными пальцами,
       потянул в магический проход.
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ ]
     nextId: l4_library_ball
 
   - id: l4_library_ball
@@ -111,7 +111,7 @@ nodes:
     text: >
       Парочка оказалась в другой библиотеке — более просторной и старой. Грегор продолжил движение,
       ведя девушку по темному коридору теперь вероятно другого замка, пока они не остановились у больших дверей
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ LILIAN, GREGOR ]
     background: scene8.png
     nextId: l4_gregor_ownership
 
@@ -121,7 +121,7 @@ nodes:
     text: >
       - А теперь серьёзно: никуда от меня не отходи,
       пока ты рядом — ты моя собственность, моя гостья, понятно, зайчонок?
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ LILIAN, GREGOR ]
     nextId: l4_gregor_kiss
 
   - id: l4_gregor_kiss
@@ -130,7 +130,7 @@ nodes:
     text: >
       Грегор шепнул это, держа лицо девушки в своих ладонях.
       Затем распахнул двери в зал...
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ LILIAN, GREGOR ]
     nextId: l4_ball_scene
 
   - id: l4_ball_scene
@@ -141,7 +141,7 @@ nodes:
       где играли две виолончели и скрипка. В танце участвовали около десяти человек,
       а у одной стены имелась стойка с винами и бокалами. На балконах никто не стоял,
       кроме одной женщины: статной, внимательной, она кивнула Грегору в знак приветствия.
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ ]
     background: scene9.png
     nextId: l4_ball_introductions
 
@@ -152,7 +152,7 @@ nodes:
       Грегор подвёл Лилиан к столику с винами. Там он поприветствовал другого мужчину,
       который ехидно спросил что-то на незнакомом девушке языке. Грегор сухо ответил «Разумеется»,
       и их разговор на этом закончился...
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ LILIAN, GREGOR ]
     background: scene9.png
     nextId: l4_gregor_offers_wine
 
@@ -161,15 +161,15 @@ nodes:
     speaker: GREGOR
     text: >
       - Мисс Лилиан, какое вино предпочтёте?
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ LILIAN, GREGOR ]
     background: scene9.png
     nextId: l4_vine
 
   - id: l4_vine
     type: Choice
-    speaker: NARRATOR
+    speaker: LILIAN
     text: "⤭"
-    visibleCharacters: [ NARRATOR ]
+    visibleCharacters: [ LILIAN ]
     background: scene9.png
     options:
       - optionText: "- Что спросил тот мужчина?"
@@ -236,7 +236,7 @@ nodes:
       - тех, кого он знал. Среди них был один профессор, два офицера
       из сыскной службы, одна дама «голубых кровей»
       и дама, которая служила советником при дворе.
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ LILIAN, GREGOR ]
     background: scene9.png
     nextId: l4_first_dance
 
@@ -247,7 +247,7 @@ nodes:
       В начале следующей композиции Грегор взял Лилиан за ручку и потянул в зал.
       Танец не был энергичным, Грег даже помогал с движениями, направляя её держа руку на талии Лили,
       но Лилиан все же немного вспотела
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ LILIAN, GREGOR ]
     background: scene9.png
     nextId: l4_retreat_to_balcony
 
@@ -257,7 +257,8 @@ nodes:
     text: >
       Грегор хорошо чувствовал её запах и понимал, что другие в зале тоже почувствуют. Находиться дальше было опасно,
       и мужчина повел девушку из зала, по темному коридору на балкон, что возвышался существенно над залом.
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ LILIAN, GREGOR ]
+    background: scene9.png
     nextId: l4_retreat_to_balcony2
 
   - id: l4_retreat_to_balcony2
@@ -266,8 +267,17 @@ nodes:
     text: >
       Выйдя к балкону, он прислонил её животиком к толстому медному бортику, чтобы она могла хорошо видеть происходящее внизу.
       Та статная женщина снова показалась на балконе, но в другой части зала. Она была всё ещё одна и следила взглядом за парочкой,
-      улыбаясь Грегору. Он кивнул в ответ, казалось, наслаждаясь моментом на глазах у женщины в красном.
-    visibleCharacters: [ GREGOR, LILIAN ]
+      улыбаясь Грегору.
+    visibleCharacters: [ ]
+    background: scene10.png
+    nextId: l4_retreat_to_balcony3
+
+  - id: l4_retreat_to_balcony3
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Грегор кивнул в ответ, казалось, наслаждаясь, что он не один пред взором женщины в красном.
+    visibleCharacters: [ ]
     background: scene10.png
     nextId: l4_gregor_whisper_and_warning
 
@@ -277,7 +287,7 @@ nodes:
     text: >
       - Знаешь, вампиры чувствуют запах человека, твой флёр, но они не всесильны. Постарайся не говорить громко и не издавать лишнего шума,
       ведь скоро начнётся страшное представление... Как ты уже можешь догадаться, там внизу люди и вампиры.
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ LILIAN, GREGOR ]
     background: scene10.png
     nextId: l4_blood_feast_begins
 
@@ -286,8 +296,8 @@ nodes:
     speaker: NARRATOR
     text: >
       Грегор провел носом по шейке девушки, вдыхая её запах, наслаждаясь ароматом. Лилиан чувствовала, как легко ему было бы выпить её кровь прямо сейчас.
-      Прошло немного времени. С последними нотами музыки в зале начались странности: группы танцоров сгруппировались и замерли в жутких позах.
-    visibleCharacters: [ GREGOR, LILIAN ]
+      Прошло немного времени. С последними нотами музыки в зале начались странности: группы танцоров собрались и замерли в странных позах.
+    visibleCharacters: [ LILIAN, GREGOR ]
     background: scene10.png
     nextId: l4_blood_feast_begins2
 
@@ -295,9 +305,9 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      Одни с раскинутыми руками, другие облепили их, прислоняя лица к их телу, очевидно вонзая клыки! Совершенная тишина была в зале, ни криков
+      Одни с раскинутыми руками, другие облепили их, прислоняя лица к их телу, очевидно... Вонзая клыки в плоть жертв... Совершенная тишина была в зале, ни криков
       ни шума, ни шарканья обуви о каменный пол. Ужасающее зрелище. Девушка задрожала.
-    visibleCharacters: [ GREGOR, LILIAN ]
+    visibleCharacters: [ LILIAN, GREGOR ]
     background: scene10.png
     nextId: l4_gregor_orders_silence
 
@@ -305,8 +315,8 @@ nodes:
     type: Line
     speaker: GREGOR
     text: >
-      - Не вздумай кричать. Если они придут сюда, не смогу с ними всеми справиться. Молчите, леди Лилиан, молчите и не пищите...
-    visibleCharacters: [ GREGOR, LILIAN ]
+      - Не вздумай кричать. Если они придут сюда, не смогу с ними всеми справиться. Молчи, леди Лилиан, молчи и не пищи...
+    visibleCharacters: [ LILIAN, GREGOR ]
     background: scene10.png
     nextId: l4_leave_to_library
 
@@ -318,8 +328,7 @@ nodes:
       Запах крови, вероятно, заводил Грегора, но он, кажется, не собирался пить Лилиан в этом замке.
       Не дожидаясь окончания кровавого представления, он взял её за руку и направился в сторону библиотеки —
       в просторных коридорах замка, к счастью, никто не встретился...
-    visibleCharacters: [ GREGOR, LILIAN ]
-    background: scene10.png
+    visibleCharacters: [ ]
     nextId: l4_end
 
   - id: l4_end

@@ -24,7 +24,8 @@ class MediaPlayerManager @Inject constructor(
     val isMusicOn: Boolean
         get() = prefs.getBoolean(KEY_MUSIC_ON, true)
 
-    /** для фоновой музыки из raw ресурса */
+    private var musicVolume: Float = 1f
+
     fun initialize(@RawRes musicResId: Int) {
         if (musicPlayer == null) {
             musicPlayer = MediaPlayer.create(context, musicResId).apply {
@@ -35,6 +36,7 @@ class MediaPlayerManager @Inject constructor(
                         .build()
                 )
                 isLooping = true
+                setVolume(musicVolume, musicVolume)
                 if (isMusicOn) start()
             }
         }
@@ -75,6 +77,11 @@ class MediaPlayerManager @Inject constructor(
             isLooping = false
             start()
         }
+    }
+
+    fun setMusicVolume(volume: Float) {
+        musicVolume = volume.coerceIn(0f, 1f)
+        musicPlayer?.setVolume(musicVolume, musicVolume)
     }
 
     fun release() {

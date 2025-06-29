@@ -31,6 +31,7 @@ fun SettingsScreen(
     viewModel: GameViewModel = hiltViewModel(),
 ) {
     var showResetDialog by remember { mutableStateOf(false) }
+    val musicVol by remember { derivedStateOf { viewModel.musicVolume } }
     val context = LocalContext.current
     val textSize = viewModel.dialogueTextSize
     val fontIdx = viewModel.dialogueFontIndex
@@ -71,6 +72,26 @@ fun SettingsScreen(
         CustomButtonOne(
             onClick = { showResetDialog = true },
             text = "Сбросить прогресс игры"
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "Громкость музыки: ${(musicVol * 100).toInt()}%",
+            color = text1
+        )
+        Slider(
+            value = musicVol,
+            onValueChange = { viewModel.updateMusicVolume(it) },
+            valueRange = 0f..1f,
+            steps = 9,
+            colors = SliderDefaults.colors(
+                thumbColor = Red600,
+                activeTrackColor = Red600,
+                inactiveTrackColor = Red200
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
         )
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -121,6 +142,7 @@ fun SettingsScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         )
+        Spacer(Modifier.height(8.dp))
     }
 
     if (showResetDialog) {

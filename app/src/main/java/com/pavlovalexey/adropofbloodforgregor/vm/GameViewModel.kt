@@ -13,7 +13,9 @@ import androidx.lifecycle.viewModelScope
 import com.pavlovalexey.adropofbloodforgregor.data.*
 import com.pavlovalexey.adropofbloodforgregor.utils.DIALOGE_TEXT_SIZE
 import com.pavlovalexey.adropofbloodforgregor.utils.DIALOGUE_FONT_IDX
+import com.pavlovalexey.adropofbloodforgregor.utils.KEY_MUSIC_VOL
 import com.pavlovalexey.adropofbloodforgregor.utils.KEY_VOICE_ON
+import com.pavlovalexey.adropofbloodforgregor.utils.MediaPlayerManager
 import com.pavlovalexey.adropofbloodforgregor.utils.SteosVoiceApi
 import com.pavlovalexey.adropofbloodforgregor.utils.TOKEN
 import com.pavlovalexey.adropofbloodforgregor.utils.VoiceItem
@@ -30,6 +32,7 @@ class GameViewModel @Inject constructor(
     application: Application,
     private val savedStateHandle: SavedStateHandle,
     private val prefs: SharedPreferences,
+    private val mediaPlayerManager: MediaPlayerManager,
     private val steosApi: SteosVoiceApi
 ) : AndroidViewModel(application) {
 
@@ -52,7 +55,10 @@ class GameViewModel @Inject constructor(
     )
         private set
 
-    var voiceOn by mutableStateOf(prefs.getBoolean(KEY_VOICE_ON, true))
+    var musicVolume by mutableStateOf(prefs.getFloat(KEY_MUSIC_VOL, 0.6f))
+        private set
+
+    var voiceOn by mutableStateOf(prefs.getBoolean(KEY_VOICE_ON, false))
         private set
 
     private val _voices = MutableStateFlow<List<VoiceItem>>(emptyList())
@@ -61,6 +67,13 @@ class GameViewModel @Inject constructor(
     init {
         _resources.value = loadAllResourcesFromPrefs()
         savedStateHandle.get<String>("character")?.let { selectCharacter(it) }
+        mediaPlayerManager.setMusicVolume(musicVolume)
+    }
+
+    fun updateMusicVolume(newVol: Float) {
+        musicVolume = newVol.coerceIn(0f, 1f)
+        prefs.edit().putFloat(KEY_MUSIC_VOL, musicVolume).apply()
+        mediaPlayerManager.setMusicVolume(musicVolume)
     }
 
     fun toggleVoice() {

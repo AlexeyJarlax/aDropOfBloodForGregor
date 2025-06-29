@@ -70,19 +70,19 @@ fun InputScreen(
 //                        ResourceRow(name, stats)
 //                        Spacer(Modifier.height(16.dp))
 //                    }
-                    item {
-                        Spacer(Modifier.height(24.dp))
-                        Text(
-                            "Доступные голосовые движки:",
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                        Spacer(Modifier.height(8.dp))
-                    }
-
-                    items(voices) { voice ->
-                        Text("${voice.name} || ${voice.id}")
-                        Spacer(Modifier.height(6.dp))
-                    }
+//                    item {
+//                        Spacer(Modifier.height(24.dp))
+//                        Text(
+//                            "Доступные голосовые движки:",
+//                            style = MaterialTheme.typography.titleMedium
+//                        )
+//                        Spacer(Modifier.height(8.dp))
+//                    }
+//
+//                    items(voices) { voice ->
+//                        Text("${voice.name} || ${voice.id}")
+//                        Spacer(Modifier.height(6.dp))
+//                    }
                     item {
                         Spacer(Modifier.height(16.dp))
                         CustomButtonOne(

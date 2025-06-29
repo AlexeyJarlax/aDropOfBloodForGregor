@@ -60,7 +60,7 @@ object Effects {
     fun markChapterComplete(charIndex: Int, chapter: Int): Effect = { resources ->
         val charKey = listOf("gregor","lilian","bernard","astra")[charIndex]
         val stats   = resources.getStats(charKey)
-        val id      = "${'$'}{charKey}_chap${'$'}chapter"
+        val id = "${charKey}_chap${chapter}"
         stats.chaptersDone.add(id)
     }
 }

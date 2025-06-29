@@ -28,17 +28,18 @@ import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.SceneBackgro
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.text2
 import com.pavlovalexey.adropofbloodforgregor.utils.SteosTtsManager
 import com.pavlovalexey.adropofbloodforgregor.vm.GameViewModel
+import kotlinx.coroutines.delay
 
 @Composable
 fun StoryScreen(
     onNavigateToCharacter: () -> Unit,
-    onNavigateToKeyInput:   () -> Unit,
-    viewModel:              GameViewModel,
-    ttsManager:             SteosTtsManager
+    onNavigateToKeyInput: () -> Unit,
+    viewModel: GameViewModel,
+    ttsManager: SteosTtsManager,
 ) {
     val currentNodeId by remember { derivedStateOf { viewModel.currentNodeId } }
-    val resources     by remember { derivedStateOf { viewModel.resources } }
-    var showEndDialog    by remember { mutableStateOf(false) }
+    val resources by remember { derivedStateOf { viewModel.resources } }
+    var showEndDialog by remember { mutableStateOf(false) }
     var showLockedDialog by remember { mutableStateOf(false) }
     val voiceOn = viewModel.voiceOn
 
@@ -49,15 +50,29 @@ fun StoryScreen(
     val node = currentNodeId?.let { StoryData.getNode(it) }
 
     LaunchedEffect(viewModel.currentNodeId, viewModel.voiceOn) {
-        if (viewModel.voiceOn) {
-            viewModel.currentNodeId?.let { id ->
-                StoryData.getNode(id)?.let { dlg ->
-                    val txt = when (dlg) {
-                        is DialogueNode.Line   -> dlg.text
-                        is DialogueNode.Choice -> dlg.text
-                    }
-                    ttsManager.speak(txt)
-                }
+        if (!viewModel.voiceOn) return@LaunchedEffect
+
+        val dlg = viewModel.currentNodeId
+            ?.let { StoryData.getNode(it) }
+            ?: return@LaunchedEffect
+
+        val txt = when (dlg) {
+            is DialogueNode.Line -> dlg.text
+            is DialogueNode.Choice -> dlg.text
+        }
+        ttsManager.speak(txt)
+
+        when (dlg) {
+            is DialogueNode.Line -> {
+                delay(1000)
+                viewModel.onNextLine()
+            }
+
+            is DialogueNode.Choice -> {
+//                delay(4000)
+//                dlg.options.lastOrNull()?.let { option ->
+//                    viewModel.onOptionSelected(option)
+//                }
             }
         }
     }
@@ -106,7 +121,7 @@ fun StoryScreen(
             val bgName = (dlg as? DialogueNode.Line)?.background
                 ?: (dlg as? DialogueNode.Choice)?.background
             if (bgName != null) SceneBackground(bgName)
-            else                 MatrixBackground()
+            else MatrixBackground()
 
             IconButton(
                 onClick = { viewModel.toggleVoice() },
@@ -134,43 +149,58 @@ fun StoryScreen(
                 )
             }
 
-            val speakersToShow: List<Speaker> = when (dlg) {
-                is DialogueNode.Line   -> listOf(dlg.speaker)
-                is DialogueNode.Choice -> listOf(dlg.speaker)
-            }.filter { it != Speaker.NARRATOR }
+            val rawSpeakers = when (dlg) {
+                is DialogueNode.Line -> dlg.visibleCharacters
+                is DialogueNode.Choice -> dlg.visibleCharacters
+            }
+            val speakersToShow: List<Speaker> = rawSpeakers
+                .filter { it != Speaker.NARRATOR }
+                .ifEmpty { listOf((dlg as? DialogueNode.Line)?.speaker ?: (dlg as DialogueNode.Choice).speaker) }
 
             when (speakersToShow.size) {
                 1 -> CharacterOverlay(
                     speaker = speakersToShow[0],
                     modifier = Modifier.align(Alignment.Center)
                 )
+
                 2 -> {
                     CharacterOverlay(
                         speaker = speakersToShow[0],
-                        modifier = Modifier.offset(x = (-90).dp).align(Alignment.Center),
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .offset(x = (-90).dp),
                         flipHorizontally = true
                     )
                     CharacterOverlay(
                         speaker = speakersToShow[1],
-                        modifier = Modifier.offset(x = 90.dp).align(Alignment.Center)
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .offset(x = 90.dp)
                     )
                 }
+
                 else -> {}
             }
 
             DialogPanel(
-                modifier  = Modifier.align(Alignment.BottomCenter),
-                textSize  = viewModel.dialogueTextSize,
-                fontIdx   = viewModel.dialogueFontIndex,
-                node      = dlg,
+                modifier = Modifier.align(Alignment.BottomCenter),
+                textSize = viewModel.dialogueTextSize,
+                fontIdx = viewModel.dialogueFontIndex,
+                node = dlg,
                 onNextClicked = {
                     val next = (dlg as? DialogueNode.Line)?.nextId
-                    if (viewModel.currentCharacter == "bernard" && !viewModel.isBernardChapterUnlocked(next)) {
+                    if (viewModel.currentCharacter == "bernard" && !viewModel.isBernardChapterUnlocked(
+                            next
+                        )
+                    ) {
                         showLockedDialog = true
                     } else viewModel.onNextLine()
                 },
                 onOptionSelected = { option ->
-                    if (viewModel.currentCharacter == "bernard" && !viewModel.isBernardChapterUnlocked(option.nextId)) {
+                    if (viewModel.currentCharacter == "bernard" && !viewModel.isBernardChapterUnlocked(
+                            option.nextId
+                        )
+                    ) {
                         showLockedDialog = true
                     } else viewModel.onOptionSelected(option)
                 }
