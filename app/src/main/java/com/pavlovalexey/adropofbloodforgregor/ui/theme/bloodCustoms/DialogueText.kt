@@ -18,8 +18,10 @@ fun DialogueText(
     fontIdx: Int,
     modifier: Modifier = Modifier
 ) {
+    val cleanText = text.replace("_", "")
+
     Text(
-        text = text,
+        text = cleanText,
         modifier = modifier,
         style = dialogueTextStyle(textSize, fontIdx),
         color = text1
