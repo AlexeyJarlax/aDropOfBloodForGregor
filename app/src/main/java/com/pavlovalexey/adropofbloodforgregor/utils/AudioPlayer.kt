@@ -4,7 +4,9 @@ package com.pavlovalexey.adropofbloodforgregor.utils
 
 import android.content.SharedPreferences
 import android.content.Context
+import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.net.Uri
 import androidx.annotation.RawRes
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -15,18 +17,23 @@ class MediaPlayerManager @Inject constructor(
     @ApplicationContext private val context: Context,
     private val prefs: SharedPreferences
 ) {
-    companion object {
-        private const val KEY_MUSIC_ON = "music_on"
-    }
 
-    private var mediaPlayer: MediaPlayer? = null
+    private var musicPlayer: MediaPlayer? = null
+    private var ttsPlayer: MediaPlayer? = null
 
     val isMusicOn: Boolean
         get() = prefs.getBoolean(KEY_MUSIC_ON, true)
 
+    /** для фоновой музыки из raw ресурса */
     fun initialize(@RawRes musicResId: Int) {
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(context, musicResId).apply {
+        if (musicPlayer == null) {
+            musicPlayer = MediaPlayer.create(context, musicResId).apply {
+                setAudioAttributes(
+                    AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .build()
+                )
                 isLooping = true
                 if (isMusicOn) start()
             }
@@ -36,26 +43,44 @@ class MediaPlayerManager @Inject constructor(
     fun pause() {
         if (isMusicOn) {
             prefs.edit().putBoolean(KEY_MUSIC_ON, false).apply()
-            mediaPlayer?.pause()
+            musicPlayer?.pause()
         }
     }
 
     fun play() {
         if (!isMusicOn) {
             prefs.edit().putBoolean(KEY_MUSIC_ON, true).apply()
-            mediaPlayer?.start()
+            musicPlayer?.start()
         }
     }
 
     fun toggle(): Boolean {
         val newState = !isMusicOn
         prefs.edit().putBoolean(KEY_MUSIC_ON, newState).apply()
-        if (newState) mediaPlayer?.start() else mediaPlayer?.pause()
+        if (newState) musicPlayer?.start() else musicPlayer?.pause()
         return newState
     }
 
+    fun playFromUri(uri: Uri) {
+        ttsPlayer?.release()
+        ttsPlayer = MediaPlayer().apply {
+            setAudioAttributes(
+                AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_ASSISTANT)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                    .build()
+            )
+            setDataSource(context, uri)
+            prepare()
+            isLooping = false
+            start()
+        }
+    }
+
     fun release() {
-        mediaPlayer?.release()
-        mediaPlayer = null
+        musicPlayer?.release()
+        musicPlayer = null
+        ttsPlayer?.release()
+        ttsPlayer = null
     }
 }

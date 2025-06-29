@@ -19,6 +19,7 @@ import com.pavlovalexey.adropofbloodforgregor.screens.character.CharacterScreen
 import com.pavlovalexey.adropofbloodforgregor.screens.InputScreen
 import com.pavlovalexey.adropofbloodforgregor.screens.SettingsScreen
 import com.pavlovalexey.adropofbloodforgregor.screens.story.StoryScreen
+import com.pavlovalexey.adropofbloodforgregor.utils.SteosTtsManager
 import com.pavlovalexey.adropofbloodforgregor.vm.GameViewModel
 
 object NavDestinations {
@@ -36,7 +37,8 @@ fun NavGraph(
     navController: NavHostController,
     activity: Activity,
     modifier: Modifier = Modifier,
-    intent: Intent?
+    intent: Intent?,
+    ttsManager: SteosTtsManager,
 ) {
 
     val gameViewModel: GameViewModel = hiltViewModel()
@@ -76,7 +78,8 @@ fun NavGraph(
                     },
                     onNavigateToKeyInput = {
                         navController.navigate(NavDestinations.SOME_INPUT)
-                    }
+                    },
+                    ttsManager = ttsManager
                 )
             }
 

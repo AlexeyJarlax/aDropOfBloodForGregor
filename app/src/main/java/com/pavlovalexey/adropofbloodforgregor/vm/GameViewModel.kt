@@ -9,12 +9,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.pavlovalexey.adropofbloodforgregor.data.*
 import com.pavlovalexey.adropofbloodforgregor.utils.DIALOGE_TEXT_SIZE
 import com.pavlovalexey.adropofbloodforgregor.utils.DIALOGUE_FONT_IDX
+import com.pavlovalexey.adropofbloodforgregor.utils.KEY_VOICE_ON
+import com.pavlovalexey.adropofbloodforgregor.utils.SteosVoiceApi
+import com.pavlovalexey.adropofbloodforgregor.utils.TOKEN
+import com.pavlovalexey.adropofbloodforgregor.utils.VoiceItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /** пока общая модель на все игровые механики, в будущем возможно переберу ее на отдельные*/
@@ -24,6 +30,7 @@ class GameViewModel @Inject constructor(
     application: Application,
     private val savedStateHandle: SavedStateHandle,
     private val prefs: SharedPreferences,
+    private val steosApi: SteosVoiceApi
 ) : AndroidViewModel(application) {
 
     var currentCharacter by mutableStateOf<String?>(null)
@@ -45,9 +52,31 @@ class GameViewModel @Inject constructor(
     )
         private set
 
+    var voiceOn by mutableStateOf(prefs.getBoolean(KEY_VOICE_ON, true))
+        private set
+
+    private val _voices = MutableStateFlow<List<VoiceItem>>(emptyList())
+    val voices: StateFlow<List<VoiceItem>> = _voices
+
     init {
         _resources.value = loadAllResourcesFromPrefs()
         savedStateHandle.get<String>("character")?.let { selectCharacter(it) }
+    }
+
+    fun toggleVoice() {
+        voiceOn = !voiceOn
+        prefs.edit().putBoolean(KEY_VOICE_ON, voiceOn).apply()
+    }
+
+    private fun loadAvailableVoices() {
+        viewModelScope.launch {
+            val resp = steosApi.getAvailableVoices(TOKEN)
+            if (resp.isSuccessful) {
+                resp.body()?.let { _voices.value = it }
+            } else {
+                resp.errorBody()?.string()
+            }
+        }
     }
 
     fun updateDialogueTextSize(size: Int) {

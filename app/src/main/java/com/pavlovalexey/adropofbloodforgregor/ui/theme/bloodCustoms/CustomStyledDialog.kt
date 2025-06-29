@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.Black
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.BodyMedium_14_Regular
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.HeadlineSmall_24_Regular
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.Red300
@@ -53,7 +54,7 @@ fun CustomStyledDialog(
             modifier = Modifier
                 .border(
                     width = 2.dp,
-                    color = bright,
+                    color = Black,
                     shape = RoundedCornerShape(8.dp)
                 )
         ) {
