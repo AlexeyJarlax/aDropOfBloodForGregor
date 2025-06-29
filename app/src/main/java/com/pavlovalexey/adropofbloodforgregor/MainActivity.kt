@@ -24,12 +24,14 @@ import com.pavlovalexey.adropofbloodforgregor.nav.NavGraph
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.MyTheme
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.text2
 import com.pavlovalexey.adropofbloodforgregor.utils.MediaPlayerManager
+import com.pavlovalexey.adropofbloodforgregor.utils.SteosTtsManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject lateinit var mediaPlayerManager: MediaPlayerManager
+    @Inject lateinit var ttsManager: SteosTtsManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +62,8 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         activity = this@MainActivity,
                         modifier = Modifier.fillMaxSize(),
-                        intent = intent
+                        intent = intent,
+                        ttsManager = ttsManager
                     )
 
                     IconButton(

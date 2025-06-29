@@ -14,8 +14,8 @@ android {
         applicationId = "com.pavlovalexey.adropofbloodforgregor"
         minSdk = 26
         targetSdk = 35
-        versionCode = 5
-        versionName = "1.05"
+        versionCode = 8
+        versionName = "1.08"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -86,6 +86,11 @@ dependencies {
     implementation (libs.jackson.dataformat.yaml)
     implementation (libs.okhttp)
     implementation (libs.kotlinx.coroutines.android)
+
+    // Голосовая озвучка
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.logging.interceptor)
 
     // 3) Тестовые
 //    testImplementation("junit:junit:4.13.2")

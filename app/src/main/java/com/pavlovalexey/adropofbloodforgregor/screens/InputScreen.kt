@@ -23,6 +23,8 @@ fun InputScreen(
     viewModel: GameViewModel,
 ) {
     val resources by viewModel.resources.collectAsState()
+    val voices by viewModel.voices.collectAsState()
+
     Box(
         Modifier
             .fillMaxSize()
@@ -40,24 +42,47 @@ fun InputScreen(
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                Text("Ресурсы", style = MaterialTheme.typography.titleLarge)
+                Text("Отладочная страница", style = MaterialTheme.typography.titleLarge)
                 Spacer(Modifier.height(12.dp))
 
                 LazyColumn {
-                    item {
-                        Text("Вино: ${resources.wine}")
-                        Spacer(Modifier.height(8.dp))
-                    }
-                    val list = listOf(
-                        "Лилиан"  to resources.lilian,
-                        "Бернард" to resources.bernard,
-                        "Грегор"  to resources.gregor,
-                        "Астра"   to resources.astra,
-                    )
-                    items(list) { (name, stats) ->
-                        ResourceRow(name, stats)
-                        Spacer(Modifier.height(8.dp))
-                    }
+//                    val moonWines = listOf(
+//                        "Лунное вино 1601" to resources.lilianHasMoonWine1601,
+//                        "Лунное вино 1607" to resources.lilianHasMoonWine1607,
+//                        "Лунное вино 1608" to resources.lilianHasMoonWine1608,
+//                        "Лунное вино 1611" to resources.lilianHasMoonWine1611,
+//                        "Лунное вино 1614" to resources.lilianHasMoonWine1614
+//                    )
+//                    items(moonWines) { (label, has) ->
+//                        Text(
+//                            "$label: ${if (has) "Есть" else "Нет"}"
+//                        )
+//                        Spacer(Modifier.height(16.dp))
+//                    }
+
+//                    val list = listOf(
+//                        "Лилиан"  to resources.lilian,
+//                        "Бернард" to resources.bernard,
+//                        "Грегор"  to resources.gregor,
+//                        "Астра"   to resources.astra,
+//                    )
+//                    items(list) { (name, stats) ->
+//                        ResourceRow(name, stats)
+//                        Spacer(Modifier.height(16.dp))
+//                    }
+//                    item {
+//                        Spacer(Modifier.height(24.dp))
+//                        Text(
+//                            "Доступные голосовые движки:",
+//                            style = MaterialTheme.typography.titleMedium
+//                        )
+//                        Spacer(Modifier.height(8.dp))
+//                    }
+//
+//                    items(voices) { voice ->
+//                        Text("${voice.name} || ${voice.id}")
+//                        Spacer(Modifier.height(6.dp))
+//                    }
                     item {
                         Spacer(Modifier.height(16.dp))
                         CustomButtonOne(
@@ -76,7 +101,6 @@ private fun ResourceRow(name: String, stats: CharacterStats) {
     Text(
         "$name — " +
                 "HP ${stats.health.toInt()}, " +
-                "Голод ${stats.hunger.toInt()}, " +
-                "Прогресс ${stats.progress.toInt()}%"
+                "Голод ${stats.hunger.toInt()}, "
     )
 }

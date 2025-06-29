@@ -25,7 +25,7 @@ fun CharacterOverlay(
 ) {
     speaker.imageRes?.let { resId ->
         val imageHeight = if (speaker == Speaker.GREGOR) {
-            400.dp * 1.2f
+            400.dp * 1.15f
         } else {
             400.dp * 1.1f
         }

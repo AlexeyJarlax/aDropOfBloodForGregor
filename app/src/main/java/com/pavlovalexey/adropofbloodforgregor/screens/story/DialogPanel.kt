@@ -33,6 +33,8 @@ fun DialogPanel(
     node: DialogueNode,
     onNextClicked: () -> Unit,
     onOptionSelected: (ChoiceOption) -> Unit,
+    textSize: Int,
+    fontIdx: Int,
 ) {
     Box(modifier = modifier.fillMaxWidth()) {
         Column(modifier = Modifier.matchParentSize()) {
@@ -69,6 +71,8 @@ fun DialogPanel(
                     Box(Modifier.fillMaxWidth()) {
                         DialogueText(
                             text = node.text,
+                            textSize = textSize,
+                            fontIdx = fontIdx,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(end = 48.dp)
@@ -97,6 +101,8 @@ fun DialogPanel(
                         node.options.forEach { option ->
                             ChoiceButton(
                                 text = option.optionText,
+                                textSize = textSize,
+                                fontIdx = fontIdx,
                                 onClick = { onOptionSelected(option) },
                                 modifier = Modifier
                                     .fillMaxWidth()

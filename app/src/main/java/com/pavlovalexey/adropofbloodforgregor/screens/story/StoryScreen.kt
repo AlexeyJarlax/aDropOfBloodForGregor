@@ -3,14 +3,16 @@ package com.pavlovalexey.adropofbloodforgregor.screens.story
 /** Павлов Алексей https://github.com/AlexeyJarlax */
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.foundation.background
+import androidx.compose.runtime.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.filled.Group
+import androidx.compose.material.icons.filled.Mic
+import androidx.compose.material.icons.filled.MicOff
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,31 +20,61 @@ import androidx.compose.ui.unit.dp
 import com.pavlovalexey.adropofbloodforgregor.data.ChoiceOption
 import com.pavlovalexey.adropofbloodforgregor.data.DialogueNode
 import com.pavlovalexey.adropofbloodforgregor.data.Speaker
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.ChoiceButton
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.DialogueText
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.SpeakerNameText
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.customs.MatrixBackground
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.ConfirmationDialog
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.CustomButtonOne
 import com.pavlovalexey.adropofbloodforgregor.data.StoryData
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms.SceneBackground
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.text2
+import com.pavlovalexey.adropofbloodforgregor.utils.SteosTtsManager
 import com.pavlovalexey.adropofbloodforgregor.vm.GameViewModel
+import kotlinx.coroutines.delay
 
 @Composable
 fun StoryScreen(
     onNavigateToCharacter: () -> Unit,
     onNavigateToKeyInput: () -> Unit,
-    viewModel: GameViewModel
+    viewModel: GameViewModel,
+    ttsManager: SteosTtsManager,
 ) {
     val currentNodeId by remember { derivedStateOf { viewModel.currentNodeId } }
     val resources by remember { derivedStateOf { viewModel.resources } }
-
     var showEndDialog by remember { mutableStateOf(false) }
     var showLockedDialog by remember { mutableStateOf(false) }
+    val voiceOn = viewModel.voiceOn
 
     if (currentNodeId == null && !showEndDialog) {
         showEndDialog = true
+    }
+
+    val node = currentNodeId?.let { StoryData.getNode(it) }
+
+    LaunchedEffect(viewModel.currentNodeId, viewModel.voiceOn) {
+        if (!viewModel.voiceOn) return@LaunchedEffect
+
+        val dlg = viewModel.currentNodeId
+            ?.let { StoryData.getNode(it) }
+            ?: return@LaunchedEffect
+
+        val txt = when (dlg) {
+            is DialogueNode.Line -> dlg.text
+            is DialogueNode.Choice -> dlg.text
+        }
+        ttsManager.speak(txt)
+
+        when (dlg) {
+            is DialogueNode.Line -> {
+                delay(1000)
+                viewModel.onNextLine()
+            }
+
+            is DialogueNode.Choice -> {
+//                delay(4000)
+//                dlg.options.lastOrNull()?.let { option ->
+//                    viewModel.onOptionSelected(option)
+//                }
+            }
+        }
     }
 
     if (showLockedDialog) {
@@ -82,18 +114,26 @@ fun StoryScreen(
     }
 
     currentNodeId?.let { nodeId ->
-        val node = StoryData.getNode(nodeId) ?: return@let
+        val dlg = StoryData.getNode(nodeId) ?: return@let
 
         Box(modifier = Modifier.fillMaxSize()) {
+            // Фон
+            val bgName = (dlg as? DialogueNode.Line)?.background
+                ?: (dlg as? DialogueNode.Choice)?.background
+            if (bgName != null) SceneBackground(bgName)
+            else MatrixBackground()
 
-            val bgName = when(node) {
-                is DialogueNode.Line  -> node.background
-                is DialogueNode.Choice -> node.background
-            }
-            if (bgName != null) {
-                SceneBackground(bgName)
-            } else {
-                MatrixBackground()
+            IconButton(
+                onClick = { viewModel.toggleVoice() },
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(start = 50.dp, top = 8.dp)
+            ) {
+                Icon(
+                    imageVector = if (viewModel.voiceOn) Icons.Filled.Mic else Icons.Filled.MicOff,
+                    contentDescription = if (viewModel.voiceOn) "Отключить озвучку" else "Включить озвучку",
+                    tint = text2
+                )
             }
 
             IconButton(
@@ -103,36 +143,26 @@ fun StoryScreen(
                     .padding(6.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Default.Group,
+                    imageVector = Icons.Filled.Group,
                     contentDescription = "Показать ресурсы",
                     tint = text2
                 )
             }
 
-            val speakersToShow: List<Speaker> = when (node) {
-                is DialogueNode.Line -> {
-                    if (node.visibleCharacters.any { it != Speaker.NARRATOR }) {
-                        node.visibleCharacters.filter { it != Speaker.NARRATOR }
-                    } else {
-                        listOf(node.speaker).filter { it != Speaker.NARRATOR }
-                    }
-                }
-
-                is DialogueNode.Choice -> {
-                    if (node.visibleCharacters.any { it != Speaker.NARRATOR }) {
-                        node.visibleCharacters.filter { it != Speaker.NARRATOR }
-                    } else {
-                        listOf(node.speaker).filter { it != Speaker.NARRATOR }
-                    }
-                }
+            val rawSpeakers = when (dlg) {
+                is DialogueNode.Line -> dlg.visibleCharacters
+                is DialogueNode.Choice -> dlg.visibleCharacters
             }
+            val speakersToShow: List<Speaker> = rawSpeakers
+                .filter { it != Speaker.NARRATOR }
+                .ifEmpty { listOf((dlg as? DialogueNode.Line)?.speaker ?: (dlg as DialogueNode.Choice).speaker) }
+
             when (speakersToShow.size) {
-                1 -> {
-                    CharacterOverlay(
-                        speaker = speakersToShow[0],
-                        modifier = Modifier.align(Alignment.Center),
-                    )
-                }
+                1 -> CharacterOverlay(
+                    speaker = speakersToShow[0],
+                    modifier = Modifier.align(Alignment.Center)
+                )
+
                 2 -> {
                     CharacterOverlay(
                         speaker = speakersToShow[0],
@@ -148,20 +178,29 @@ fun StoryScreen(
                             .offset(x = 90.dp)
                     )
                 }
-                else -> {
-                }
+
+                else -> {}
             }
+
             DialogPanel(
                 modifier = Modifier.align(Alignment.BottomCenter),
-                node = node,
+                textSize = viewModel.dialogueTextSize,
+                fontIdx = viewModel.dialogueFontIndex,
+                node = dlg,
                 onNextClicked = {
-                    val nextId = (node as? DialogueNode.Line)?.nextId
-                    if (viewModel.currentCharacter == "bernard" && !viewModel.isBernardChapterUnlocked(nextId)) {
+                    val next = (dlg as? DialogueNode.Line)?.nextId
+                    if (viewModel.currentCharacter == "bernard" && !viewModel.isBernardChapterUnlocked(
+                            next
+                        )
+                    ) {
                         showLockedDialog = true
                     } else viewModel.onNextLine()
                 },
                 onOptionSelected = { option ->
-                    if (viewModel.currentCharacter == "bernard" && !viewModel.isBernardChapterUnlocked(option.nextId)) {
+                    if (viewModel.currentCharacter == "bernard" && !viewModel.isBernardChapterUnlocked(
+                            option.nextId
+                        )
+                    ) {
                         showLockedDialog = true
                     } else viewModel.onOptionSelected(option)
                 }

@@ -1,0 +1,296 @@
+nodes:
+  - id: lilian_chap3_intro
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Лилиан проснулась. События прошлого дня казались сном или бредом... 
+      Девушка осмотрелась - та же спальня, но на стуле висело уже другое платье: розовое с красными лентами
+      Она поднесла пальцы рук к лицу и старалась понять, чем пахнут ее ладони - лимон...
+      И кажется её ногти были чуть короче. Значит это был не сон, она провела тут как минимум сутки.
+    visibleCharacters: [ NARRATOR ]
+    background: scene1.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l3_wake_up1
+
+  - id: l3_wake_up1
+    type: Choice
+    speaker: NARRATOR
+    text: "⤭"
+    visibleCharacters: [ NARRATOR ]
+    background: scene1.png
+    options:
+      - optionText: "Выйти из спальни"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_lilian_enter_corridor1
+      - optionText: "Остаться и попробовать уснуть"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_wake_up2
+
+  - id: l3_wake_up2
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Девушка заползла под одеяло и попыталась уснуть...
+    visibleCharacters: [ NARRATOR ]
+    effects: [ defaultHungerIncrease ]
+    nextId: l3_wake_up3
+
+  - id: l3_wake_up3
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Сознание настойчиво возвращало её в реальность...
+    visibleCharacters: [ NARRATOR ]
+    effects: [ defaultHungerIncrease ]
+    nextId: l3_wake_up1
+
+  - id: l3_lilian_enter_corridor1
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Лилиан надела платье, что висело рядом с кроватью и влезла в туфельки. 
+      В таком виде она вышла из комнаты...
+    visibleCharacters: [ NARRATOR ]
+    background: scene1.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l3_lilian_enter_corridor2
+
+  - id: l3_lilian_enter_corridor2
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Осторожно открыв дверь, она спустилась в гостинную, в которой никого не было. 
+      Спускаясь ниже, Лилиан оказалась в длинном коридоре. 
+      Стены были украшены старинными портретами, а впереди — несколько дверей...
+    visibleCharacters: [ NARRATOR ]
+    background: scene6.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l3_lilian_corridor_choice
+
+  - id: l3_lilian_corridor_choice0
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Лилиан снова оказалась в коридоре.
+    visibleCharacters: [ NARRATOR ]
+    background: scene6.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l3_lilian_corridor_choice
+
+  - id: l3_lilian_corridor_choice
+    type: Choice
+    speaker: NARRATOR
+    text: "⤭"
+    visibleCharacters: [ NARRATOR ]
+    background: scene6.png
+    options:
+      - optionText: "Открыть первую дверь слева"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_lilian_enter_library
+      - optionText: "Открыть первую дверь справа"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_lilian_enter_cellar
+      - optionText: "Открыть вторую дверь справа"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_lilian_try_gregor_room
+      - optionText: "Следовать к свету в конце коридора"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_lilian_enter_garden
+      - optionText: "Вернуться в гостинную"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_lilian_chap3_end
+
+  - id: l3_lilian_enter_cellar
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Лилиан обнаружила каменную лестницу вниз, она осторожна ступала по плитам, пока не спустилась 
+      в винный погреб. Здесь пахло бочками, старым деревом, плесенью, ягодами.
+    visibleCharacters: [ NARRATOR ]
+    background: scene7.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l3_lilian_cellar_choice
+
+  - id: l3_lilian_cellar_choice
+    type: Choice
+    speaker: NARRATOR
+    text: "⤭"
+    visibleCharacters: [ NARRATOR]
+    background: scene7.png
+    options:
+      - optionText: "Осмотреть бочки"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_lilian_cellar_barrels
+      - optionText: "Осмотреть мусор"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_lilian_cellar_trash
+      - optionText: "Вернуться в коридор"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_lilian_corridor_choice0
+
+  - id: l3_lilian_cellar_barrels
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Большие дубовые бочки хранят запасы вина, там, где пробки целы, Лилиан постучала кулачком по поверхности бочки. 
+      Судя по звуку она наполнена как-минимум на половину. Остальные смотреть не стала
+    visibleCharacters: [ NARRATOR ]
+    background: scene7.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l3_lilian_cellar_choice
+
+  - id: l3_lilian_cellar_trash
+    type: Line
+    speaker: NARRATOR
+    text: >
+      В противоположном от бочек углу лежала груда ящиков. Подойдя поближе она села и протянула к ним руки. 
+      В старых ящиках Лилиан находит запылённую бутылочку с надписью "Лунное вино 1608". Она берёт ее с собой.
+    visibleCharacters: [ NARRATOR ]
+    background: scene7.png
+    effects: [ foundMoonWine1608, defaultHungerIncrease ]
+    nextId: l3_lilian_cellar_choice
+
+  - id: l3_lilian_enter_garden
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Лилиан неожиданно попадает в сад, видимо тот самый, о котором говорил Бернард. Пространство было наполнено светом
+      и девушка впервые за последнее время испытала восторг и облегчение. В саду росли фруктовые деревья, светило солнце, 
+      но все пространство сада было окружено высокой каменной стеной, ворот или дверей тут не было видно
+    visibleCharacters: [ NARRATOR ]
+    background: scene3.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l3_lilian_garden_choice
+
+  - id: l3_lilian_garden_choice
+    type: Choice
+    speaker: NARRATOR
+    text: "⤭"
+    visibleCharacters: [ NARRATOR ]
+    background: scene3.png
+    options:
+      - optionText: "Осмотреть виноград"
+        effects: [ defaultHungerIncrease, eatFruit ]
+        nextId: l3_lilian_garden_grape
+      - optionText: "Осмотреть яблюню"
+        effects: [ defaultHungerIncrease, eatFruit ]
+        nextId: l3_lilian_garden_apple
+      - optionText: "Осмотреть дерево груши"
+        effects: [ defaultHungerIncrease, eatFruit ]
+        nextId: l3_lilian_garden_pear
+      - optionText: "Осмотреть стену"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_lilian_garden_bush
+      - optionText: "Вернуться в коридор"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_lilian_corridor_choice0
+
+  - id: l3_lilian_garden_grape
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Поспевшие гроздья диковатого винограда манили своим запахом, и Лилиан позволяет себе сьесть немного ягод.
+    visibleCharacters: [ NARRATOR ]
+    background: scene3.png
+    effects: []
+    nextId: l3_lilian_garden_choice
+
+  - id: l3_lilian_garden_apple
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Яблоко хрустит и сочится кисловатым соком — Лилиан откусывает кусочек и наслаждается горчинкой
+    visibleCharacters: [ NARRATOR ]
+    background: scene3.png
+    effects: []
+    nextId: l3_lilian_garden_choice
+
+  - id: l3_lilian_garden_pear
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Груша мягкая и ароматная, сок стекает по руке. Кажется слаще она ничего не ела очень давно
+    visibleCharacters: [ NARRATOR ]
+    background: scene3.png
+    effects: []
+    nextId: l3_lilian_garden_choice
+
+  - id: l3_lilian_garden_bush
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Стена довольно высокая, ни ворот, ни дверей в ней не было, а за ней просматривался весьма темная чаща.
+      Лилиан удивилась, контрасту освещенности сада и гнетущей темноты леса за стеной, туда ей совсем не хотелось...
+    visibleCharacters: [ NARRATOR ]
+    background: scene3.png
+    effects: []
+    nextId: l3_lilian_garden_choice
+
+  - id: l3_lilian_enter_library
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Открыв одну из дверей влево, Лилиан попадает в библиотеку с пыльными фолиантами, свитками и книгами.
+    visibleCharacters: [ NARRATOR ]
+    background: scene5.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l3_lilian_library_explore
+
+  - id: l3_lilian_library_explore
+    type: Choice
+    speaker: NARRATOR
+    text: "⤭"
+    visibleCharacters: [ NARRATOR ]
+    background: scene5.png
+    options:
+      - optionText: "Осмотреть корзину с мусором"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_lilian_library_scroll
+      - optionText: "Осмотреть полки"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_lilian_library_shelves
+      - optionText: "Вернуться в коридор"
+        effects: [ defaultHungerIncrease ]
+        nextId: l3_lilian_corridor_choice0
+
+  - id: l3_lilian_library_scroll
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Свиток исписанный и скомканный — картинки девушки, отдаленно напоминающей ей себя... Пометки на незнакомом языке... Лилиан чувствует тревогу и броасает его обратно в корзину
+    visibleCharacters: [ NARRATOR ]
+    background: scene5.png
+    effects: []
+    nextId: l3_lilian_library_explore
+
+  - id: l3_lilian_library_shelves
+    type: Line
+    speaker: NARRATOR
+    text: >
+      На полках великое множество книг и свитков, но она не решается ни к чему прикасаться, лишь смотрит корешки и надписи, одна была
+      на знакомом языке, судя по названию это книга о лекарственных травах.
+    visibleCharacters: [ NARRATOR ]
+    background: scene5.png
+    effects: []
+    nextId: l3_lilian_library_explore
+
+  - id: l3_lilian_try_gregor_room
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Лилиан натыкается на массивную дверь, она заперта, а внутри слышится тихий скрип.
+    visibleCharacters: [ NARRATOR ]
+    background: scene3_gregor_room.png
+    effects: [ defaultHungerIncrease ]
+    nextId: l3_lilian_corridor_choice0
+
+  - id: l3_lilian_chap3_end
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Устав от прогулки и волнений, Лилиан возвращается в гостинную, где обнаруживает Бернарда...
+    visibleCharacters: [ BERNARD ]
+    background: scene2.png
+    effects:
+      - "markChapterComplete(1,3)"
+    nextId: lilian_chap4_intro

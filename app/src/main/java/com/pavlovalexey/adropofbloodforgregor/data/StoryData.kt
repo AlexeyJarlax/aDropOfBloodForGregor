@@ -4,15 +4,11 @@ import android.content.Context
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import kotlinx.coroutines.*
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import java.io.InputStream
 import android.util.Log
 import java.io.IOException
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.annotation.JsonSubTypes
-import com.pavlovalexey.adropofbloodforgregor.utils.DEFAULT_AMOUNT
 
 object StoryData {
     private const val TAG = "StoryData"
@@ -23,15 +19,13 @@ object StoryData {
 
     private val effectRegistry: Map<String, (List<Float>) -> Effect> = mapOf(
         "defaultHungerIncrease" to { _ -> Effects.defaultHungerIncrease },
-        "gregorDrinksWine" to { params ->
-            Effects.gregorDrinksWine(
-                params.getOrNull(0) ?: 10f,
-                params.getOrNull(1) ?: 10f
-            )
-        },
-        "lilianHeal" to { params ->
-            Effects.lilianHeal(params.getOrNull(0) ?: 15f)
-        },
+        "eatFruit" to { _ -> Effects.eatFruit },
+        "foundMoonWine1601" to { _ -> Effects.foundMoonWine1601 },
+        "foundMoonWine1607" to { _ -> Effects.foundMoonWine1607 },
+        "foundMoonWine1608" to { _ -> Effects.foundMoonWine1608 },
+        "foundMoonWine1611" to { _ -> Effects.foundMoonWine1611 },
+        "foundMoonWine1614" to { _ -> Effects.foundMoonWine1614 },
+        "lilianHeal" to { params -> Effects.lilianHeal(params.getOrNull(0) ?: 15f) },
         "markChapterComplete" to { params ->
             val char = params.getOrNull(0)?.toInt() ?: 0
             val chapter = params.getOrNull(1)?.toInt() ?: 1
@@ -77,23 +71,6 @@ object StoryData {
             .mapValues { (_, nodeDto) -> nodeDto.toDialogueNode() }
     }
 
-    private fun fetchRemoteYaml(character: String) {
-        val url =
-            "https://raw.githubusercontent.com/AlexeyJarlax/aDropOfBloodForGregor/screenwriter/app/src/main/assets/story_data_${character}.yaml"
-        val client = OkHttpClient()
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val resp = client.newCall(Request.Builder().url(url).build()).execute()
-                if (resp.isSuccessful) {
-                    resp.body?.byteStream()?.use { loadFromStream(it) }
-                    Log.i(TAG, "Fetched remote story_data for $character")
-                }
-            } catch (t: Throwable) {
-                Log.w(TAG, "Failed to fetch remote YAML", t)
-            }
-        }
-    }
-
     private data class StoryFileDto(val nodes: List<NodeDto>)
 
     @JsonTypeInfo(
@@ -105,6 +82,7 @@ object StoryData {
         JsonSubTypes.Type(value = NodeDto.Line::class, name = "Line"),
         JsonSubTypes.Type(value = NodeDto.Choice::class, name = "Choice")
     )
+
     private sealed class NodeDto {
         abstract val id: String
         abstract val speaker: Speaker
@@ -121,15 +99,30 @@ object StoryData {
             val nextId: String?,
             val background: String? = null,
         ) : NodeDto() {
-            override fun toDialogueNode(): DialogueNode = DialogueNode.Line(
-                id = id,
-                speaker = speaker,
-                text = text,
-                visibleCharacters = visibleCharacters,
-                effects = effects.mapNotNull { parseEffect(it) },
-                nextId = nextId,
-                background = background
-            )
+            override fun toDialogueNode(): DialogueNode {
+                val validSpeakers = Speaker.values().toSet()
+                val validVisible = visibleCharacters.filter {
+                    if (it !in validSpeakers) {
+                        Log.w(TAG, "Невалидный персонаж в visibleCharacters: $it")
+                        false
+                    } else true
+                }
+
+                val safeSpeaker = if (speaker in validSpeakers) speaker else {
+                    Log.w(TAG, "Невалидный speaker \"$speaker\" в node $id, используется Speaker.NARRATOR")
+                    Speaker.NARRATOR
+                }
+
+                return DialogueNode.Line(
+                    id = id,
+                    speaker = safeSpeaker,
+                    text = text,
+                    visibleCharacters = validVisible,
+                    effects = effects.mapNotNull { parseEffectWithLogging(it) },
+                    nextId = nextId,
+                    background = background
+                )
+            }
         }
 
         data class Choice(
@@ -141,14 +134,29 @@ object StoryData {
             override val effects: List<String> = emptyList(),
             val background: String? = null,
         ) : NodeDto() {
-            override fun toDialogueNode(): DialogueNode = DialogueNode.Choice(
-                id = id,
-                speaker = speaker,
-                text = text,
-                visibleCharacters = visibleCharacters,
-                options = options.map { it.toChoiceOption() },
-                background = background
-            )
+            override fun toDialogueNode(): DialogueNode {
+                val validSpeakers = Speaker.values().toSet()
+                val validVisible = visibleCharacters.filter {
+                    if (it !in validSpeakers) {
+                        Log.w(TAG, "Невалидный персонаж в visibleCharacters: $it")
+                        false
+                    } else true
+                }
+
+                val safeSpeaker = if (speaker in validSpeakers) speaker else {
+                    Log.w(TAG, "Невалидный speaker \"$speaker\" в node $id, используется Speaker.NARRATOR")
+                    Speaker.NARRATOR
+                }
+
+                return DialogueNode.Choice(
+                    id = id,
+                    speaker = safeSpeaker,
+                    text = text,
+                    visibleCharacters = validVisible,
+                    options = options.map { it.toChoiceOption() },
+                    background = background
+                )
+            }
         }
     }
 
@@ -171,5 +179,20 @@ object StoryData {
             ?.mapNotNull { it.toFloatOrNull() }
             ?: emptyList()
         return effectRegistry[name]?.invoke(params)
+    }
+
+    private fun parseEffectWithLogging(raw: String): Effect? {
+        val name = raw.substringBefore('(')
+        val params = raw.substringAfter('(', "").substringBefore(')').takeIf { it.isNotBlank() }
+            ?.split(',')
+            ?.mapNotNull { it.toFloatOrNull() }
+            ?: emptyList()
+        val effect = effectRegistry[name]
+        return if (effect != null) {
+            effect(params)
+        } else {
+            Log.w(TAG, "Невалидный эффект \"$name\"")
+            null
+        }
     }
 }

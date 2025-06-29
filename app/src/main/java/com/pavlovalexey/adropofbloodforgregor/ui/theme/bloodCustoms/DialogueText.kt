@@ -2,27 +2,26 @@ package com.pavlovalexey.adropofbloodforgregor.ui.theme.bloodCustoms
 
 /** Павлов Алексей https://github.com/AlexeyJarlax */
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.dialogueTextStyle
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.text1
 
 @Composable
 fun DialogueText(
     text: String,
+    textSize: Int,
+    fontIdx: Int,
     modifier: Modifier = Modifier
 ) {
     Text(
         text = text,
         modifier = modifier,
-        fontSize = 16.sp,
+        style = dialogueTextStyle(textSize, fontIdx),
         color = text1
     )
 }

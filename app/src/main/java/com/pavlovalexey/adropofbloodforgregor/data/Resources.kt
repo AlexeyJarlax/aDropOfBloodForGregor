@@ -8,6 +8,11 @@ data class Resources(
     val bernard: CharacterStats = CharacterStats(),
     val astra: CharacterStats = CharacterStats(),
     var wine: Float = 0f,
+    var lilianHasMoonWine1601: Boolean = false,
+    var lilianHasMoonWine1607: Boolean = false,
+    var lilianHasMoonWine1608: Boolean = false,
+    var lilianHasMoonWine1611: Boolean = false,
+    var lilianHasMoonWine1614: Boolean = false
 ) {
     val progress: MutableMap<String, Float> = mutableMapOf(
         "gregor" to gregor.progress,
@@ -20,7 +25,7 @@ data class Resources(
         "gregor" -> gregor
         "lilian" -> lilian
         "bernard" -> bernard
-        "astra" -> astra
+        "astra"  -> astra
         else -> error("Unknown character: $char")
     }
 }

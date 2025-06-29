@@ -18,8 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.text2
-import com.pavlovalexey.adropofbloodforgregor.ui.theme.text1NotActive
+import com.pavlovalexey.adropofbloodforgregor.ui.theme.*
 
 @Composable
 fun CustomButtonOne(
@@ -27,12 +26,12 @@ fun CustomButtonOne(
     text: String? = null,
     icon: Any? = null,
     modifier: Modifier = Modifier,
-    textColor: Color = text2,
-    iconColor: Color = text2,
+    textColor: Color = text1,
+    iconColor: Color = text1,
     enabled: Boolean = true,
     fontSize: TextUnit = 16.sp,
     iconPadding: Int = 0,
-    pressedColor: Color = text1NotActive,
+    pressedColor: Color = text2NotActive,
 ) {
     val backgroundColor by animateColorAsState(
         targetValue = if (enabled) Color.Transparent else pressedColor,

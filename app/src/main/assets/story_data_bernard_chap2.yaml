@@ -2,8 +2,23 @@ nodes:
   - id: bernard_chap2_intro_1
     type: Line
     speaker: NARRATOR
-    text: "Глава 2 в разработке..."
+    text: "..."
     visibleCharacters: [ NARRATOR ]
-    effects:
-    - "markChapterComplete(2,2)"
-    nextId: bernard_chap3_intro_1
+    effects: [ ]
+    nextId: b2_bernard_do_something1
+
+  - id: b2_bernard_do_something1
+    type: Line
+    speaker: BERNARD
+    text: "Бернард что-то делает..."
+    visibleCharacters: [ NOBODY ]
+    effects: [ ]
+    nextId: b2_bernard_do_something2
+
+  - id: b2_bernard_do_something2
+    type: Line
+    speaker: BERNARD
+    text: "Бернард что-то делает 2..."
+    visibleCharacters: [ NOBODY ]
+    effects: [ ]
+    nextId: b2_bernard_do_something3
