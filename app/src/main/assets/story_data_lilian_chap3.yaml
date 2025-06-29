@@ -293,4 +293,4 @@ nodes:
     background: scene2.png
     effects:
       - "markChapterComplete(1,3)"
-    nextId: null
+    nextId: lilian_chap4_intro

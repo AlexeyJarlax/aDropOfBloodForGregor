@@ -9,7 +9,6 @@ import android.util.Log
 import java.io.IOException
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.annotation.JsonSubTypes
-import com.pavlovalexey.adropofbloodforgregor.utils.DEFAULT_AMOUNT
 
 object StoryData {
     private const val TAG = "StoryData"
@@ -83,6 +82,7 @@ object StoryData {
         JsonSubTypes.Type(value = NodeDto.Line::class, name = "Line"),
         JsonSubTypes.Type(value = NodeDto.Choice::class, name = "Choice")
     )
+
     private sealed class NodeDto {
         abstract val id: String
         abstract val speaker: Speaker
@@ -99,15 +99,30 @@ object StoryData {
             val nextId: String?,
             val background: String? = null,
         ) : NodeDto() {
-            override fun toDialogueNode(): DialogueNode = DialogueNode.Line(
-                id = id,
-                speaker = speaker,
-                text = text,
-                visibleCharacters = visibleCharacters,
-                effects = effects.mapNotNull { parseEffect(it) },
-                nextId = nextId,
-                background = background
-            )
+            override fun toDialogueNode(): DialogueNode {
+                val validSpeakers = Speaker.values().toSet()
+                val validVisible = visibleCharacters.filter {
+                    if (it !in validSpeakers) {
+                        Log.w(TAG, "Невалидный персонаж в visibleCharacters: $it")
+                        false
+                    } else true
+                }
+
+                val safeSpeaker = if (speaker in validSpeakers) speaker else {
+                    Log.w(TAG, "Невалидный speaker \"$speaker\" в node $id, используется Speaker.NARRATOR")
+                    Speaker.NARRATOR
+                }
+
+                return DialogueNode.Line(
+                    id = id,
+                    speaker = safeSpeaker,
+                    text = text,
+                    visibleCharacters = validVisible,
+                    effects = effects.mapNotNull { parseEffectWithLogging(it) },
+                    nextId = nextId,
+                    background = background
+                )
+            }
         }
 
         data class Choice(
@@ -119,14 +134,29 @@ object StoryData {
             override val effects: List<String> = emptyList(),
             val background: String? = null,
         ) : NodeDto() {
-            override fun toDialogueNode(): DialogueNode = DialogueNode.Choice(
-                id = id,
-                speaker = speaker,
-                text = text,
-                visibleCharacters = visibleCharacters,
-                options = options.map { it.toChoiceOption() },
-                background = background
-            )
+            override fun toDialogueNode(): DialogueNode {
+                val validSpeakers = Speaker.values().toSet()
+                val validVisible = visibleCharacters.filter {
+                    if (it !in validSpeakers) {
+                        Log.w(TAG, "Невалидный персонаж в visibleCharacters: $it")
+                        false
+                    } else true
+                }
+
+                val safeSpeaker = if (speaker in validSpeakers) speaker else {
+                    Log.w(TAG, "Невалидный speaker \"$speaker\" в node $id, используется Speaker.NARRATOR")
+                    Speaker.NARRATOR
+                }
+
+                return DialogueNode.Choice(
+                    id = id,
+                    speaker = safeSpeaker,
+                    text = text,
+                    visibleCharacters = validVisible,
+                    options = options.map { it.toChoiceOption() },
+                    background = background
+                )
+            }
         }
     }
 
@@ -149,5 +179,20 @@ object StoryData {
             ?.mapNotNull { it.toFloatOrNull() }
             ?: emptyList()
         return effectRegistry[name]?.invoke(params)
+    }
+
+    private fun parseEffectWithLogging(raw: String): Effect? {
+        val name = raw.substringBefore('(')
+        val params = raw.substringAfter('(', "").substringBefore(')').takeIf { it.isNotBlank() }
+            ?.split(',')
+            ?.mapNotNull { it.toFloatOrNull() }
+            ?: emptyList()
+        val effect = effectRegistry[name]
+        return if (effect != null) {
+            effect(params)
+        } else {
+            Log.w(TAG, "Невалидный эффект \"$name\"")
+            null
+        }
     }
 }

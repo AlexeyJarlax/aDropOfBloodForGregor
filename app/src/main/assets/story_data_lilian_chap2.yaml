@@ -369,5 +369,5 @@ nodes:
     visibleCharacters: [ LILIAN ]
     background: scene2.png
     effects:
-    - "markChapterComplete(1,2)"
+      - "markChapterComplete(1,2)"
     nextId: lilian_chap3_intro
