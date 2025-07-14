@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.dialogueTextStyle
 import com.pavlovalexey.adropofbloodforgregor.ui.theme.text1
@@ -29,8 +30,7 @@ fun ChoiceButton(
     Button(
         onClick = onClick,
         modifier = modifier
-            .fillMaxWidth()
-            .height(40.dp),
+            .fillMaxWidth(),
         shape = RoundedCornerShape(6.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.Transparent,
@@ -39,6 +39,13 @@ fun ChoiceButton(
             disabledContentColor = Color.Gray
         ),
     ) {
-        Text(text = text, color = text1, style = dialogueTextStyle(textSize, fontIdx))
+        Text(
+            text = text,
+            modifier = Modifier
+                .fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            style = dialogueTextStyle(textSize, fontIdx),
+            color = text1
+        )
     }
 }
