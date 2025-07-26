@@ -25,7 +25,7 @@ nodes:
     speaker: NARRATOR
     text: >
       К концу ужина в дверях появился Грегор с загадочным блеском в глазах.
-      Он подошёл к столу и взяв бокал вина направил его к своим губам
+      Он подошёл к столу и взяв бокал ви_на направил его к своим гу_бам
     visibleCharacters: [ LILIAN, GREGOR ]
     background: scene2.png
     effects: [ defaultHungerIncrease ]

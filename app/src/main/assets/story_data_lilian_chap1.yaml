@@ -207,7 +207,7 @@ nodes:
     type: Line
     speaker: BERNARD
     text: >
-      - Прошу за стол, леди Лилиан, чай почти готов
+      - Прошу за стол, леди Лилиан, чай почти г_отов
     visibleCharacters: [ LILIAN, BERNARD ]
     background: scene2.png
     effects: [ defaultHungerIncrease ]
@@ -217,7 +217,7 @@ nodes:
     type: Line
     speaker: NARRATOR
     text: >
-      Бернард подошел к камину, подкидывая дровишек. Его движения совсем не были похожи на двжиения 
+      Бернард подошел к камину, подкидывая дровишек. Его движения совсем не были похожи на движиения 
       металической куклы или доспеха - дворецкий был ловок, гибок, двигался совсем как человек
     visibleCharacters: [ LILIAN, BERNARD ]
     background: scene2.png
@@ -325,7 +325,7 @@ nodes:
     speaker: BERNARD
     text: >
       - Хозяин будет очень доволен, что вы сытно кушаете, он волновался, что у вас от впечатлений 
-      может пропасть аппетит
+      может пр_опасть аппетит
     visibleCharacters: [ LILIAN, BERNARD ]
     background: scene2.png
     effects: [ defaultHungerIncrease ]

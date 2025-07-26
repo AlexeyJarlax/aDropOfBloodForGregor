@@ -25,7 +25,7 @@ fun CharacterScreen(
     val chars = listOf(
         "lilian"  to R.drawable.model1_2,
         "bernard" to R.drawable.model_b,
-        "astra"   to R.drawable.model_a
+//        "astra"   to R.drawable.model_a
     )
 
     Box(modifier = Modifier.fillMaxSize()) {

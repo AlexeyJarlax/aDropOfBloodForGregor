@@ -1,9 +1,0 @@
-nodes:
-  - id: bernard_chap4_intro_1
-    type: Line
-    speaker: NARRATOR
-    text: "Глава 4 в разработке..."
-    visibleCharacters: [ NARRATOR ]
-    effects:
-    - "markChapterComplete(2,4)"
-    nextId: null

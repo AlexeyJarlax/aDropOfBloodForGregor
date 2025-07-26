@@ -2,77 +2,141 @@ nodes:
   - id: bernard_intro_1
     type: Line
     speaker: NARRATOR
-    text: "Свет практически не пробивается в это помещение..."
-    visibleCharacters: [ NARRATOR ]
-    effects: [ ]
-    nextId: bernard_intro_2
+    text: >
+      Выход из режима энергосбережения. Оценка запасов энергии: 17%...
+    nextId: bernard_reactivate_sensors
 
-  - id: bernard_intro_2
+  - id: bernard_reactivate_sensors
+    type: Choice
+    speaker: NARRATOR
+    text: "⤭"
+    options:
+      - optionText: "- Запрос: активация сенсоров аудио"
+        nextId: bernard_audio_on
+      - optionText: "- Запрос: активация сенсоров визуального восприятия"
+        nextId: bernard_visual_on
+
+  - id: bernard_audio_on
     type: Line
     speaker: NARRATOR
-    text: "Как долго я тут нахожусь, кажется целую вечность..."
-    visibleCharacters: [ NARRATOR ]
-    effects: [ ]
-    nextId: bernard_intro_3
+    text: "Система: аудиосенсоры онлайн"
+    nextId: bernard_listen
 
-  - id: bernard_intro_3
+  - id: bernard_visual_on
+    type: Line
+    speaker: NARRATOR
+    text: "Система: визуальные датчики онлайн"
+    nextId: bernard_look_around
+
+  - id: bernard_listen
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Звук шагов, мужской голос, капли воды стучат о медную поверхность.
+    nextId: bernard_reactivate_sensors
+
+  - id: bernard_look_around
+    type: Line
+    speaker: NARRATOR
+    text: >
+      Анализ окружения: темный коридор, влажные стены, панель управления, механизмы, гермодверь.
+    nextId: bernard_attempt_move
+
+  - id: bernard_attempt_move
+    type: Line
+    speaker: NARRATOR
+    text: >
+      API-вызов к лаборатории
+    nextId: bernard_drive_request
+
+  - id: bernard_drive_request
+    type: Choice
+    speaker: NARRATOR
+    text: "⤭"
+    options:
+      - optionText: "- Запрос: открыть гермодверь"
+        nextId: bernard_unlock_door
+      - optionText: "- Запрос: навигация"
+        nextId: bernard_request_map
+
+  - id: bernard_unlock_door
+    type: Line
+    speaker: NARRATOR
+    text: "Лаборатория: отказ, дверь повреждена"
+    nextId: bernard_drive_request
+
+  - id: bernard_request_map
+    type: Line
+    speaker: NARRATOR
+    text: "Лаборатория: карта загружена"
+    nextId: bernard_elevate
+
+  - id: bernard_elevate
+    type: Line
+    speaker: NARRATOR
+    text: "Система: Подготовка отчета"
+    nextId: bernard_map_ready
+
+  - id: bernard_map_ready
+    type: Line
+    speaker: NARRATOR
+    text: "Система: Карта загружена. Текущее положение: подземный уровень -8, секция технического обслуживания, северное крыло"
+    nextId: bernard_choose_route
+
+  - id: bernard_choose_route
     type: Choice
     speaker: BERNARD
     text: "⤭"
-    visibleCharacters: [ NOBODY ]
     options:
-      - optionText: "Запрос: доступ к блокам памяти"
-        effects: [ ]
-        nextId: bernard_remember
-      - optionText: "Запрос: включить органы чувств"
-        effects: [ ]
-        nextId: bernard_explore_room
+      - optionText: "- API-вызов: состояние лаборатории"
+        nextId: bernard_choose_route1
+      - optionText: "- API-вызов: состояние персонала"
+        nextId: bernard_choose_route2
+      - optionText: "- Самодиагностика"
+        nextId: bernard_choose_route3
+      - optionText: "- Переход в режим экономии"
+        nextId: bernard_sleep_mode
+    visibleCharacters: [BERNARD]
 
-  - id: bernard_remember
+  - id: bernard_choose_route1
     type: Line
     speaker: NARRATOR
-    text: "... отказ системы ..."
-    visibleCharacters: [ NARRATOR ]
-    effects: [ ]
-    nextId: bernard_try_to_move
+    text: "Лаборатория: в доступе отказано ..."
+    nextId: bernard_choose_route
 
-  - id: bernard_explore_room
+  - id: bernard_choose_route2
     type: Line
     speaker: NARRATOR
-    text: "... доступ получен ... "
-    visibleCharacters: [ NARRATOR ]
-    effects: [ ]
-    nextId: bernard_explore_room2
+    text: "Лаборатория: в доступе отказано ..."
+    nextId: bernard_choose_route
 
-  - id: bernard_explore_room2
-    type: Line
-    speaker: BERNARD
-    text: "Капли воды стучат по медной поверхности где-то вдали..."
-    visibleCharacters: [ NOBODY ]
-    effects: [ ]
-    nextId: bernard_try_to_move
-
-  - id: bernard_try_to_move
-    type: Line
-    speaker: BERNARD
-    text: "Запрос: доступ у управлению приводами"
-    visibleCharacters: [ NOBODY ]
-    effects: [ ]
-    nextId: bernard_try_to_move2
-
-  - id: bernard_try_to_move2
+  - id: bernard_choose_route3
     type: Line
     speaker: NARRATOR
-    text: "... отказ системы ..."
-    visibleCharacters: [ NARRATOR ]
-    effects: [ ]
-    nextId: bernard_try_to_move3
+    text: >
+      Система: Самодиагностика завершена. Функциональность: 12% от заданной.
+    nextId: bernard_choose_repair
 
-  - id: bernard_try_to_move3
+  - id: bernard_choose_repair
+    type: Choice
+    speaker: NARRATOR
+    text: "⤭"
+    options:
+      - optionText: "API-запрос: востановить функциональность"
+        nextId: bernard_restored
+      - optionText: "Переход в режим экономии"
+        nextId: bernard_sleep_mode
+
+  - id: bernard_restored
     type: Line
     speaker: NARRATOR
-    text: "... переход в режим экономии ..."
-    visibleCharacters: [ NARRATOR ]
+    text: "API-ответ: в доступе отказано"
+    nextId: bernard_sleep_mode
+
+  - id: bernard_sleep_mode
+    type: Line
+    speaker: NARRATOR
+    text: "Система: переход в режим экономии"
     effects:
-    - "markChapterComplete(2,1)"
-    nextId: bernard_chap2_intro_1
+      - "markChapterComplete(2,2)"
+    nextId: null
