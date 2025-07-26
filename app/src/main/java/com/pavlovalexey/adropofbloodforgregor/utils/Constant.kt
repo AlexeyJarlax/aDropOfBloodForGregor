@@ -11,7 +11,7 @@ const val KEY_MUSIC_VOL = "music_volume"
 const val KEY_VOICE_ON = "voice_on"
 
 const val BASE_URL = "https://public.api.voice.steos.io/api/v1/"
-const val TOKEN = "670d57ce-50e3-41be-8599-706128264eb4"
+const val TOKEN = "пока удалил"
 const val VOICE_ID = 13 // Геральд
 const val VOICE_ID_DEF = 1
 const val VOICE_PITCH_DEF = 0.0
